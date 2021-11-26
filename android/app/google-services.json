@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "493207782631",
+    "firebase_url": "https://transmusicales-baa67-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "transmusicales-baa67",
+    "storage_bucket": "transmusicales-baa67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493207782631:android:0eed182b211b710f2b0e42",
+        "android_client_info": {
+          "package_name": "fr.istic.e.hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493207782631-v68cs2e3d07b059in4ubl7pv77g5blr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwDoZYidOyEncAbuFSXz3aUOdZHCKU5_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493207782631-v68cs2e3d07b059in4ubl7pv77g5blr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
