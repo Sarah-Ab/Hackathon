@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.istic.e.hackthon">
+    package="fr.istic.e.hackathon">
    <application
-        android:label="hackthon"
+        android:label="hackathon"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

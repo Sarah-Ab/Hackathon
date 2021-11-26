@@ -1,4 +1,4 @@
-package fr.istic.e.hackthon;
+package fr.istic.e.hackathon;
 
 import io.flutter.embedding.android.FlutterActivity;
 
