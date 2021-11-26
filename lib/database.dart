@@ -8,6 +8,6 @@ class Database {
   Database._();
 
   Future<dynamic> artist(int id) async {
-    return (await _ref.child(id.toString()).get()).value;
+    return (await _ref.child("artists/$id").get()).value;
   }
 }
