@@ -44,3 +44,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Eclipse (+ extension VS Code Java)
+/android/app/.classpath
+/android/.settings
+/android/.project
+/android/app/.project
+/android/app/.settings
