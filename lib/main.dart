@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon/database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +53,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Database _db = Database.instance;
 
   void _incrementCounter() {
     setState(() {
@@ -98,6 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            FutureBuilder(
+                future: _db.artist(2432),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data!.toString());
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error!.toString());
+                  } else {
+                    return const Text("waiting");
+                  }
+                }),
             const Text(
               'You have pushed the button this many times:',
             ),
