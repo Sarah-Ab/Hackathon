@@ -1,4 +1,4 @@
-# hackthon
+# hackathon
 
 A new Flutter project.
 
