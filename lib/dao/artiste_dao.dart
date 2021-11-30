@@ -37,6 +37,13 @@ class ArtisteDao {
       loc.onValue.listen(artiste.updateListener);
     }
   }
+
+  /// Supprime l'[artiste] donné de la base.
+  Future<void> supprimer(Artiste artiste) async {
+    if (artiste.id != null) {
+      await _db.child(artiste.id!).remove();
+    }
+  }
 }
 
 class _AppTest extends StatefulWidget {
@@ -47,9 +54,10 @@ class _AppTest extends StatefulWidget {
 class _AppTestState extends State<_AppTest> {
   String _id = "0";
   bool _updating = false;
+  Artiste? _artiste;
 
   Future<void> _update() async {
-    Artiste artiste = Artiste(
+    _artiste = Artiste(
       nom: "Kanye West",
       edition: Edition(annee: 2023, nom: "Édition 2023 sur Fortnite"),
       projets: [
@@ -59,9 +67,9 @@ class _AppTestState extends State<_AppTest> {
         Pays(fr: "France"),
       ],
     );
-    await ArtisteDao.instance.sauvegarder(artiste);
+    await ArtisteDao.instance.sauvegarder(_artiste!);
     setState(() {
-      _id = artiste.id!;
+      _id = _artiste!.id!;
       _updating = false;
     });
   }
@@ -95,6 +103,18 @@ class _AppTestState extends State<_AppTest> {
                       });
                       _update();
                     },
+            ),
+            TextButton(
+              onPressed: _updating || _artiste == null
+                  ? null
+                  : () {
+                      setState(() {
+                        _updating = true;
+                        ArtisteDao.instance.supprimer(_artiste!);
+                        _artiste = null;
+                      });
+                    },
+              child: const Text("supprimer"),
             ),
           ], mainAxisAlignment: MainAxisAlignment.center),
         ),
