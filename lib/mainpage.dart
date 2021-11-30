@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import './login.dart';
 
 class MainPageForm extends StatefulWidget {
+  const MainPageForm({Key? key, required this.title}) : super(key: key);
+  final String title;
+
   @override
   State<StatefulWidget> createState() => MainPageFormState();
 }
@@ -21,21 +26,19 @@ class MainPageFormState extends State<MainPageForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return Scaffold(
+          appBar: AppBar(
+          title: Text(widget.title),
+      ),
+      body: Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
-              Text(
-                'Bienvenue sur notre page de connexion',
-                textAlign: TextAlign.center,
-                style:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              ),
 
 
-              SizedBox(height: 12),
+              /*SizedBox(height: 12),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
@@ -43,11 +46,34 @@ class MainPageFormState extends State<MainPageForm> {
                     valueColor:
                     AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
-              SizedBox(height: 18),
+              SizedBox(height: 18),*/
+              Align(
+              alignment: Alignment.topRight,
+              child :ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginForm()),
+                  // onPressed: submit,
+                ),
+                child: Text('Se déconnecté'),
 
-            ],
+              )
+              ),
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child:
+                Text(
+                  'Bienvenue sur notre page d\'accueil',
+                  textAlign: TextAlign.center,
+                  style:
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                ),
+              ),
+              ],
           ),
-        ));
+        )),
+    );
   }
 
   Future submit() async {
