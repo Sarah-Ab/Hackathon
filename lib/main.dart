@@ -172,6 +172,10 @@ class _MyHomePageState extends State<MyHomePage> {
         }catch(err){
         print(err.toString());
       }
+      setState(() {
+        showLoading = false;
+        showResponse = false;
+      });
     }
   }
 
