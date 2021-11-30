@@ -18,18 +18,23 @@ class ArtisteDao {
 
   /// Retourne l'artiste d'[id] donné.
   Future<Artiste?> parRecordId(String id) async {
-    dynamic res = (await _db.child(id).get()).value;
-    return res != null ? Artiste.fromJSON(res, id: id) : null;
+    DatabaseReference loc = _db.child(id);
+    dynamic res = (await loc.get()).value;
+    Artiste? artiste = res != null ? Artiste.fromJSON(res, id: id) : null;
+    loc.onValue.listen(artiste?.updateListener);
+    return artiste;
   }
 
   /// Sauvegarde l'[artiste] donné dans la base.
   Future<void> sauvegarder(Artiste artiste) async {
     if (artiste.id != null) {
-      throw Exception("Modification d'artiste pas encore supporté");
+      DatabaseReference loc = _db.child(artiste.id!);
+      await loc.set(artiste.toMap());
     } else {
       DatabaseReference loc = _db.push();
       artiste.id = loc.key;
       await loc.set(artiste.toMap());
+      loc.onValue.listen(artiste.updateListener);
     }
   }
 }
@@ -71,6 +76,7 @@ class _AppTestState extends State<_AppTest> {
               future: ArtisteDao.instance.parRecordId(_id),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  (snapshot.data as Artiste).onUpdate(() => setState(() {}));
                   return Text(snapshot.data.toString());
                 } else if (snapshot.hasError) {
                   throw snapshot.error!;
