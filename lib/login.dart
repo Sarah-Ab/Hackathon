@@ -72,20 +72,6 @@ class SignUpFormState extends State<SignUpForm> {
         showLoading = true;
         showResponse = false;
       });
-      //Simulate time for response
-      Timer(Duration(milliseconds: 1500), () {
-        try {
-          //Send request
-          failResponse = "Success!";
-          _formKey.currentState!.reset();
-        } catch (err) {
-          print(err.toString());
-        }
-        setState(() {
-          showLoading = false;
-          showResponse = true;
-        });
-      });
     }
   }
 }
