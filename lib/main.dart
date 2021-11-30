@@ -84,11 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Bienvenue sur notre page de connexion',
                           textAlign: TextAlign.center,
                           style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                         ),
                         Container(
                           width: 350,
@@ -104,18 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             //     ? 'Entrer votre adresse mail.'
                             //     : null,
                             // onSaved: (email) => this.email = email,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: UnderlineInputBorder(), labelText: 'Email'),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 350,
                           child: TextFormField(
                             validator: RequiredValidator(
                                 errorText: "Veuillez entrer un mot de passe"),
                             onSaved: (password) => this.password = password,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Mot de passe',
                             ),
@@ -130,20 +130,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                             )),
 
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         ElevatedButton(
                           onPressed: () => submit(),
-                          child: Text('Se connecter'),
+                          child: const Text('Se connecter'),
                         ),
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         ElevatedButton(
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Test()),
+                                builder: (context) => const Test()),
                             // onPressed: submit,
                           ),
-                          child: Text('Crée un compte'),
+                          child: const Text('Crée un compte'),
                         ),
 
                       ],
@@ -156,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: FittedBox(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 1, minHeight: 1), // here
+                  constraints: const BoxConstraints(minWidth: 1, minHeight: 1), // here
                   child: Image.asset('../web/icons/transpagelogin.png'),
                 ),
                 fit: BoxFit.fill,
