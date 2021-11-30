@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/database.dart';
+import './login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -112,8 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     return const Text("waiting");
                   }
                 }),
-            const Text(
-              'You have pushed the button this many times:',
+            const SizedBox(
+              height: 32.0,
+            ),
+            Text(
+              'Sign up here for my newsletter',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            SignUpForm(),
+            const SizedBox(
+              height: 32.0,
             ),
             Text(
               '$_counter',
