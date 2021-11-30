@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import './main.dart';
 
 void main() async {
   runApp(Test());
@@ -102,7 +103,7 @@ class SignUpFormState extends State<SignUpForm> {
                 // name
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'please write something';
+                    return 'Rentré un nom';
                   }
                   return null;
                 },
@@ -120,7 +121,7 @@ class SignUpFormState extends State<SignUpForm> {
                 controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'please write something';
+                    return 'Rentré un nom';
                   }
                   testPw!.text = value;
                   return null;
@@ -159,8 +160,18 @@ class SignUpFormState extends State<SignUpForm> {
               const SizedBox(height: 18),
               ElevatedButton(
                 onPressed: submit,
-                child: const Text('Sign Up'),
-              )
+                child: const Text('S\'inscrire'),
+              ),
+              const SizedBox(height: 18),
+              ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                  // onPressed: submit,
+                ),
+                child: Text('J\'ai un compte'),
+              ),
             ],
           ),
         ));
