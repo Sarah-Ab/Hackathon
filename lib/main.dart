@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon/database.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import './login.dart';
+import './mainpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -129,7 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               )),
                           SizedBox(height: 18),
                           ElevatedButton(
-                            onPressed: submit,
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPageForm(title: 'Accueil',)),
+                              // onPressed: submit,
+                            ),
                             child: Text('Se connecter'),
                           )
                         ],

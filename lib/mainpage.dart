@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import './login.dart';
+import './main.dart';
 
 class MainPageForm extends StatefulWidget {
   const MainPageForm({Key? key, required this.title}) : super(key: key);
@@ -53,7 +54,7 @@ class MainPageFormState extends State<MainPageForm> {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginForm()),
+                      builder: (context) => MyHomePage(title: 'Bienvenu',)),
                   // onPressed: submit,
                 ),
                 child: Text('Se déconnecté'),
