@@ -74,4 +74,8 @@ class Artiste {
           : null,
     );
   }
+
+  /// Retourne une chaîne sous la forme "nom, édition".
+  @override
+  String toString() => "$nom, $edition";
 }

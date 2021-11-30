@@ -28,4 +28,8 @@ class Edition {
 
   @override
   int get hashCode => annee.hashCode;
+
+  /// Retourne une chaîne sous la forme "nom (année)".
+  @override
+  String toString() => "$nom ($annee)";
 }
