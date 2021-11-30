@@ -1,19 +1,22 @@
 import 'dart:async';
-import 'package:email_validator/email_validator.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class SignUpForm extends StatefulWidget {
+class LoginForm extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SignUpFormState();
+  State<StatefulWidget> createState() => LoginFormState();
 }
 
-class SignUpFormState extends State<SignUpForm> {
+class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   String? email;
-  String? name;
-  String failResponse = "Sign up failed. Please try again";
+  String? password;
+  String failResponse = "Connexion échouee. Reessayez!";
   bool showResponse = false;
   bool showLoading = false;
 
@@ -25,39 +28,55 @@ class SignUpFormState extends State<SignUpForm> {
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'please write something';
-                  }
-                  return null;
-                },
-                onSaved: (name) => this.name = name,
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter Name',
+              Text(
+                'Bienvenue sur notre page de connexion',
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              Container(
+                width: 350,
+                child: TextFormField(
+                  validator: MultiValidator([
+                    RequiredValidator(
+                        errorText: "Veuillez entrer un adresse mail"),
+                    EmailValidator(
+                        errorText: "Veuillez entrer une adresse mail valide"),
+                  ]),
+                  controller: _emailController,
+                  // validator: (val) => !EmailValidator.validate(val!, true)
+                  //     ? 'Entrer votre adresse mail.'
+                  //     : null,
+                  // onSaved: (email) => this.email = email,
+                  decoration: InputDecoration(
+                      border: UnderlineInputBorder(), labelText: 'Email'),
+                ),
+              ),
+              Container(
+                width: 350,
+                child: TextFormField(
+                  validator: RequiredValidator(
+                      errorText: "Veuillez entrer un mot de passe"),
+                  onSaved: (password) => this.password = password,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Mot de passe',
+                  ),
                 ),
               ),
               SizedBox(height: 12),
-              TextFormField(
-                validator: (val) => !EmailValidator.validate(val!, true)
-                    ? 'Please enter a valid email.'
-                    : null,
-                onSaved: (email) => this.email = email,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Email'),
-              ),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
                   child: CircularProgressIndicator(
                     valueColor:
-                    AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+                        AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               SizedBox(height: 18),
               ElevatedButton(
                 onPressed: submit,
-                child: Text('Sign Up'),
+                child: Text('Se connecter'),
               )
             ],
           ),
