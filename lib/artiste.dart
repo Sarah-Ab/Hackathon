@@ -25,8 +25,8 @@ class Artiste {
   /// donnée.
   ///
   /// La [map] contient un champs "fields" contenant les champs.
-  factory Artiste.fromJSON(Map<String, dynamic> map) {
-    Map<String, dynamic> fields = map["fields"];
+  factory Artiste.fromJSON(Map<dynamic, dynamic> map) {
+    Map<dynamic, dynamic> fields = map["fields"];
     List<Projet> projets = [];
     for (int i = 1; i <= 6; i++) {
       String ieme = i == 1 ? "1ere" : "${i}eme";
