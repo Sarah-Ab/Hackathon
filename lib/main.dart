@@ -132,12 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           SizedBox(height: 18),
                           ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MainPageForm(title: 'Accueil',)),
-                              // onPressed: submit,
-                            ),
+                            onPressed: () => submit(),
                             child: Text('Se connecter'),
                           ),
                           SizedBox(height: 18),
@@ -181,6 +176,26 @@ class _MyHomePageState extends State<MyHomePage> {
         showLoading = true;
         showResponse = false;
       });
+      try{
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MainPageForm(title: 'Accueil',)),
+          );
+        }catch(err){
+        print(err.toString());
+      }
     }
   }
+
+  /*
+  try{
+                              submit();
+                            }catch(err){
+                              print(err.toString());
+                            }
+
+
+
+   */
 }
