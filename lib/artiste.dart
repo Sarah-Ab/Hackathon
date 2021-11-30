@@ -9,14 +9,12 @@ class Artiste {
   String? spotify;
   String? deezer;
   Locale? langue;
-  List<Pays> pays;
+  Pays? pays;
 
   Artiste(
       {required this.nom,
       required this.edition,
       required this.projets,
       this.spotify,
-      this.deezer,
-      required this.pays,
-      this.langue});
+      this.deezer});
 }
