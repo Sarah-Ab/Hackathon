@@ -5,6 +5,9 @@ import 'package:hackathon/domain/projet.dart';
 import 'package:hackathon/domain/pays.dart';
 
 class Artiste {
+  /// Id de l'artiste dans la base de données. Null s'il l'artiste n'est pas
+  /// dans la base.
+  int? id;
   String nom;
   Edition? edition;
   List<Projet> projets;
@@ -13,20 +16,22 @@ class Artiste {
   Locale? langue;
   List<Pays> pays;
 
-  Artiste(
-      {required this.nom,
-      required this.edition,
-      required this.projets,
-      this.spotify,
-      this.deezer,
-      required this.pays,
-      this.langue});
+  Artiste({
+    this.id,
+    required this.nom,
+    required this.edition,
+    required this.projets,
+    this.spotify,
+    this.deezer,
+    required this.pays,
+    this.langue,
+  });
 
   /// Crée un [Artiste] depuis une [map] parsée du JSON stocké dans la base de
   /// donnée.
   ///
   /// La [map] contient un champs "fields" contenant les champs.
-  factory Artiste.fromJSON(Map<dynamic, dynamic> map) {
+  factory Artiste.fromJSON(Map<dynamic, dynamic> map, {required int id}) {
     Map<dynamic, dynamic> fields = map["fields"];
     List<Projet> projets = [];
     for (int i = 1; i <= 6; i++) {
@@ -61,6 +66,7 @@ class Artiste {
       }
     }
     return Artiste(
+      id: id,
       nom: fields["artistes"],
       edition: fields["edition"] != null
           ? Edition(
@@ -78,7 +84,10 @@ class Artiste {
     );
   }
 
-  /// Retourne une chaîne sous la forme "nom, édition".
+  /// Retourne une chaîne sous la forme "nom (id), édition".
   @override
-  String toString() => "$nom, $edition";
+  String toString() =>
+      nom +
+      (id != null ? " ($id)" : "") +
+      (edition != null ? ", $edition" : "");
 }

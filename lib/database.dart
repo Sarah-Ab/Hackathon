@@ -9,11 +9,16 @@ class Database {
   Database._();
 
   Future<Artiste> artist(int id) async {
-    return Artiste.fromJSON((await _ref.child("artists/$id").get()).value);
+    return Artiste.fromJSON(
+      (await _ref.child("artists/$id").get()).value,
+      id: id,
+    );
   }
 
   Future<Iterable<Artiste>> artistes() async {
     return ((await _ref.child("artists").get()).value as List<dynamic>)
-        .map((map) => Artiste.fromJSON(map));
+        .asMap()
+        .entries
+        .map((entry) => Artiste.fromJSON(entry.value, id: entry.key));
   }
 }
