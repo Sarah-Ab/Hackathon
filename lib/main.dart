@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUpForm()),
+                                  builder: (context) => Test()),
                               // onPressed: submit,
                             ),
                             child: Text('Crée un compte'),
