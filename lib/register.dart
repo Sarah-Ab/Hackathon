@@ -24,6 +24,16 @@ class Test extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //SizedBox(height:100),
+                    SignUpForm(),
+                  ],
+                ),
+              ),
+              Expanded(
                 child: FittedBox(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(minWidth: 1, minHeight: 1),
@@ -33,16 +43,7 @@ class Test extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               ),
-              Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      //SizedBox(height:100),
-                       SignUpForm(),
-              ],
-              ),
-              ),
+
               ],
           ),
         ),

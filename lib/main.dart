@@ -13,7 +13,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -61,92 +61,105 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Row(
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // FutureBuilder(
+            //     future: _db.artist(2437),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         return Text(snapshot.data!.toString());
+            //       } else if (snapshot.hasError) {
+            //         return Text(snapshot.error!.toString());
+            //       } else {
+            //         return const Text("waiting");
+            //       }
+            //     }),
             Expanded(
               child: FittedBox(
                 child:
+
                 Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Bienvenue sur notre page de connexion',
-                            textAlign: TextAlign.center,
-                            style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  key: _formKey,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Bienvenue sur notre page de connexion',
+                          textAlign: TextAlign.center,
+                          style:
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                        ),
+                        Container(
+                          width: 350,
+                          child: TextFormField(
+                            validator: MultiValidator([
+                              RequiredValidator(
+                                  errorText: "Veuillez entrer un adresse mail"),
+                              EmailValidator(
+                                  errorText: "Veuillez entrer une adresse mail valide"),
+                            ]),
+                            controller: _emailController,
+                            // validator: (val) => !EmailValidator.validate(val!, true)
+                            //     ? 'Entrer votre adresse mail.'
+                            //     : null,
+                            // onSaved: (email) => this.email = email,
+                            decoration: InputDecoration(
+                                border: UnderlineInputBorder(), labelText: 'Email'),
                           ),
-                          Container(
-                            width: 350,
-                            child: TextFormField(
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "Veuillez entrer un adresse mail"),
-                                EmailValidator(
-                                    errorText: "Veuillez entrer une adresse mail valide"),
-                              ]),
-                              controller: _emailController,
-                              // validator: (val) => !EmailValidator.validate(val!, true)
-                              //     ? 'Entrer votre adresse mail.'
-                              //     : null,
-                              // onSaved: (email) => this.email = email,
-                              decoration: InputDecoration(
-                                  border: UnderlineInputBorder(), labelText: 'Email'),
+                        ),
+                        Container(
+                          width: 350,
+                          child: TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "Veuillez entrer un mot de passe"),
+                            onSaved: (password) => this.password = password,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Mot de passe',
                             ),
                           ),
-                          Container(
-                            width: 350,
-                            child: TextFormField(
-                              validator: RequiredValidator(
-                                  errorText: "Veuillez entrer un mot de passe"),
-                              onSaved: (password) => this.password = password,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: UnderlineInputBorder(),
-                                labelText: 'Mot de passe',
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          Visibility(visible: showResponse, child: Text(failResponse)),
-                          Visibility(
-                              visible: showLoading,
-                              child: CircularProgressIndicator(
-                                valueColor:
-                                AlwaysStoppedAnimation(Theme.of(context).primaryColor),
-                              )),
+                        ),
+                        SizedBox(height: 12),
+                        Visibility(visible: showResponse, child: Text(failResponse)),
+                        Visibility(
+                            visible: showLoading,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                              AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+                            )),
 
-                          SizedBox(height: 18),
-                          ElevatedButton(
-                            onPressed: () => submit(),
-                            child: Text('Se connecter'),
+                        SizedBox(height: 18),
+                        ElevatedButton(
+                          onPressed: () => submit(),
+                          child: Text('Se connecter'),
+                        ),
+                        SizedBox(height: 18),
+                        ElevatedButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Test()),
+                            // onPressed: submit,
                           ),
-                          SizedBox(height: 18),
-                          ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Test()),
-                              // onPressed: submit,
-                            ),
-                            child: Text('Crée un compte'),
-                          ),
+                          child: Text('Crée un compte'),
+                        ),
 
-                        ],
-                      ),
-                    ),),
+                      ],
+                    ),
+                  ),),
 
                 fit: BoxFit.fill,
               ),
             ),
             Expanded(
               child: FittedBox(
-                  child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 1, minHeight: 1), // contraintes pour eviter probleme de taille avec FittedBox
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: 1, minHeight: 1), // here
                   child: Image.asset('../web/icons/transpagelogin.png'),
-                  ),
-                  fit: BoxFit.fill,
+                ),
+                fit: BoxFit.fill,
               ),
             ),
           ],
@@ -165,17 +178,17 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       try{
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const MainPageForm(title: 'Accueil',)),
-          );
-        }catch(err){
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MainPageForm(title: 'Accueil',)),
+        );
+      }catch(err){
         print(err.toString());
       }
     }
   }
 
-  /*
+/*
   try{
                               submit();
                             }catch(err){
