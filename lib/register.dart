@@ -49,6 +49,15 @@ class SignUpFormState extends State<SignUpForm> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
+
+              TextFormField( // email
+                validator: (val) => !EmailValidator.validate(val!, true)
+                    ? 'Please enter a valid email.'
+                    : null,
+                onSaved: (email) => this.email = email,
+                decoration: const InputDecoration(
+                    border: UnderlineInputBorder(), labelText: 'Email'),
+              ),
               TextFormField( // name
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -63,8 +72,10 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
 
-              TextFormField( // pw*
-
+              TextFormField( // pw
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -81,6 +92,9 @@ class SignUpFormState extends State<SignUpForm> {
               ),
 
               TextFormField( // pwconf
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 validator: (value) {
                   if (value == null || testPw!.text.toString() != value) {
                     return 'wrong password';
@@ -94,14 +108,6 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               const SizedBox(height: 12),
-              TextFormField( // email
-                validator: (val) => !EmailValidator.validate(val!, true)
-                    ? 'Please enter a valid email.'
-                    : null,
-                onSaved: (email) => this.email = email,
-                decoration: const InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Email'),
-              ),
              Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
