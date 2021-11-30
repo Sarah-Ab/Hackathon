@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hackathon/edition.dart';
-import 'package:hackathon/projet.dart';
-import 'package:hackathon/pays.dart';
+import 'package:hackathon/domain/edition.dart';
+import 'package:hackathon/domain/projet.dart';
+import 'package:hackathon/domain/pays.dart';
 
 class Artiste {
   String nom;

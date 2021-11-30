@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:hackathon/artiste.dart';
+import 'package:hackathon/domain/artiste.dart';
 
 class Database {
   static final instance = Database._();
