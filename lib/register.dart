@@ -49,7 +49,6 @@ class SignUpFormState extends State<SignUpForm> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-
               TextFormField( // email
                 validator: MultiValidator([
                   RequiredValidator(
