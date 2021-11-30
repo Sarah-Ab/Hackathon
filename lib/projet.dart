@@ -1,9 +1,8 @@
 class Projet {
-  String nom;
+  String? nom;
   DateTime date;
   String salle;
   String? ville;
 
-  Projet(
-      {required this.nom, required this.date, required this.salle, this.ville});
+  Projet({this.nom, required this.date, required this.salle, this.ville});
 }
