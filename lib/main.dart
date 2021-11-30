@@ -13,7 +13,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({Key? key}) : super(key: key);
+   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -61,23 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // FutureBuilder(
-            //     future: _db.artist(2437),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.hasData) {
-            //         return Text(snapshot.data!.toString());
-            //       } else if (snapshot.hasError) {
-            //         return Text(snapshot.error!.toString());
-            //       } else {
-            //         return const Text("waiting");
-            //       }
-            //     }),
             Expanded(
               child: FittedBox(
                 child:
-
                 Form(
                     key: _formKey,
                     child: Padding(
@@ -156,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: FittedBox(
                   child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 1, minHeight: 1), // here
+                  constraints: BoxConstraints(minWidth: 1, minHeight: 1), // contraintes pour eviter probleme de taille avec FittedBox
                   child: Image.asset('../web/icons/transpagelogin.png'),
                   ),
                   fit: BoxFit.fill,

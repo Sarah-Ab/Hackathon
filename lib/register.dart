@@ -13,7 +13,13 @@ class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: Scaffold(
+        appBar: AppBar(
+          title: Text('Inscription'),
+        ),
         body: Center(
           child: Row(
             children: <Widget>[
@@ -28,11 +34,16 @@ class Test extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: SignUpForm(),
-
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //SizedBox(height:100),
+                       SignUpForm(),
+              ],
               ),
-
-            ],
+              ),
+              ],
           ),
         ),
       ),
