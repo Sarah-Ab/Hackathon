@@ -79,7 +79,7 @@ class LoginFormState extends State<LoginForm> {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPageForm()),
+                      builder: (context) => MainPageForm(title: 'Accueil',)),
                   // onPressed: submit,
                 ),
                 child: Text('Se connecter'),
