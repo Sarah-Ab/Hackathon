@@ -3,31 +3,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-
 void main() async {
-  runApp( Test());
+  runApp(Test());
 }
+
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    return  MaterialApp(
-        home: Scaffold(body: Center(
-              child: SignUpForm(),
-    ))
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: FittedBox(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: 1, minHeight: 1),
+                    // here
+                    child: Image.asset('../web/icons/transpagelogin.png'),
+                  ),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Expanded(
+                child: SignUpForm(),
+
+              ),
+
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
+/*body: Center(
+              child: SignUpForm(),
+    ))
+    );
+  }
+}*/
+
 class SignUpForm extends StatefulWidget {
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SignUpFormState();
-
-
 }
-
 
 class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
@@ -49,7 +74,8 @@ class SignUpFormState extends State<SignUpForm> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              TextFormField( // email
+              TextFormField(
+                // email
                 validator: MultiValidator([
                   RequiredValidator(
                       errorText: "Veuillez entrer un adresse mail"),
@@ -60,7 +86,8 @@ class SignUpFormState extends State<SignUpForm> {
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(), labelText: 'Email'),
               ),
-              TextFormField( // name
+              TextFormField(
+                // name
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'please write something';
@@ -73,8 +100,8 @@ class SignUpFormState extends State<SignUpForm> {
                   labelText: 'Enter Name',
                 ),
               ),
-
-              TextFormField( // pw
+              TextFormField(
+                // pw
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -83,7 +110,7 @@ class SignUpFormState extends State<SignUpForm> {
                   if (value == null || value.isEmpty) {
                     return 'please write something';
                   }
-                  testPw!.text=value;
+                  testPw!.text = value;
                   return null;
                 },
                 onSaved: (pw) => this.pw = pw,
@@ -92,8 +119,8 @@ class SignUpFormState extends State<SignUpForm> {
                   labelText: 'Enter Password',
                 ),
               ),
-
-              TextFormField( // pwconf
+              TextFormField(
+                // pwconf
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -110,12 +137,12 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               const SizedBox(height: 12),
-             Visibility(visible: showResponse, child: Text(failResponse)),
+              Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
                   child: CircularProgressIndicator(
                     valueColor:
-                    AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+                        AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               const SizedBox(height: 18),
               ElevatedButton(

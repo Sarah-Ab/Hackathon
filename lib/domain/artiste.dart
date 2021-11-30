@@ -5,7 +5,9 @@ import 'package:hackathon/domain/projet.dart';
 import 'package:hackathon/domain/pays.dart';
 
 class Artiste {
-  String? recordid;
+  /// Identifiant de l'artiste dans la base. Null si l'artiste n'est pas
+  /// enregistré dans la base.
+  String? id;
   String nom;
   Edition? edition;
   List<Projet> projets;
@@ -15,7 +17,7 @@ class Artiste {
   List<Pays> pays;
 
   Artiste({
-    this.recordid,
+    this.id,
     required this.nom,
     required this.edition,
     required this.projets,
@@ -29,7 +31,7 @@ class Artiste {
   /// donnée.
   ///
   /// La [map] contient un champs "fields" contenant les champs.
-  factory Artiste.fromJSON(Map<dynamic, dynamic> map) {
+  factory Artiste.fromJSON(Map<dynamic, dynamic> map, {required String id}) {
     Map<dynamic, dynamic> fields = map["fields"];
     List<Projet> projets = [];
     for (int i = 1; i <= 6; i++) {
@@ -61,7 +63,7 @@ class Artiste {
       }
     }
     return Artiste(
-      recordid: map["recordid"],
+      id: id,
       nom: fields["artistes"],
       edition: fields["edition"] != null
           ? Edition(
@@ -87,7 +89,6 @@ class Artiste {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
     Map<String, dynamic> fields = (map["fields"] = <String, dynamic>{});
-    map["recordid"] = recordid;
     fields["artistes"] = nom;
     fields["spotify"] = spotify;
     fields["deezer"] = deezer;
@@ -97,7 +98,7 @@ class Artiste {
     projets.asMap().forEach((i, projet) {
       i += 1;
       fields[_kProjet(i)] = projet.nom;
-      fields[_kDateTimestamp(i)] = projet.date.millisecondsSinceEpoch / 1000;
+      fields[_kDateTimestamp(i)] = projet.date.millisecondsSinceEpoch ~/ 1000;
       String jour = projet.date.day < 10
           ? "0${projet.date.day}"
           : projet.date.day.toString();
