@@ -103,14 +103,14 @@ class SignUpFormState extends State<SignUpForm> {
                 // name
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Rentré un nom';
+                    return 'Rentrer un nom';
                   }
                   return null;
                 },
                 onSaved: (name) => this.name = name,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Enter Name',
+                  labelText: 'Entrer votre prénoms',
                 ),
               ),
               TextFormField(
@@ -121,7 +121,7 @@ class SignUpFormState extends State<SignUpForm> {
                 controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Rentré un nom';
+                    return 'Entrer votre  nom';
                   }
                   testPw!.text = value;
                   return null;
@@ -129,7 +129,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (pw) => this.pw = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Enter Password',
+                  labelText: 'Entrer votre mot de passe',
                 ),
               ),
               TextFormField(
@@ -139,14 +139,14 @@ class SignUpFormState extends State<SignUpForm> {
                 autocorrect: false,
                 validator: (value) {
                   if (value == null || testPw!.text.toString() != value) {
-                    return 'wrong password';
+                    return 'les mots de pass correspondent pas';
                   }
                   return null;
                 },
                 onSaved: (pw) => pwConf = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Enter Password c',
+                  labelText: 'confirmer votre mot de passe ',
                 ),
               ),
               const SizedBox(height: 12),
