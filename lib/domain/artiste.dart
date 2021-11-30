@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:hackathon/domain/edition.dart';
 import 'package:hackathon/domain/projet.dart';
 import 'package:hackathon/domain/pays.dart';
 
 class Artiste {
+  static final Set<Artiste> _artistes = {};
+
   /// Identifiant de l'artiste dans la base. Null si l'artiste n'est pas
   /// enregistré dans la base.
   String? id;
@@ -16,10 +19,36 @@ class Artiste {
   Locale? langue;
   List<Pays> pays;
 
-  Artiste({
+  final List<void Function()> _onUpdate = [];
+
+  /// Retourne un Artiste correspondant aux informations.
+  factory Artiste({
+    String? id,
+    required String nom,
+    Edition? edition,
+    required List<Projet> projets,
+    String? spotify,
+    String? deezer,
+    required List<Pays> pays,
+    Locale? langue,
+  }) {
+    Artiste artiste = Artiste._(
+        nom: nom,
+        projets: projets,
+        pays: pays,
+        id: id,
+        edition: edition,
+        spotify: spotify,
+        deezer: deezer,
+        langue: langue);
+    _artistes.add(artiste);
+    return _artistes.lookup(artiste)!;
+  }
+
+  Artiste._({
     this.id,
     required this.nom,
-    required this.edition,
+    this.edition,
     required this.projets,
     this.spotify,
     this.deezer,
@@ -32,6 +61,24 @@ class Artiste {
   ///
   /// La [map] contient un champs "fields" contenant les champs.
   factory Artiste.fromJSON(Map<dynamic, dynamic> map, {required String id}) {
+    Artiste artiste = Artiste(
+      id: id,
+      nom: map["fields"]["artistes"],
+      projets: [],
+      pays: [],
+    );
+    artiste.fromMap(map);
+    return artiste;
+  }
+
+  /// Retourne une chaîne sous la forme "nom, édition".
+  @override
+  String toString() => nom + (edition != null ? ", $edition" : "");
+
+  /// Met à jour cet ariste depuis la [map] donnée.
+  ///
+  /// La [map] contient un champs `field` qui contient la majorité des données.
+  void fromMap(Map<dynamic, dynamic> map) {
     Map<dynamic, dynamic> fields = map["fields"];
     List<Projet> projets = [];
     for (int i = 1; i <= 6; i++) {
@@ -62,28 +109,21 @@ class Artiste {
         ));
       }
     }
-    return Artiste(
-      id: id,
-      nom: fields["artistes"],
-      edition: fields["edition"] != null
-          ? Edition(
-              annee: int.parse(fields["annee"]),
-              nom: fields["edition"],
-            )
-          : null,
-      projets: projets,
-      pays: pays,
-      spotify: fields["spotify"],
-      deezer: fields["deezer"],
-      langue: fields["cou_official_lang_code"] != null
-          ? Locale(fields["cou_official_lang_code"])
-          : null,
-    );
+    nom = fields["artistes"];
+    edition = fields["edition"] != null
+        ? Edition(
+            annee: int.parse(fields["annee"]),
+            nom: fields["edition"],
+          )
+        : null;
+    projets = projets;
+    pays = pays;
+    spotify = fields["spotify"];
+    deezer = fields["deezer"];
+    langue = fields["cou_official_lang_code"] != null
+        ? Locale(fields["cou_official_lang_code"])
+        : null;
   }
-
-  /// Retourne une chaîne sous la forme "nom, édition".
-  @override
-  String toString() => nom + (edition != null ? ", $edition" : "");
 
   /// Retourne une map afin d'être stockée dans la base de données.
   Map<String, dynamic> toMap() {
@@ -136,6 +176,33 @@ class Artiste {
     });
     return map;
   }
+
+  /// Fonction qui met à jour l'artiste lorsqu'il reçoit un évènement.
+  void updateListener(Event event) {
+    if (event.snapshot.exists) {
+      fromMap(event.snapshot.value);
+      for (void Function() fonction in _onUpdate) {
+        fonction();
+      }
+    }
+  }
+
+  /// Ajoute une [fonction] à appeler lorsque les données sont mises à jour.
+  void onUpdate(void Function() fonction) {
+    _onUpdate.add(fonction);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Artiste) {
+      return id != null ? id == other.id : nom == other.nom;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => id != null ? id.hashCode : nom.hashCode;
 }
 
 /// Retourne "1ere", "2eme", "3eme"... en fonction de [i].
