@@ -4,6 +4,7 @@ import 'package:hackathon/database.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import './login.dart';
 import './mainpage.dart';
+import './register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -128,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 valueColor:
                                 AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                               )),
+
                           SizedBox(height: 18),
                           ElevatedButton(
                             onPressed: () => Navigator.push(
@@ -137,7 +139,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               // onPressed: submit,
                             ),
                             child: Text('Se connecter'),
-                          )
+                          ),
+                          SizedBox(height: 18),
+                          ElevatedButton(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpForm()),
+                              // onPressed: submit,
+                            ),
+                            child: Text('Crée un compte'),
+                          ),
+
                         ],
                       ),
                     ),),
