@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 
 void main() async {
@@ -51,9 +51,12 @@ class SignUpFormState extends State<SignUpForm> {
             children: [
 
               TextFormField( // email
-                validator: (val) => !EmailValidator.validate(val!, true)
-                    ? 'Please enter a valid email.'
-                    : null,
+                validator: MultiValidator([
+                  RequiredValidator(
+                      errorText: "Veuillez entrer un adresse mail"),
+                  EmailValidator(
+                      errorText: "Veuillez entrer une adresse mail valide"),
+                ]),
                 onSaved: (email) => this.email = email,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(), labelText: 'Email'),
