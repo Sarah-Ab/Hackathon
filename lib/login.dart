@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import './mainpage.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -75,7 +76,12 @@ class LoginFormState extends State<LoginForm> {
                   )),
               SizedBox(height: 18),
               ElevatedButton(
-                onPressed: submit,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainPageForm()),
+                  // onPressed: submit,
+                ),
                 child: Text('Se connecter'),
               )
             ],
