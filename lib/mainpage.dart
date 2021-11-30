@@ -48,7 +48,44 @@ class MainPageFormState extends State<MainPageForm> {
                     AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               SizedBox(height: 18),*/
-              Align(
+              Row(
+              children: [
+
+                Column( children : [ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                    // onPressed: submit,
+                  ),
+
+                  child: Text('Ajouté Artiste'),
+                ),
+                ]
+                ),
+                Column( children : [
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                    // onPressed: submit,
+                  ),
+                  child: Text('Modifié Artiste'),
+                ),
+                ]
+                ),
+
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                    // onPressed: submit,
+                  ),
+                  child: Text('Supprimer Artiste'),
+                ),
+                Align(
               alignment: Alignment.topRight,
               child :ElevatedButton(
                 onPressed: () => Navigator.push(
@@ -60,6 +97,10 @@ class MainPageFormState extends State<MainPageForm> {
                 child: Text('Se déconnecté'),
 
               )
+              ),
+
+
+              ]
               ),
               const Padding(
                 padding: EdgeInsets.all(16),
