@@ -5,7 +5,7 @@ import 'package:hackathon/pays.dart';
 
 class Artiste {
   String nom;
-  Edition edition;
+  Edition? edition;
   List<Projet> projets;
   String? spotify;
   String? deezer;
@@ -61,10 +61,12 @@ class Artiste {
     }
     return Artiste(
       nom: fields["artistes"],
-      edition: Edition(
-        annee: int.parse(fields["annee"]),
-        nom: fields["edition"],
-      ),
+      edition: fields["edition"] != null
+          ? Edition(
+              annee: int.parse(fields["annee"]),
+              nom: fields["edition"],
+            )
+          : null,
       projets: projets,
       pays: pays,
       spotify: fields["spotify"],
