@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            SignUpForm(),
+            LoginForm(),
             const SizedBox(
               height: 32.0,
             ),
