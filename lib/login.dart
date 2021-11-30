@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:email_validator/email_validator.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -28,43 +28,52 @@ class LoginFormState extends State<LoginForm> {
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
+              Text(
+                'Bienvenue sur notre page de connexion',
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
               Container(
-                width: 60,
+                width: 350,
                 child: TextFormField(
+                  validator: MultiValidator([
+                    RequiredValidator(
+                        errorText: "Veuillez entrer un adresse mail"),
+                    EmailValidator(
+                        errorText: "Veuillez entrer une adresse mail valide"),
+                  ]),
                   controller: _emailController,
                   // validator: (val) => !EmailValidator.validate(val!, true)
                   //     ? 'Entrer votre adresse mail.'
                   //     : null,
                   // onSaved: (email) => this.email = email,
                   decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-
-                      labelText: 'Email'),
+                      border: UnderlineInputBorder(), labelText: 'Email'),
                 ),
               ),
+              Container(
+                width: 350,
+                child: TextFormField(
+                  validator: RequiredValidator(
+                      errorText: "Veuillez entrer un mot de passe"),
+                  onSaved: (password) => this.password = password,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Mot de passe',
+                  ),
+                ),
+              ),
+              SizedBox(height: 12),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
                   child: CircularProgressIndicator(
                     valueColor:
-                    AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+                        AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               SizedBox(height: 18),
-              TextFormField(
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Certains champs sont vides';
-                  }
-                  return null;
-                },
-                onSaved: (password) => this.password = password,
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Mot de passe',
-                ),
-              ),
-              SizedBox(height: 12),
               ElevatedButton(
                 onPressed: submit,
                 child: Text('Se connecter'),
