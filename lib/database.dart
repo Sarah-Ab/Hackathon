@@ -11,4 +11,9 @@ class Database {
   Future<Artiste> artist(int id) async {
     return Artiste.fromJSON((await _ref.child("artists/$id").get()).value);
   }
+
+  Future<Iterable<Artiste>> artistes() async {
+    return ((await _ref.child("artists").get()).value as List<dynamic>)
+        .map((map) => Artiste.fromJSON(map));
+  }
 }
