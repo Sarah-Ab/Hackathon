@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hackathon/artiste.dart';
 
 class Database {
   static final instance = Database._();
@@ -7,8 +8,7 @@ class Database {
 
   Database._();
 
-  Future<dynamic> artist(int id) async {
-    return (await _ref.child("artists/$id").get()).value;
+  Future<Artiste> artist(int id) async {
+    return Artiste.fromJSON((await _ref.child("artists/$id").get()).value);
   }
-
 }

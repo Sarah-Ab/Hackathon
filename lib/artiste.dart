@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hackathon/edition.dart';
 import 'package:hackathon/projet.dart';
 import 'package:hackathon/pays.dart';
+
 class Artiste {
   String nom;
   Edition edition;
@@ -9,12 +10,72 @@ class Artiste {
   String? spotify;
   String? deezer;
   Locale? langue;
-  Pays? pays;
+  List<Pays> pays;
 
   Artiste(
       {required this.nom,
       required this.edition,
       required this.projets,
       this.spotify,
-      this.deezer});
+      this.deezer,
+      required this.pays,
+      this.langue});
+
+  /// Crée un [Artiste] depuis une [map] parsée du JSON stocké dans la base de
+  /// donnée.
+  ///
+  /// La [map] contient un champs "fields" contenant les champs.
+  factory Artiste.fromJSON(Map<dynamic, dynamic> map) {
+    Map<dynamic, dynamic> fields = map["fields"];
+    List<Projet> projets = [];
+    for (int i = 1; i <= 6; i++) {
+      String ieme = i == 1 ? "1ere" : "${i}eme";
+      String kProjet = i == 1 ? "1er_projet_atm" : "${ieme}_projet";
+      String kDateTimestamp = "${ieme}_date_timestamp";
+      String kSalle = "${ieme}_salle";
+      if (fields[kDateTimestamp] == null) {
+        break;
+      }
+      projets.add(Projet(
+        nom: fields[kProjet],
+        date:
+            DateTime.fromMillisecondsSinceEpoch(fields[kDateTimestamp] * 1000),
+        salle: fields[kSalle],
+      ));
+    }
+    List<Pays> pays = [];
+    for (int i = 1; i <= 4; i++) {
+      String? originePays = fields["origine_pays$i"];
+      if (originePays == null) {
+        break;
+      } else if (i == 1) {
+        pays.add(Pays(
+          fr: originePays,
+          en: fields["cou_text_en"],
+          sp: fields["cou_text_sp"],
+          onu: fields["cou_onu_code"],
+          troisLettres: fields["cou_iso3_code"],
+          deuxLettres: fields["cou_iso2_code"],
+        ));
+      }
+    }
+    return Artiste(
+      nom: fields["artistes"],
+      edition: Edition(
+        annee: int.parse(fields["annee"]),
+        nom: fields["edition"],
+      ),
+      projets: projets,
+      pays: pays,
+      spotify: fields["spotify"],
+      deezer: fields["deezer"],
+      langue: fields["cou_official_lang_code"] != null
+          ? Locale(fields["cou_official_lang_code"])
+          : null,
+    );
+  }
+
+  /// Retourne une chaîne sous la forme "nom, édition".
+  @override
+  String toString() => "$nom, $edition";
 }
