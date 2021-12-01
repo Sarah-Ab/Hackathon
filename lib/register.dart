@@ -144,13 +144,13 @@ class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController =
-  TextEditingController(text: "test@mail.com");
+  TextEditingController(text: "");
   final TextEditingController passwordController =
-  TextEditingController(text: "pwd");
+  TextEditingController(text: "");
   final TextEditingController prenomController =
-  TextEditingController(text: "prenom");
+  TextEditingController(text: "");
   final TextEditingController nomController =
-  TextEditingController(text: "nom");
+  TextEditingController(text: "");
 
   String? email;
   String? lastname;
