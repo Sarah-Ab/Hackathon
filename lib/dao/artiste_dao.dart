@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hackathon/domain/artiste.dart';
 import 'package:hackathon/domain/edition.dart';
@@ -13,6 +14,7 @@ class ArtisteDao {
   static final ArtisteDao instance = ArtisteDao._();
   final DatabaseReference _db =
       FirebaseDatabase.instance.reference().child("artistes");
+  final List<Artiste> _jsonArtistes = [];
 
   ArtisteDao._();
 
@@ -58,6 +60,20 @@ class ArtisteDao {
     }
     if (artiste.id != null) {
       await _db.child(artiste.id!).remove();
+    }
+  }
+
+  /// Retourne tous les artistes ayant participé l'[annee] donnée.
+  Future<List<Artiste>> parAnnee(int annee) async {
+    Edition edition = Edition(annee: annee, nom: "Édition $annee");
+    return List.from([1, 2, 3, 4].map((i) =>
+        Artiste(nom: "Artiste $i", projets: [], pays: [], edition: edition)));
+  }
+
+  /// S'assure que les données ont été initalisées avant manipulation.
+  Future<void> _ensureInitialized() async {
+    if (_jsonArtistes.isEmpty) {
+      String json = await rootBundle.loadString("asset/dataset-Lite");
     }
   }
 }
