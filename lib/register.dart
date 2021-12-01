@@ -143,6 +143,15 @@ class SignUpForm extends StatefulWidget {
 class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController emailController =
+  TextEditingController(text: "test@mail.com");
+  final TextEditingController passwordController =
+  TextEditingController(text: "pwd");
+  final TextEditingController prenomController =
+  TextEditingController(text: "prenom");
+  final TextEditingController nomController =
+  TextEditingController(text: "nom");
+
   String? email;
   String? lastname;
   String? firstname;
@@ -268,7 +277,7 @@ class SignUpFormState extends State<SignUpForm> {
         ));
   }
 
-  Future submit() async {
+  /*Future submit() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -276,6 +285,35 @@ class SignUpFormState extends State<SignUpForm> {
         showLoading = true;
         showResponse = false;
       });
+    }
+  }*/
+  Future submit() async {
+    // Validate returns true if the form is valid, or false otherwise.
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() async {
+
+        showResponse = false;
+        try {
+          await Auth().register(
+              emailController.text,
+              passwordController.text,
+              prenomController.text,
+              nomController.text);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                  const MainPageForm(title: 'Accueil',)));
+          setState(() {
+            showLoading = false;
+          });
+        } on Exception catch (e) {
+          setState(() {
+            print(e.toString());
+            showLoading = false;
+          });
+        }});
     }
   }
 }
