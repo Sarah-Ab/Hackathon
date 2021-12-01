@@ -71,13 +71,16 @@ class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
   String? email;
-  String? name;
+  String? lastname;
+  String? firstname;
   String? pw;
+  String?  _dropDownText;
   TextEditingController? testPw = TextEditingController();
   String? pwConf;
-  String failResponse = "Sign up failed. Please try again";
+  String failResponse = "La connexion a échoué. Veuillez reéssayer";
   bool showResponse = false;
   bool showLoading = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,31 +91,68 @@ class SignUpFormState extends State<SignUpForm> {
           child: Column(
             children: [
               TextFormField(
-                // email
-                validator: MultiValidator([
-                  RequiredValidator(
-                      errorText: "Veuillez entrer une adresse mail"),
-                  EmailValidator(
-                      errorText: "Veuillez entrer une adresse mail valide"),
-                ]),
-                onSaved: (email) => this.email = email,
+                // name
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer votre nom';
+                  }
+                  return null;
+                },
+                onSaved: (lastname) => this.lastname = lastname,
                 decoration: const InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Email'),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Veuillez entrer votre nom',
+                ),
               ),
               TextFormField(
                 // name
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Rentrer un nom';
+                    return 'Veuillez entrer votre prenom';
                   }
                   return null;
                 },
-                onSaved: (name) => this.name = name,
+                onSaved: (firstname) => this.firstname = firstname,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Entrer votre prénoms',
+                  labelText: 'Veuillez entrer votre prénom',
                 ),
               ),
+              TextFormField(
+                // email
+                validator: MultiValidator([
+                  RequiredValidator(
+                      errorText: "Veuillez entrer votre adresse mail"),
+                  EmailValidator(
+                      errorText: "Veuillez choisir une adresse mail valide"),
+                ]),
+                onSaved: (email) => this.email = email,
+                decoration: const InputDecoration(
+                    border: UnderlineInputBorder(), labelText: 'Email'),
+              ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: DropdownButton<String>(
+                              items: <String>['Programmateur', 'Exploitant']
+                                  .map((String value) {
+                              return DropdownMenuItem<String>(
+                              value: value,
+                              child:
+                              Text(value, style: TextStyle(color: Colors.red)));
+                              }).toList(),
+                              hint: (_dropDownText == null)
+                              ? Text('Votre role')
+                                  : Text(_dropDownText!),
+                              onChanged: (value) {
+                              value == 'Programmateur'
+                              ? setState(() {
+                              _dropDownText = value;
+                              })
+                                  : setState(() {
+                              _dropDownText = 'Exploitant';
+                              });
+                              }),
+                ),
               TextFormField(
                 // pw
                 obscureText: true,
@@ -121,7 +161,7 @@ class SignUpFormState extends State<SignUpForm> {
                 controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Entrer votre  nom';
+                    return 'Veuillez entrer votre mot de passe';
                   }
                   testPw!.text = value;
                   return null;
@@ -129,7 +169,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (pw) => this.pw = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Entrer votre mot de passe',
+                  labelText: 'Veuillez à nouveau entrer votre mot de passe',
                 ),
               ),
               TextFormField(
@@ -139,14 +179,14 @@ class SignUpFormState extends State<SignUpForm> {
                 autocorrect: false,
                 validator: (value) {
                   if (value == null || testPw!.text.toString() != value) {
-                    return 'les mots de passes ne correspondent pas';
+                    return 'Les mots de passes ne correspondent pas';
                   }
                   return null;
                 },
                 onSaved: (pw) => pwConf = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'confirmer votre mot de passe ',
+                  labelText: 'Veuillez confirmer votre mot de passe',
                 ),
               ),
               const SizedBox(height: 12),
@@ -170,7 +210,7 @@ class SignUpFormState extends State<SignUpForm> {
                       builder: (context) => MyHomePage(title: 'Bienvenu',)),
                   // onPressed: submit,
                 ),
-                child: Text('J\'ai un compte'),
+                child: Text('J\'ai déja un compte'),
               ),
             ],
           ),
