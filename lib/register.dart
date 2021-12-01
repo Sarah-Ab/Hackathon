@@ -201,7 +201,7 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               const SizedBox(height: 12),
-              SignUpFormSelect(),
+              const SignUpFormSelect(),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
