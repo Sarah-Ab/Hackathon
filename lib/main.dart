@@ -5,7 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import './login.dart';
 import './mainpage.dart';
 import './register.dart';
-
+String path_image_login= 'asset/transpagelogin.png';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -157,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: FittedBox(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(minWidth: 1, minHeight: 1), // here
-                  child: Image.asset('../web/icons/transpagelogin.png'),
+                  child: Image.asset(path_image_login),
                 ),
                 fit: BoxFit.fill,
               ),

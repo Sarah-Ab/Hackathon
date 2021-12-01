@@ -61,7 +61,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - web/icons/transpagelogin.png
+    - asset/transpagelogin.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
