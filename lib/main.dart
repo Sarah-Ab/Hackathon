@@ -43,8 +43,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User?>(context);
     if (user != null) {
       return MainPageForm(
-        title: "Accueil",
-        user: user,
+        title: "Accueil", user: user,
       );
     } else {
       return const MyHomePage(
@@ -221,12 +220,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
           );
         }else{
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-              const MyHomePage(title: 'Bienvenu',)));
-    }
+          const Text("Adresse ou mot de passe incorrect",
+              style: TextStyle(
+                color: Colors.red,
+              ));
+        }
       }catch(err){
         print(err.toString());
       }

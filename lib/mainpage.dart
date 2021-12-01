@@ -91,7 +91,7 @@ class MainPageFormState extends State<MainPageForm> {
                 Align(
               alignment: Alignment.topRight,
               child :ElevatedButton(
-                onPressed: () =>submit,
+                onPressed: () => submit,
                 child: Text('Se déconnecter'),
 
               )
@@ -117,28 +117,16 @@ class MainPageFormState extends State<MainPageForm> {
 
   Future submit() async {
     // Validate returns true if the form is valid, or false otherwise.
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      setState(() async {
 
-        showResponse = false;
-        try {
-          Auth().signOut();
+          //Auth().signOut();
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => const MyHomePage(title: 'Accueil')));
-          setState(() {
-            showLoading = false;
-          });
-        } on Exception catch (e) {
-          setState(() {
-            print(e.toString());
-            showLoading = false;
-          });
-        }});
-    }
-  }/*
+
+        }
+
+  /*
   Future submit() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
