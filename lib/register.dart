@@ -1,15 +1,54 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import './main.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './authentification.dart';
+import 'mainpage.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(Test());
 }
 
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<User?>.value(
+        value: Auth().user,
+        initialData: null,
+        child: MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          home: const Wrapper(),
+        ));
+  }
+}
+
+
+class Wrapper extends StatelessWidget {
+  const Wrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    if (user != null) {
+      return const Test2();
+    } else {
+      return const Test2();
+    }
+  }
+}
+
+class Test2 extends StatelessWidget {
+  const Test2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
