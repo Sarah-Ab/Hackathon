@@ -128,6 +128,7 @@ class Artiste {
   /// Retourne une map afin d'être stockée dans la base de données.
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
+    map["recordid"] = recordid;
     Map<String, dynamic> fields = (map["fields"] = <String, dynamic>{});
     fields["artistes"] = nom;
     fields["spotify"] = spotify;
