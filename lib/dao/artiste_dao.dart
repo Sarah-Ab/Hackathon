@@ -102,6 +102,13 @@ class ArtisteDao {
     }
   }
 
+  /// Retourne tous les artistes jouant le [jour] donné.
+  Future<Iterable<Artiste>> parJour(DateTime jour) async {
+    List<Artiste> annee = await parAnnee(jour.year);
+    return annee.where((artiste) => artiste.projets.any((projet) =>
+        projet.date.day == jour.day && projet.date.month == jour.month));
+  }
+
   /// S'assure que les données ont été initalisées avant manipulation.
   Future<void> _ensureInitialized() async {
     if (_jsonArtistes.isEmpty) {
