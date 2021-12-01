@@ -210,10 +210,10 @@ class _MyHomePageState extends State<MyHomePage> {
         showResponse = false;
       });
       try{
-        await Auth().logIn(
+        final newUser = await Auth().logIn(
             _emailController.text,
             _passwordController.text);
-        if(Auth().user!=null) {
+        if(newUser != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
