@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hackathon/authentification.dart';
 import './login.dart';
 import './main.dart';
 
 class MainPageForm extends StatefulWidget {
-  const MainPageForm({Key? key, required this.title}) : super(key: key);
+  const MainPageForm({Key? key, required this.title, required this.user}) : super(key: key);
   final String title;
+  final User user;
 
   @override
   State<StatefulWidget> createState() => MainPageFormState();
@@ -88,12 +91,7 @@ class MainPageFormState extends State<MainPageForm> {
                 Align(
               alignment: Alignment.topRight,
               child :ElevatedButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyHomePage(title: 'Bienvenu',)),
-                  // onPressed: submit,
-                ),
+                onPressed: () =>submit,
                 child: Text('Se déconnecter'),
 
               )
@@ -105,8 +103,7 @@ class MainPageFormState extends State<MainPageForm> {
               const Padding(
                 padding: EdgeInsets.all(16),
                 child:
-                Text(
-                  'Bienvenu sur notre page d\'accueil',
+                Text('Bienvenu sur notre page d\'accueil',
                   textAlign: TextAlign.center,
                   style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
@@ -122,10 +119,34 @@ class MainPageFormState extends State<MainPageForm> {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      setState(() async {
+
+        showResponse = false;
+        try {
+          Auth().signOut();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyHomePage(title: 'Accueil')));
+          setState(() {
+            showLoading = false;
+          });
+        } on Exception catch (e) {
+          setState(() {
+            print(e.toString());
+            showLoading = false;
+          });
+        }});
+    }
+  }/*
+  Future submit() async {
+    // Validate returns true if the form is valid, or false otherwise.
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       setState(() {
         showLoading = true;
         showResponse = false;
       });
     }
-  }
+  }*/
 }
