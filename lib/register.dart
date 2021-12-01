@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:hackathon/ColorCustom.dart';
 import './main.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,11 +25,8 @@ class Test extends StatelessWidget {
     return StreamProvider<User?>.value(
         value: Auth().user,
         initialData: null,
-        child: MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.red,
-          ),
-          home: const Wrapper(),
+        child: const MaterialApp(
+          home: Wrapper(),
         ));
   }
 }
@@ -55,11 +53,11 @@ class Test2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: colorCustom,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Inscription'),
+          title: const Text('Inscription'),
         ),
         body: Center(
           child: Row(
@@ -115,7 +113,7 @@ class SignUpFormSelctState extends State<SignUpFormSelect> {
               return DropdownMenuItem<String>(
                   value: value,
                   child:
-                  Text(value, style: TextStyle(color: Colors.red)));
+                  Text(value, style: TextStyle(color: colorCustom.shade900)));
             }).toList(),
             hint: (_dropDownText == null)
                 ? Text('Votre role')
