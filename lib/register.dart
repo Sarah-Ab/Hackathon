@@ -110,7 +110,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (name) => this.name = name,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Entrer votre prénoms',
+                  labelText: 'Entrer votre prénom',
                 ),
               ),
               TextFormField(
@@ -121,7 +121,7 @@ class SignUpFormState extends State<SignUpForm> {
                 controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Entrer votre  nom';
+                    return 'Entrer votre nom';
                   }
                   testPw!.text = value;
                   return null;

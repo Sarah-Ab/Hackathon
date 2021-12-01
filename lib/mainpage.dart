@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import './login.dart';
 import './main.dart';
+import 'package:table_sticky_headers/table_sticky_headers.dart';
+
 
 class MainPageForm extends StatefulWidget {
   const MainPageForm({Key? key, required this.title}) : super(key: key);
@@ -13,17 +15,41 @@ class MainPageForm extends StatefulWidget {
   State<StatefulWidget> createState() => MainPageFormState();
 }
 
+
 class MainPageFormState extends State<MainPageForm> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
   String? email;
   String? password;
   String failResponse = "Connexion échouee. Reessayez!";
   bool showResponse = false;
   bool showLoading = false;
+
+  List<Widget> _buildCells(int count) {
+    return List.generate(
+      count,
+          (index) => Container(
+        alignment: Alignment.center,
+        width: 60.0,
+        height: 30.0,
+        color: Colors.white,
+        margin: EdgeInsets.all(4.0),
+        child: Text("${index + 1}", style: Theme.of(context).textTheme.bodyText1),
+      ),
+    );
+  }
+
+  List<Widget> _buildRows(int count) {
+    return List.generate(
+      count,
+          (index) => Row(
+        children: _buildCells(15),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +128,7 @@ class MainPageFormState extends State<MainPageForm> {
 
               ]
               ),
-              const Padding(
+             /* const Padding(
                 padding: EdgeInsets.all(16),
                 child:
                 Text(
@@ -111,8 +137,30 @@ class MainPageFormState extends State<MainPageForm> {
                   style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
                 ),
+              ),*/
+              SingleChildScrollView(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _buildCells(5),
+                    ),
+                    Flexible(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _buildRows(5),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
+
               ],
+
           ),
         )),
     );
