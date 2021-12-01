@@ -23,11 +23,11 @@ class Auth {
     }
   }
 
-  Future register(String email, String password, String pseudo,String url) async {
+  Future register(String email, String password, String nom,String prenom) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      userCredential.user!.updateProfile(displayName: pseudo,photoURL: url);
+      //userCredential.user!.updateProfile(displayName: nom,);
       await logIn(email, password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
