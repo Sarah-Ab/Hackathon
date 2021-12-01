@@ -87,7 +87,8 @@ class Artiste {
       projets.add(Projet(
         nom: fields[_kProjet(i)],
         date: DateTime.fromMillisecondsSinceEpoch(
-            fields[_kDateTimestamp(i)] * 1000),
+            fields[_kDateTimestamp(i)] * 1000,
+            isUtc: true),
         salle: fields[_kSalle(i)],
         ville: fields[_kVille(i)],
       ));
@@ -116,8 +117,8 @@ class Artiste {
             nom: fields["edition"],
           )
         : null;
-    projets = projets;
-    pays = pays;
+    this.projets = projets;
+    this.pays = pays;
     spotify = fields["spotify"];
     deezer = fields["deezer"];
     langue = fields["cou_official_lang_code"] != null
