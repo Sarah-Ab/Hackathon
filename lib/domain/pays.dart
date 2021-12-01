@@ -28,4 +28,19 @@ class Pays {
     _pays[fr] = pays;
     return pays;
   }
+
+  /// Retourne tous les pays présents en mémoire.
+  static Iterable<Pays> get tous => _pays.values;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Pays) {
+      return fr == other.fr;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => fr.hashCode;
 }

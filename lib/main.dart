@@ -5,6 +5,11 @@ import 'package:form_field_validator/form_field_validator.dart';
 import './login.dart';
 import './mainpage.dart';
 import './register.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './authentification.dart';
+import 'mainpage.dart';
+
 String path_image_login= 'asset/transpagelogin.png';
 String path_dataJson = 'asset/data-Lite.json';
 void main() async {
@@ -14,18 +19,37 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: const MyHomePage(title: 'Bienvenu'),
-    );
+    return StreamProvider<User?>.value(
+        value: Auth().user,
+        initialData: null,
+        child: MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          home: const Wrapper(),
+        ));
+  }
+}
+
+class Wrapper extends StatelessWidget {
+  const Wrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    if (user != null) {
+      return const MyHomePage(
+        title: "Login",
+      );
+    } else {
+      return const MyHomePage(
+        title: 'Login',
+      );
+    }
   }
 }
 
@@ -45,14 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController(text: "");
+  TextEditingController _passwordController = TextEditingController(text: "");
 
   String? email;
   String? password;
   String failResponse = "Connexion échouee. Reessayez!";
   bool showResponse = false;
   bool showLoading = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           width: 350,
                           child: TextFormField(
+                            controller: _passwordController,
                             validator: RequiredValidator(
                                 errorText: "Veuillez entrer un mot de passe"),
                             onSaved: (password) => this.password = password,
@@ -166,6 +192,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      /*floatingActionButton: FloatingActionButton(
+          onPressed: () => Auth().register(
+              "test2@gmail.com",
+              "deddede",
+              "PRENOM",
+              "NOM")),*/
     );
   }
 
@@ -178,11 +210,22 @@ class _MyHomePageState extends State<MyHomePage> {
         showResponse = false;
       });
       try{
-        Navigator.push(
+        final newUser = await Auth().logIn(
+            _emailController.text,
+            _passwordController.text);
+        if(newUser != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MainPageForm(title: 'Accueil',)),
+          );
+        }else{
+      Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const MainPageForm(title: 'Accueil',)),
-        );
+              builder: (context) =>
+              const MyHomePage(title: 'Bienvenu',)));
+    }
       }catch(err){
         print(err.toString());
       }
@@ -192,15 +235,30 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-
 /*
-  try{
-                              submit();
-                            }catch(err){
-                              print(err.toString());
-                            }
+  void _login() async {
+    if (_formKeyLogin.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      try {
+        await Auth().logIn(
+            _emailController.text,
+            _passwordController.text);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainPageForm(title: 'Accueil')));
+        setState(() {
+          showLoading = false;
+        });
+      } on Exception catch (e) {
+        setState(() {
+          print(e.toString());
+          showLoading = false;
+        });
+      }
+    }
+  }*/
 
-
-
-   */
 }

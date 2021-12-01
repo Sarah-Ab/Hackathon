@@ -9,7 +9,6 @@ class Database {
   Database._();
 
   Future<Artiste> artist(int id) async {
-    return Artiste.fromJSON((await _ref.child("artists/$id").get()).value,
-        id: id.toString());
+    return Artiste.fromJSON((await _ref.child("artists/$id").get()).value);
   }
 }

@@ -8,9 +8,8 @@ import 'package:hackathon/domain/pays.dart';
 class Artiste {
   static final Set<Artiste> _artistes = {};
 
-  /// Identifiant de l'artiste dans la base. Null si l'artiste n'est pas
-  /// enregistré dans la base.
-  String? id;
+  /// Null si l'artiste n'est pas enregistré dans la base ou le JSON.
+  String? recordid;
   String nom;
   Edition? edition;
   List<Projet> projets;
@@ -23,7 +22,7 @@ class Artiste {
 
   /// Retourne un Artiste correspondant aux informations.
   factory Artiste({
-    String? id,
+    String? recordid,
     required String nom,
     Edition? edition,
     required List<Projet> projets,
@@ -36,7 +35,7 @@ class Artiste {
         nom: nom,
         projets: projets,
         pays: pays,
-        id: id,
+        recordid: recordid,
         edition: edition,
         spotify: spotify,
         deezer: deezer,
@@ -46,7 +45,7 @@ class Artiste {
   }
 
   Artiste._({
-    this.id,
+    this.recordid,
     required this.nom,
     this.edition,
     required this.projets,
@@ -60,9 +59,9 @@ class Artiste {
   /// donnée.
   ///
   /// La [map] contient un champs "fields" contenant les champs.
-  factory Artiste.fromJSON(Map<dynamic, dynamic> map, {required String id}) {
+  factory Artiste.fromJSON(Map<dynamic, dynamic> map) {
     Artiste artiste = Artiste(
-      id: id,
+      recordid: map["recordid"],
       nom: map["fields"]["artistes"],
       projets: [],
       pays: [],
@@ -88,7 +87,8 @@ class Artiste {
       projets.add(Projet(
         nom: fields[_kProjet(i)],
         date: DateTime.fromMillisecondsSinceEpoch(
-            fields[_kDateTimestamp(i)] * 1000),
+            fields[_kDateTimestamp(i)] * 1000,
+            isUtc: true),
         salle: fields[_kSalle(i)],
         ville: fields[_kVille(i)],
       ));
@@ -109,6 +109,7 @@ class Artiste {
         ));
       }
     }
+    recordid = map["recordid"];
     nom = fields["artistes"];
     edition = fields["edition"] != null
         ? Edition(
@@ -116,8 +117,8 @@ class Artiste {
             nom: fields["edition"],
           )
         : null;
-    projets = projets;
-    pays = pays;
+    this.projets = projets;
+    this.pays = pays;
     spotify = fields["spotify"];
     deezer = fields["deezer"];
     langue = fields["cou_official_lang_code"] != null
@@ -128,6 +129,7 @@ class Artiste {
   /// Retourne une map afin d'être stockée dans la base de données.
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
+    map["recordid"] = recordid;
     Map<String, dynamic> fields = (map["fields"] = <String, dynamic>{});
     fields["artistes"] = nom;
     fields["spotify"] = spotify;
@@ -195,14 +197,14 @@ class Artiste {
   @override
   bool operator ==(Object other) {
     if (other is Artiste) {
-      return id != null ? id == other.id : nom == other.nom;
+      return recordid != null ? recordid == other.recordid : nom == other.nom;
     } else {
       return false;
     }
   }
 
   @override
-  int get hashCode => id != null ? id.hashCode : nom.hashCode;
+  int get hashCode => recordid != null ? recordid.hashCode : nom.hashCode;
 }
 
 /// Retourne "1ere", "2eme", "3eme"... en fonction de [i].
