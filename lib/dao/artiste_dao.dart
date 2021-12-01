@@ -12,7 +12,7 @@ class ArtisteDao {
   /// Instance du DAO.
   static final ArtisteDao instance = ArtisteDao._();
   final DatabaseReference _db =
-      FirebaseDatabase.instance.reference().child("artists");
+      FirebaseDatabase.instance.reference().child("artistes");
 
   ArtisteDao._();
 
