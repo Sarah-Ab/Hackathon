@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import 'mainpage.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -297,7 +298,7 @@ class SignUpFormState extends State<SignUpForm> {
 
         showResponse = false;
         try {
-          await Auth().register(
+          User newUser = await Auth().register(
               emailController.text,
               passwordController.text,
               prenomController.text,
@@ -305,8 +306,7 @@ class SignUpFormState extends State<SignUpForm> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                  const MainPageForm(title: 'Accueil',)));
+                  builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
           setState(() {
             showLoading = false;
           });

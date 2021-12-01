@@ -42,8 +42,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     if (user != null) {
-      return const MyHomePage(
-        title: "Login",
+      return MainPageForm(
+        title: "Accueil",
+        user: user,
       );
     } else {
       return const MyHomePage(
@@ -217,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const MainPageForm(title: 'Accueil',)),
+                builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
           );
         }else{
       Navigator.push(
