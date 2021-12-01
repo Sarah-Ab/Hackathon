@@ -53,13 +53,47 @@ class Test extends StatelessWidget {
   }
 }
 
-/*body: Center(
-              child: SignUpForm(),
-    ))
-    );
-  }
-}*/
+class SignUpFormSelect extends StatefulWidget {
+  const SignUpFormSelect({Key? key}) : super(key: key);
 
+
+  @override
+  State<StatefulWidget> createState() => SignUpFormSelctState();
+
+}
+class SignUpFormSelctState extends State<SignUpFormSelect> {
+
+  String?  _dropDownText;
+  @override
+  Widget build(BuildContext context) {
+    return
+      Align(
+        alignment: Alignment.bottomLeft,
+        child: DropdownButton<String>(
+            items: <String>['Programmateur', 'Exploitant']
+                .map((String value) {
+              return DropdownMenuItem<String>(
+                  value: value,
+                  child:
+                  Text(value, style: TextStyle(color: Colors.red)));
+            }).toList(),
+            hint: (_dropDownText == null)
+                ? Text('Votre role')
+                : Text(_dropDownText!),
+            onChanged: (value) {
+              value == 'Programmateur'
+                  ? setState(() {
+                _dropDownText = value;
+              })
+                  : setState(() {
+                _dropDownText = 'Exploitant';
+              });
+            }),
+      );
+
+  }
+
+}
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
 
@@ -74,7 +108,6 @@ class SignUpFormState extends State<SignUpForm> {
   String? lastname;
   String? firstname;
   String? pw;
-  String?  _dropDownText;
   TextEditingController? testPw = TextEditingController();
   String? pwConf;
   String failResponse = "La connexion a échoué. Veuillez reéssayer";
@@ -130,29 +163,7 @@ class SignUpFormState extends State<SignUpForm> {
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(), labelText: 'Email'),
               ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: DropdownButton<String>(
-                              items: <String>['Programmateur', 'Exploitant']
-                                  .map((String value) {
-                              return DropdownMenuItem<String>(
-                              value: value,
-                              child:
-                              Text(value, style: TextStyle(color: Colors.red)));
-                              }).toList(),
-                              hint: (_dropDownText == null)
-                              ? Text('Votre role')
-                                  : Text(_dropDownText!),
-                              onChanged: (value) {
-                              value == 'Programmateur'
-                              ? setState(() {
-                              _dropDownText = value;
-                              })
-                                  : setState(() {
-                              _dropDownText = 'Exploitant';
-                              });
-                              }),
-                ),
+
               TextFormField(
                 // pw
                 obscureText: true,
@@ -190,6 +201,7 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               const SizedBox(height: 12),
+              SignUpFormSelect(),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
