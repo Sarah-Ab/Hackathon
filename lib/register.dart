@@ -172,7 +172,7 @@ class SignUpFormState extends State<SignUpForm> {
           child: Column(
             children: [
               TextFormField(
-                // name
+                controller: nomController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer votre nom';
@@ -186,7 +186,7 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               TextFormField(
-                // name
+                controller: prenomController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer votre prenom';
@@ -200,7 +200,7 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               TextFormField(
-                // email
+                controller: emailController,
                 validator: MultiValidator([
                   RequiredValidator(
                       errorText: "Veuillez entrer votre adresse mail"),
@@ -213,11 +213,11 @@ class SignUpFormState extends State<SignUpForm> {
               ),
 
               TextFormField(
-                // pw
+                controller: passwordController,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                controller: testPw,
+                //controller: testPw,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer votre mot de passe';
@@ -274,7 +274,9 @@ class SignUpFormState extends State<SignUpForm> {
               ),
             ],
           ),
+
         ));
+
   }
 
   /*Future submit() async {

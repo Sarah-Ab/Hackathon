@@ -137,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           width: 350,
                           child: TextFormField(
+                            controller: _passwordController,
                             validator: RequiredValidator(
                                 errorText: "Veuillez entrer un mot de passe"),
                             onSaved: (password) => this.password = password,
@@ -191,6 +192,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      /*floatingActionButton: FloatingActionButton(
+          onPressed: () => Auth().register(
+              "test2@gmail.com",
+              "deddede",
+              "PRENOM",
+              "NOM")),*/
     );
   }
 
