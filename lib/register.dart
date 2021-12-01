@@ -91,7 +91,7 @@ class SignUpFormState extends State<SignUpForm> {
                 // email
                 validator: MultiValidator([
                   RequiredValidator(
-                      errorText: "Veuillez entrer un adresse mail"),
+                      errorText: "Veuillez entrer une adresse mail"),
                   EmailValidator(
                       errorText: "Veuillez entrer une adresse mail valide"),
                 ]),
@@ -139,7 +139,7 @@ class SignUpFormState extends State<SignUpForm> {
                 autocorrect: false,
                 validator: (value) {
                   if (value == null || testPw!.text.toString() != value) {
-                    return 'les mots de pass correspondent pas';
+                    return 'les mots de passes ne correspondent pas';
                   }
                   return null;
                 },

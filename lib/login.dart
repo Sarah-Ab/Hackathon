@@ -30,7 +30,7 @@ class LoginFormState extends State<LoginForm> {
           child: Column(
             children: [
               Text(
-                'Bienvenue sur notre page de connexion',
+                'Bienvenu sur notre page de connexion',
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
