@@ -39,7 +39,7 @@ class Test extends StatelessWidget {
                   child: ConstrainedBox(
                     constraints: BoxConstraints(minWidth: 1, minHeight: 1),
                     // here
-                    child: Image.asset('../web/icons/transpagelogin.png'),
+                    child: Image.asset(path_image_login),
                   ),
                   fit: BoxFit.fill,
                 ),
