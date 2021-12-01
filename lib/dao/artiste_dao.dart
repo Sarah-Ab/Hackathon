@@ -12,7 +12,7 @@ class ArtisteDao {
   /// Instance du DAO.
   static final ArtisteDao instance = ArtisteDao._();
   final DatabaseReference _db =
-      FirebaseDatabase.instance.reference().child("artists");
+      FirebaseDatabase.instance.reference().child("artistes");
 
   ArtisteDao._();
 
@@ -26,7 +26,15 @@ class ArtisteDao {
   }
 
   /// Sauvegarde l'[artiste] donné dans la base.
+  ///
+  /// Les artistes ayant participé à des éditions antérieures à 2021 ne peuvent
+  /// pas être sauvegardés.
   Future<void> sauvegarder(Artiste artiste) async {
+    if ((artiste.edition?.annee ?? 0) < 2021) {
+      throw Exception(
+          "Les artistes ayant participé à une édition antérieure à 2021 ne "
+          "peuvent pas être modifiés");
+    }
     if (artiste.id != null) {
       DatabaseReference loc = _db.child(artiste.id!);
       await loc.set(artiste.toMap());
@@ -39,7 +47,15 @@ class ArtisteDao {
   }
 
   /// Supprime l'[artiste] donné de la base.
+  ///
+  /// Les artistes ayant participé à des éditions antérieures à 2021 ne peuvent
+  /// pas être sauvegardés.
   Future<void> supprimer(Artiste artiste) async {
+    if ((artiste.edition?.annee ?? 0) < 2021) {
+      throw Exception(
+          "Les artistes ayant participé à une édition antérieure à 2021 ne "
+          "peuvent pas être supprimés");
+    }
     if (artiste.id != null) {
       await _db.child(artiste.id!).remove();
     }
