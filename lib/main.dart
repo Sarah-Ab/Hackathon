@@ -6,6 +6,7 @@ import './login.dart';
 import './mainpage.dart';
 import './register.dart';
 String path_image_login= 'asset/transpagelogin.png';
+String path_dataJson = 'asset/data-Lite.json';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
