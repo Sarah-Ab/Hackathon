@@ -17,9 +17,18 @@ class ArtisteDao {
   static final ArtisteDao instance = ArtisteDao._();
   final DatabaseReference _db =
       FirebaseDatabase.instance.reference().child("artistes");
-  Map<String, Artiste> _jsonArtistes = {};
+  final Map<String, Artiste> _jsonArtistes = {};
 
   ArtisteDao._();
+
+  /// Retourne tous les artistes.
+  Future<List<Artiste>> tous() async {
+    await _ensureInitialized();
+    Iterable<dynamic> dbArtistes = (await _db.get()).value?.values ?? [];
+    return List<Artiste>.from(_jsonArtistes.values) +
+        List<Artiste>.from(
+            dbArtistes.map<Artiste>((map) => Artiste.fromJSON(map)));
+  }
 
   /// Retourne l'artiste de [recordid] donné.
   Future<Artiste?> parRecordId(String recordid) async {
@@ -145,7 +154,7 @@ class _AppTestState extends State<_AppTest> {
         body: Center(
           child: Column(children: [
             FutureBuilder(
-              future: ArtisteDao.instance.parAnnee(2022),
+              future: ArtisteDao.instance.tous(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(snapshot.data.toString());
@@ -189,5 +198,22 @@ class _AppTestState extends State<_AppTest> {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  /*
+  <int, int>{
+    1: 2021,
+    2: 2021,
+    3: 2021,
+    4: 2022,
+    5: 2022,
+    6: 2022,
+  }
+      .entries
+      .map((entry) => Artiste(
+          nom: "Artiste ${entry.key}",
+          projets: [],
+          pays: [],
+          edition: Edition(annee: entry.value, nom: "Édition ${entry.value}")))
+      .forEach((artiste) => ArtisteDao.instance.sauvegarder(artiste));
+      */
   runApp(_AppTest());
 }
