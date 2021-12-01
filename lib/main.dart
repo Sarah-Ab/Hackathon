@@ -69,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController(text: "");
+  TextEditingController _passwordController = TextEditingController(text: "");
 
   String? email;
   String? password;
@@ -213,11 +213,19 @@ class _MyHomePageState extends State<MyHomePage> {
         await Auth().logIn(
             _emailController.text,
             _passwordController.text);
-        Navigator.push(
+        if(Auth().user!=null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MainPageForm(title: 'Accueil',)),
+          );
+        }else{
+      Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const MainPageForm(title: 'Accueil',)),
-        );
+              builder: (context) =>
+              const MyHomePage(title: 'Bienvenu',)));
+    }
       }catch(err){
         print(err.toString());
       }
@@ -253,14 +261,4 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }*/
 
-/*
-  try{
-                              submit();
-                            }catch(err){
-                              print(err.toString());
-                            }
-
-
-
-   */
 }
