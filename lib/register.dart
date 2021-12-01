@@ -91,47 +91,7 @@ class Test2 extends StatelessWidget {
   }
 }
 
-class SignUpFormSelect extends StatefulWidget {
-  const SignUpFormSelect({Key? key}) : super(key: key);
 
-
-  @override
-  State<StatefulWidget> createState() => SignUpFormSelctState();
-
-}
-class SignUpFormSelctState extends State<SignUpFormSelect> {
-
-  String?  _dropDownText;
-  @override
-  Widget build(BuildContext context) {
-    return
-      Align(
-        alignment: Alignment.bottomLeft,
-        child: DropdownButton<String>(
-            items: <String>['Programmateur', 'Exploitant']
-                .map((String value) {
-              return DropdownMenuItem<String>(
-                  value: value,
-                  child:
-                  Text(value, style: TextStyle(color: colorCustom.shade900)));
-            }).toList(),
-            hint: (_dropDownText == null)
-                ? Text('Votre role')
-                : Text(_dropDownText!),
-            onChanged: (value) {
-              value == 'Programmateur'
-                  ? setState(() {
-                _dropDownText = value;
-              })
-                  : setState(() {
-                _dropDownText = 'Exploitant';
-              });
-            }),
-      );
-
-  }
-
-}
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
 
@@ -150,6 +110,8 @@ class SignUpFormState extends State<SignUpForm> {
   TextEditingController(text: "");
   final TextEditingController nomController =
   TextEditingController(text: "");
+  final TextEditingController roleController =
+  TextEditingController(text: "");
 
   String? email;
   String? lastname;
@@ -160,6 +122,7 @@ class SignUpFormState extends State<SignUpForm> {
   String failResponse = "La connexion a échoué. Veuillez reéssayer";
   bool showResponse = false;
   bool showLoading = false;
+  String? role;
 
 
   @override
@@ -247,8 +210,39 @@ class SignUpFormState extends State<SignUpForm> {
                   labelText: 'Veuillez confirmer votre mot de passe',
                 ),
               ),
-              const SizedBox(height: 12),
-              const SignUpFormSelect(),
+              Align(
+                  child:Column (
+                    children: [
+                      DropdownButtonFormField<String>(
+
+                        value: role,
+                        hint: Text(
+                          'Entrer votre role',
+                        ),
+                        onChanged: (value) =>
+                            setState(() => role = value),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez selectionner votre role';
+                          }
+                          roleController.text = value;
+                          return null;
+                        },
+                        items:
+                        ['Programmateur.', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+
+                    ],
+
+              )
+                 ),
+
+               SizedBox(height: 12),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
