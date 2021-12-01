@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Bienvenue'),
+      home: const MyHomePage(title: 'Bienvenu'),
     );
   }
 }
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         const Text(
-                          'Bienvenue sur notre page de connexion',
+                          'Bienvenu sur notre page de connexion',
                           textAlign: TextAlign.center,
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) => const Test()),
                             // onPressed: submit,
                           ),
-                          child: const Text('Crée un compte'),
+                          child: const Text('Créer un compte'),
                         ),
 
                       ],

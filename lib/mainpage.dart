@@ -59,7 +59,7 @@ class MainPageFormState extends State<MainPageForm> {
                     // onPressed: submit,
                   ),
 
-                  child: Text('Ajouté Artiste'),
+                  child: Text('Ajouter Artiste'),
                 ),
                 ]
                 ),
@@ -71,7 +71,7 @@ class MainPageFormState extends State<MainPageForm> {
                         builder: (context) => MyHomePage(title: 'Bienvenu',)),
                     // onPressed: submit,
                   ),
-                  child: Text('Modifié Artiste'),
+                  child: Text('Modifier Artiste'),
                 ),
                 ]
                 ),
@@ -94,7 +94,7 @@ class MainPageFormState extends State<MainPageForm> {
                       builder: (context) => MyHomePage(title: 'Bienvenu',)),
                   // onPressed: submit,
                 ),
-                child: Text('Se déconnecté'),
+                child: Text('Se déconnecter'),
 
               )
               ),
@@ -106,7 +106,7 @@ class MainPageFormState extends State<MainPageForm> {
                 padding: EdgeInsets.all(16),
                 child:
                 Text(
-                  'Bienvenue sur notre page d\'accueil',
+                  'Bienvenu sur notre page d\'accueil',
                   textAlign: TextAlign.center,
                   style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
