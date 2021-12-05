@@ -11,11 +11,26 @@ import './authentification.dart';
 import 'mainpage.dart';
 
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(Test());
 }
+// Map<int, Color> color = {
+//   50:  Color.fromRGBO(0, 128, 128, 0.10196078431372549),
+//   100: Color.fromRGBO(0, 128, 128, .2),
+//   200: Color.fromRGBO(0, 128, 128, .3),
+//   300: Color.fromRGBO(0, 128, 128, .4),
+//   400: Color.fromRGBO(0, 128, 128, .5),
+//   500: Color.fromRGBO(0, 128, 128, .6),
+//   600: Color.fromRGBO(0, 128, 128, .7),
+//   700: Color.fromRGBO(0, 128, 128, 0.8),
+//   800: Color.fromRGBO(0, 128, 128, .9),
+//   900: Color.fromRGBO(0, 128, 128, 1),
+// };
+
+//MaterialColor colorCustom = MaterialColor(0xFF009688, color);
 
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
