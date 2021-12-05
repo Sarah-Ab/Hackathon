@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hackathon/dao/artiste_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hackathon/domain/artiste.dart';
@@ -6,21 +7,21 @@ import 'package:hackathon/domain/artiste.dart';
 import 'ColorCustom.dart';
 
 void main() async {
-  runApp(infoArtiste("i"));
+  runApp(InfoAr("i"));
 }
 
-class info extends StatelessWidget {
+class InfoAr extends StatefulWidget {
+  InfoAr( this.id, {Key? key}) : super(key: key);
+  String? id;
   @override
-  Widget build(BuildContext context) {
-
-    throw UnimplementedError();
-  }
+  State<StatefulWidget> createState() => InfoArtiste(id);
 }
 
-class infoArtiste extends StatelessWidget {
-  infoArtiste(this.id, {Key? key}) : super(key: key) {
-    ar = ArtisteDao.instance.parRecordId(id!);
-    ar!.then((value) => init(value!)).catchError((e) => error(e));
+class InfoArtiste extends State<InfoAr> {
+  InfoArtiste(this.id) {
+    //ar = ArtisteDao.instance.parRecordId(id!);
+    testinitinfo();
+    //ar!.then((value) => init(value!)).catchError((e) => error(e));
   }
 
   String? id;
@@ -47,9 +48,21 @@ class infoArtiste extends StatelessWidget {
     print(e);
     errorD = e.toString();
   }
-
+  void testinitinfo(){
+    langue = "fr";
+    pays = "france";
+    edition = "ed1";
+    nom = "jean";
+    deezer = "deezer";
+    spotify = "spo";
+    errorD ='';
+  }
+  Widget cond(){
+    return (this.errorD.isEmpty ? getInfo() : Text("True"));
+  }
   Widget getInfo() {
     return ListView(
+      padding: const EdgeInsets.all(8),
       children: <Widget>[
         Container(
           child: Column(
@@ -114,9 +127,11 @@ class infoArtiste extends StatelessWidget {
           appBar: AppBar(
             title: const Text('info'),
           ),
-          body: Center(
-            child: ((this.errorD.isEmpty ? Text("True") : getInfo())),
-          ),
-        ));
+          body: Container(
+
+            child: cond(),
+    )
+        )
+        );
   }
 }
