@@ -252,7 +252,7 @@ class SignUpFormState extends State<SignUpForm> {
                   )),
               const SizedBox(height: 18),
               ElevatedButton(
-                onPressed: submit,
+                onPressed: submitregister,
                 child: const Text('S\'inscrire'),
               ),
               const SizedBox(height: 18),
@@ -282,32 +282,32 @@ class SignUpFormState extends State<SignUpForm> {
       });
     }
   }*/
-  Future submit() async {
+  Future submitregister() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      setState(() async {
-
+      setState(() {
         showResponse = false;
+      });
         try {
-          User newUser = await Auth().register(
+          await Auth().register(
               emailController.text,
               passwordController.text,
               prenomController.text,
               nomController.text);
+          final newUser = await Auth().logIn(
+              emailController.text,
+              passwordController.text);
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
-          setState(() {
-            showLoading = false;
-          });
-        } on Exception catch (e) {
-          setState(() {
-            print(e.toString());
-            showLoading = false;
-          });
-        }});
+        } catch (e) {
+          print(e.toString());
+        }
+        setState(() {
+          showLoading = false;
+        });
     }
   }
 }
