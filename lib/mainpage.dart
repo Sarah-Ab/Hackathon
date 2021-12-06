@@ -17,7 +17,7 @@ class MainPageForm extends StatefulWidget {
 }
 
 class MainPageFormState extends State<MainPageForm> {
-  final _formKey = GlobalKey<FormState>();
+
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -28,15 +28,69 @@ class MainPageFormState extends State<MainPageForm> {
   bool showResponse = false;
   bool showLoading = false;
 
+  submitDeconnection() async {
+    print("AUt--------");
+    setState(() {
+      showLoading = true;
+      showResponse = false;
+    });
+    try {
+      // Validate returns true if the form is valid, or false otherwise.
+      print("AUt");
+      Auth().signOut();
+      print("AUt 2");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(title: 'Accueil')));
+      print("AUt 3");
+    } catch (err) {
+      print(err.toString());
+    }
+    setState(() {
+      showLoading = false;
+      showResponse = false;
+    });
+  }
+
+  submit() {
+    // Validate returns true if the form is valid, or false otherwise.
+    print("AUt");
+      setState(() {
+        showLoading = true;
+        showResponse = false;
+      });
+      try{
+        print("AUt");
+        Auth().signOut();
+        if(Auth().user!= null) {
+          print("NOT DECONNECTION");
+          /*Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
+          );*/
+        }else{
+          print("DECONNECTION");
+        }
+      }catch(err){
+        print(err.toString());
+      }
+      setState(() {
+        showLoading = false;
+        showResponse = false;
+      });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
           title: Text(widget.title),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
+      body: Row(
+        children : [ Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
@@ -68,30 +122,28 @@ class MainPageFormState extends State<MainPageForm> {
                 ),
                 Column( children : [
                 ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
-                    // onPressed: submit,
-                  ),
+                  onPressed: () => print("Modifier"),
                   child: Text('Modifier Artiste'),
                 ),
                 ]
                 ),
 
                 ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
-                    // onPressed: submit,
-                  ),
+                  onPressed: () => print("print"),
                   child: Text('Supprimer Artiste'),
                 ),
                 Align(
               alignment: Alignment.topRight,
               child :ElevatedButton(
-                onPressed: () => submit,
+                onPressed: () {
+                  Auth().signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                    // onPressed: submit,
+                  );
+                },
                 child: Text('Se déconnecter'),
 
               )
@@ -111,20 +163,14 @@ class MainPageFormState extends State<MainPageForm> {
               ),
               ],
           ),
-        )),
+        )
+      ]
+
+      ),
     );
   }
 
-  Future submit() async {
-    // Validate returns true if the form is valid, or false otherwise.
 
-          //Auth().signOut();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: 'Accueil')));
-
-        }
 
   /*
   Future submit() async {

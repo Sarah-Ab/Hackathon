@@ -272,7 +272,7 @@ class SignUpFormState extends State<SignUpForm> {
               ),
               const SizedBox(height: 18),
               ElevatedButton(
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => MyHomePage(title: 'Bienvenu',)),
