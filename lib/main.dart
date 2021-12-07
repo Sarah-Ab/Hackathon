@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
         showResponse = false;
       });
       try{
-        final newUser = await Auth().logIn(
+        final User newUser = await Auth().logIn(
             _emailController.text,
             _passwordController.text);
         if(newUser != null) {

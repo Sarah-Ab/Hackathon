@@ -64,7 +64,7 @@ class MainPageFormState extends State<MainPageForm> {
         print("AUt");
         Auth().signOut();
         if(Auth().user!= null) {
-          print("NOT DECONNECTION");
+          
           /*Navigator.push(
             context,
             MaterialPageRoute(
@@ -129,7 +129,7 @@ class MainPageFormState extends State<MainPageForm> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () => print("print"),
+                  onPressed: () => print(Auth().user.isEmpty),
                   child: Text('Supprimer Artiste'),
                 ),
                 Align(
@@ -152,6 +152,10 @@ class MainPageFormState extends State<MainPageForm> {
 
               ]
               ),
+
+              Center(
+                child : Column(
+                  children : [
               const Padding(
                 padding: EdgeInsets.all(16),
                 child:
@@ -161,6 +165,28 @@ class MainPageFormState extends State<MainPageForm> {
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
                 ),
               ),
+
+              const SizedBox(height: 28),
+              Text("Mail : "+widget.user.email.toString(),
+                textAlign: TextAlign.center,
+                style:
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              ),
+              const SizedBox(height: 18),
+              Text("Name : "+ widget.user.displayName.toString(),
+                textAlign: TextAlign.center,
+                style:
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              ),
+              const SizedBox(height: 18),
+              Text("Role : "+widget.user.photoURL.toString(),
+                textAlign: TextAlign.center,
+                style:
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              ),
+
+
+                  ])),
               ],
           ),
         )

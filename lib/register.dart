@@ -309,7 +309,8 @@ class SignUpFormState extends State<SignUpForm> {
               emailController.text,
               passwordController.text,
               prenomController.text,
-              nomController.text);
+              nomController.text,
+              roleController.text);
           final newUser = await Auth().logIn(
               emailController.text,
               passwordController.text);
