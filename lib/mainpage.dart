@@ -28,60 +28,6 @@ class MainPageFormState extends State<MainPageForm> {
   bool showResponse = false;
   bool showLoading = false;
 
-  submitDeconnection() async {
-    print("AUt--------");
-    setState(() {
-      showLoading = true;
-      showResponse = false;
-    });
-    try {
-      // Validate returns true if the form is valid, or false otherwise.
-      print("AUt");
-      Auth().signOut();
-      print("AUt 2");
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: 'Accueil')));
-      print("AUt 3");
-    } catch (err) {
-      print(err.toString());
-    }
-    setState(() {
-      showLoading = false;
-      showResponse = false;
-    });
-  }
-
-  submit() {
-    // Validate returns true if the form is valid, or false otherwise.
-    print("AUt");
-      setState(() {
-        showLoading = true;
-        showResponse = false;
-      });
-      try{
-        print("AUt");
-        Auth().signOut();
-        if(Auth().user!= null) {
-          
-          /*Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
-          );*/
-        }else{
-          print("DECONNECTION");
-        }
-      }catch(err){
-        print(err.toString());
-      }
-      setState(() {
-        showLoading = false;
-        showResponse = false;
-      });
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +36,19 @@ class MainPageFormState extends State<MainPageForm> {
           title: Text(widget.title),
       ),
       body: Row(
-        children : [ Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
+        children : [ Column(
             children: [
+          Row(
+          children: [
+
+          Column(
+          children: [
+              Visibility(
+                visible: ("Exploitant" != widget.user.photoURL.toString()), // condition here
+
+                  child: Row(
+                    children: <Widget>[
+
 
 
               /*SizedBox(height: 12),
@@ -105,8 +60,7 @@ class MainPageFormState extends State<MainPageForm> {
                     AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               SizedBox(height: 18),*/
-              Row(
-              children: [
+
 
                 Column( children : [ElevatedButton(
                   onPressed: () => Navigator.push(
@@ -132,29 +86,46 @@ class MainPageFormState extends State<MainPageForm> {
                   onPressed: () => print(Auth().user.isEmpty),
                   child: Text('Supprimer Artiste'),
                 ),
-                Align(
-              alignment: Alignment.topRight,
-              child :ElevatedButton(
-                onPressed: () {
-                  Auth().signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
-                    // onPressed: submit,
-                  );
-                },
-                child: Text('Se déconnecter'),
 
-              )
-              ),
 
 
               ]
               ),
 
+
+
+              ),
+
+          ],
+          ),
+
+              Column(
+              children: [
+            Align(
+                alignment: Alignment.bottomLeft,
+                child :ElevatedButton(
+                  onPressed: () {
+                    Auth().signOut();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                      // onPressed: submit,
+                    );
+                  },
+                  child: Text('Se déconnecter'),
+
+                )
+            ),
+              ],
+              ),
+
+
+          ],
+          ),
               Center(
                 child : Column(
+
                   children : [
               const Padding(
                 padding: EdgeInsets.all(16),
@@ -189,7 +160,7 @@ class MainPageFormState extends State<MainPageForm> {
                   ])),
               ],
           ),
-        )
+
       ]
 
       ),
@@ -197,16 +168,4 @@ class MainPageFormState extends State<MainPageForm> {
   }
 
 
-
-  /*
-  Future submit() async {
-    // Validate returns true if the form is valid, or false otherwise.
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      setState(() {
-        showLoading = true;
-        showResponse = false;
-      });
-    }
-  }*/
 }
