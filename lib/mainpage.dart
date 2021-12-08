@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hackathon/authentification.dart';
 import './login.dart';
 import './main.dart';
+import './createnotif.dart';
 
 class MainPageForm extends StatefulWidget {
   const MainPageForm({Key? key, required this.title, required this.user}) : super(key: key);
@@ -35,12 +36,14 @@ class MainPageFormState extends State<MainPageForm> {
           appBar: AppBar(
           title: Text(widget.title),
       ),
-      body: Row(
-        children : [ Column(
+      body: Column(
+        children : [
+          SizedBox(height: 12),
+          Column(
             children: [
           Row(
           children: [
-
+            SizedBox(width: 16),
           Column(
           children: [
               Visibility(
@@ -48,19 +51,6 @@ class MainPageFormState extends State<MainPageForm> {
 
                   child: Row(
                     children: <Widget>[
-
-
-
-              /*SizedBox(height: 12),
-              Visibility(visible: showResponse, child: Text(failResponse)),
-              Visibility(
-                  visible: showLoading,
-                  child: CircularProgressIndicator(
-                    valueColor:
-                    AlwaysStoppedAnimation(Theme.of(context).primaryColor),
-                  )),
-              SizedBox(height: 18),*/
-
 
                 Column( children : [ElevatedButton(
                   onPressed: () => Navigator.push(
@@ -72,8 +62,10 @@ class MainPageFormState extends State<MainPageForm> {
 
                   child: Text('Ajouter Artiste'),
                 ),
+
                 ]
                 ),
+                      SizedBox(width: 8),
                 Column( children : [
                 ElevatedButton(
                   onPressed: () => print("Modifier"),
@@ -81,29 +73,51 @@ class MainPageFormState extends State<MainPageForm> {
                 ),
                 ]
                 ),
-
+                      SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () => print(Auth().user.isEmpty),
                   child: Text('Supprimer Artiste'),
                 ),
 
 
-
+                      SizedBox(width: 8),
               ]
               ),
-
-
-
               ),
 
+            Visibility(
+              visible: ("Exploitant" == widget.user.photoURL.toString()), // condition here
+
+              child: Row(
+                  children: <Widget>[
+
+                    Column( children : [
+                      ElevatedButton(
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateNotifPage(title: 'Ajouté une notification', user: widget.user,)),
+                        // onPressed: submit,
+                      ),
+                      child: Text('Ajouter Notification'),
+                    ),
+                    ]
+                    ),
+                    SizedBox(width: 8),
+                  ]
+              ),
+            ),
           ],
           ),
 
               Column(
+
               children: [
-            Align(
-                alignment: Alignment.bottomLeft,
-                child :ElevatedButton(
+
+           /* Align(
+                alignment: Alignment.centerRight,
+                child : */
+                ElevatedButton(
                   onPressed: () {
                     Auth().signOut();
                     Navigator.pushReplacement(
@@ -116,11 +130,8 @@ class MainPageFormState extends State<MainPageForm> {
                   child: Text('Se déconnecter'),
 
                 )
-            ),
               ],
               ),
-
-
           ],
           ),
               Center(
@@ -155,8 +166,6 @@ class MainPageFormState extends State<MainPageForm> {
                 style:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
               ),
-
-
                   ])),
               ],
           ),

@@ -43,7 +43,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User?>(context);
     if (user != null) {
       return MainPageForm(
-        title: 'Login', user: user,
+        title: 'Accueil', user: user,
       );
     } else {
       return const MyHomePage(

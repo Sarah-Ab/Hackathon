@@ -244,7 +244,7 @@ class SignUpFormState extends State<SignUpForm> {
                           return null;
                         },
                         items:
-                        ['Programmateur.', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
+                        ['Programmateur', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
