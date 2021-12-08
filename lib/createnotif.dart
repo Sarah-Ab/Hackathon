@@ -66,7 +66,7 @@ import './mainpage.dart';
                     child : Row(
 
                     children : [
-                      SizedBox(width: 42),
+                      SizedBox(width: 25),
                     Text("Auteur : "+widget.user.displayName.toString(),
                           style:
                           TextStyle(fontSize: 35),

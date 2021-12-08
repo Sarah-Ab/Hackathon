@@ -314,7 +314,7 @@ class SignUpFormState extends State<SignUpForm> {
           final newUser = await Auth().logIn(
               emailController.text,
               passwordController.text);
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
