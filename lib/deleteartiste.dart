@@ -41,7 +41,8 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child:Column(
             children : [
               const SizedBox(height: 12),
               Column(
@@ -51,7 +52,7 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                       child : Padding(
                         padding: EdgeInsets.all(16),
                         child:
-                        Text('Modifié d\'un artiste',
+                        Text('Suppression d\'un artiste',
                           textAlign: TextAlign.center,
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
@@ -77,18 +78,29 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child : Row(
+
+                                  children : const [
+                                    Text("Record ID de l\'artiste :",
+                                      style:
+                                      TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
+                                    ),
+                                  ]),
+                            ),
                             TextFormField(
                               controller: nomController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Nom';
+                                  return 'id de l\'artiste';
                                 }
                                 return null;
                               },
                               onSaved: (nom) => this.nom = nom,
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
-                                labelText: 'Nom',
+                                labelText: 'id de l\'artiste',
                               ),
                             ),
                             SizedBox(height: 12),
@@ -108,14 +120,14 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                             const SizedBox(height: 18),
                             ElevatedButton(
                               onPressed: () {
-                                print("Crée l'artiste");
+                                print("Supprime l'artiste");
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
                               },
-                              child: const Text('Envoyer la notification'),
+                              child: const Text('Validé la suppression'),
                             ),
                           ],
                         ),
@@ -123,6 +135,6 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                     ),
                   ]
               ),
-            ]));
+            ])));
   }
 }
