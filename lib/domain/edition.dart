@@ -32,4 +32,6 @@ class Edition {
   /// Retourne une chaîne sous la forme "nom (année)".
   @override
   String toString() => "$nom ($annee)";
+
+
 }

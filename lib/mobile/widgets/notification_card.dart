@@ -1,21 +1,15 @@
-import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatefulWidget {
 
   final String date;
-  final String artistName;
+  final String eventName;
   final Color color;
-  //final String imageUrl;
 
   const EventCard(
-     this.date, this.artistName, this.color//this.imageUrl
-  ) ;
-
-
-
+     this.eventName,  this.date, this.color,
+      ) ;
 
   @override
   _EventCardState createState() => _EventCardState();
@@ -26,10 +20,9 @@ class _EventCardState extends State<EventCard> {
   Widget build(BuildContext context) {
     return
       Container(
-        //height: 300,
+        color : widget.color,
         width: 300,
         child: Card(
-          color: widget.color,
           elevation: 8,
           shadowColor: Colors.blue,
           shape: RoundedRectangleBorder(
@@ -42,23 +35,14 @@ class _EventCardState extends State<EventCard> {
             child: Wrap(
               alignment: WrapAlignment.center,
               children:[
-                  ListTile(
-                    title: Text(widget.date),
-                    subtitle: Text(widget.artistName),
-                  ),
-              // Container(
-              //   height:200,
-              //   width:250,
-              //   //child:Image.network(widget.imageUrl,fit: BoxFit.fill, alignment: Alignment.center),
-              //
-              // )
-            ],
-      ),
-
-
+                ListTile(
+                  title: Text(widget.eventName +' '+ widget.date ),
+                  trailing: Icon(Icons.event),
+                ),
+              ],
             ),
           ),
-
+        ),
       );
   }
 }
