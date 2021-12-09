@@ -75,15 +75,15 @@ class LoginFormState extends State<LoginForm> {
                         AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )),
               SizedBox(height: 18),
-              ElevatedButton(
+              /*ElevatedButton(
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MainPageForm(title:'Connexion')),
+                      //builder: (context) => MainPageForm(title:'Connexion', user: null,)),
                   // onPressed: submit,
                 ),
                 child: Text('Se connecter'),
-              )
+              )*/
             ],
           ),
         ));

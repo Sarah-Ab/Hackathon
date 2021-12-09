@@ -3,17 +3,34 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:hackathon/ColorCustom.dart';
 import './main.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import 'mainpage.dart';
 
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(Test());
 }
+// Map<int, Color> color = {
+//   50:  Color.fromRGBO(0, 128, 128, 0.10196078431372549),
+//   100: Color.fromRGBO(0, 128, 128, .2),
+//   200: Color.fromRGBO(0, 128, 128, .3),
+//   300: Color.fromRGBO(0, 128, 128, .4),
+//   400: Color.fromRGBO(0, 128, 128, .5),
+//   500: Color.fromRGBO(0, 128, 128, .6),
+//   600: Color.fromRGBO(0, 128, 128, .7),
+//   700: Color.fromRGBO(0, 128, 128, 0.8),
+//   800: Color.fromRGBO(0, 128, 128, .9),
+//   900: Color.fromRGBO(0, 128, 128, 1),
+// };
+
+//MaterialColor colorCustom = MaterialColor(0xFF009688, color);
 
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
@@ -23,11 +40,8 @@ class Test extends StatelessWidget {
     return StreamProvider<User?>.value(
         value: Auth().user,
         initialData: null,
-        child: MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.red,
-          ),
-          home: const Wrapper(),
+        child: const MaterialApp(
+          home: Wrapper(),
         ));
   }
 }
@@ -54,11 +68,11 @@ class Test2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: colorCustom,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Inscription'),
+          title: const Text('Inscription'),
         ),
         body: Center(
           child: Row(
@@ -92,47 +106,7 @@ class Test2 extends StatelessWidget {
   }
 }
 
-class SignUpFormSelect extends StatefulWidget {
-  const SignUpFormSelect({Key? key}) : super(key: key);
 
-
-  @override
-  State<StatefulWidget> createState() => SignUpFormSelctState();
-
-}
-class SignUpFormSelctState extends State<SignUpFormSelect> {
-
-  String?  _dropDownText;
-  @override
-  Widget build(BuildContext context) {
-    return
-      Align(
-        alignment: Alignment.bottomLeft,
-        child: DropdownButton<String>(
-            items: <String>['Programmateur', 'Exploitant']
-                .map((String value) {
-              return DropdownMenuItem<String>(
-                  value: value,
-                  child:
-                  Text(value, style: TextStyle(color: Colors.red)));
-            }).toList(),
-            hint: (_dropDownText == null)
-                ? Text('Votre role')
-                : Text(_dropDownText!),
-            onChanged: (value) {
-              value == 'Programmateur'
-                  ? setState(() {
-                _dropDownText = value;
-              })
-                  : setState(() {
-                _dropDownText = 'Exploitant';
-              });
-            }),
-      );
-
-  }
-
-}
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
 
@@ -151,6 +125,8 @@ class SignUpFormState extends State<SignUpForm> {
   TextEditingController(text: "");
   final TextEditingController nomController =
   TextEditingController(text: "");
+  final TextEditingController roleController =
+  TextEditingController(text: "");
 
   String? email;
   String? lastname;
@@ -161,6 +137,7 @@ class SignUpFormState extends State<SignUpForm> {
   String failResponse = "La connexion a échoué. Veuillez reéssayer";
   bool showResponse = false;
   bool showLoading = false;
+  String? role;
 
 
   @override
@@ -228,7 +205,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (pw) => this.pw = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Veuillez à nouveau entrer votre mot de passe',
+                  labelText: 'Veuillez entrer votre mot de passe',
                 ),
               ),
               TextFormField(
@@ -248,8 +225,39 @@ class SignUpFormState extends State<SignUpForm> {
                   labelText: 'Veuillez confirmer votre mot de passe',
                 ),
               ),
-              const SizedBox(height: 12),
-              const SignUpFormSelect(),
+              Align(
+                  child:Column (
+                    children: [
+                      DropdownButtonFormField<String>(
+
+                        value: role,
+                        hint: Text(
+                          'Entrer votre role',
+                        ),
+                        onChanged: (value) =>
+                            setState(() => role = value),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez selectionner votre role';
+                          }
+                          roleController.text = value;
+                          return null;
+                        },
+                        items:
+                        ['Programmateur', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+
+                    ],
+
+              )
+                 ),
+
+               SizedBox(height: 12),
               Visibility(visible: showResponse, child: Text(failResponse)),
               Visibility(
                   visible: showLoading,
@@ -259,12 +267,12 @@ class SignUpFormState extends State<SignUpForm> {
                   )),
               const SizedBox(height: 18),
               ElevatedButton(
-                onPressed: submit,
+                onPressed: submitregister,
                 child: const Text('S\'inscrire'),
               ),
               const SizedBox(height: 18),
               ElevatedButton(
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => MyHomePage(title: 'Bienvenu',)),
@@ -289,33 +297,33 @@ class SignUpFormState extends State<SignUpForm> {
       });
     }
   }*/
-  Future submit() async {
+  Future submitregister() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      setState(() async {
-
+      setState(() {
         showResponse = false;
+      });
         try {
           await Auth().register(
               emailController.text,
               passwordController.text,
               prenomController.text,
-              nomController.text);
-          Navigator.push(
+              nomController.text,
+              roleController.text);
+          final newUser = await Auth().logIn(
+              emailController.text,
+              passwordController.text);
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                  const MainPageForm(title: 'Accueil',)));
-          setState(() {
-            showLoading = false;
-          });
-        } on Exception catch (e) {
-          setState(() {
-            print(e.toString());
-            showLoading = false;
-          });
-        }});
+                  builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
+        } catch (e) {
+          print(e.toString());
+        }
+        setState(() {
+          showLoading = false;
+        });
     }
   }
 }

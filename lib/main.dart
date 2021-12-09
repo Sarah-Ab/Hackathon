@@ -42,8 +42,8 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     if (user != null) {
-      return const MyHomePage(
-        title: "Login",
+      return MainPageForm(
+        title: 'Accueil', user: user,
       );
     } else {
       return const MyHomePage(
@@ -210,22 +210,21 @@ class _MyHomePageState extends State<MyHomePage> {
         showResponse = false;
       });
       try{
-        final newUser = await Auth().logIn(
+        final User newUser = await Auth().logIn(
             _emailController.text,
             _passwordController.text);
         if(newUser != null) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const MainPageForm(title: 'Accueil',)),
+                builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
           );
         }else{
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-              const MyHomePage(title: 'Bienvenu',)));
-    }
+          const Text("Adresse ou mot de passe incorrect",
+              style: TextStyle(
+                color: Colors.red,
+              ));
+        }
       }catch(err){
         print(err.toString());
       }
@@ -235,30 +234,4 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-/*
-  void _login() async {
-    if (_formKeyLogin.currentState!.validate()) {
-      setState(() {
-        loading = true;
-      });
-      try {
-        await Auth().logIn(
-            _emailController.text,
-            _passwordController.text);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MainPageForm(title: 'Accueil')));
-        setState(() {
-          showLoading = false;
-        });
-      } on Exception catch (e) {
-        setState(() {
-          print(e.toString());
-          showLoading = false;
-        });
-      }
-    }
-  }*/
-
 }
