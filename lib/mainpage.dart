@@ -29,12 +29,14 @@ Future<ProductDataGridSource> getProductDataSource() async {
   var artisteList = await ArtisteDao.instance.tous();
   return ProductDataGridSource(artisteList);
 }
+final int _rowsPerPage =15;
+final double _dataPagerHeight = 60.0;
 
 List<GridColumn> getColumns(){
   return <GridColumn>[
     GridColumn(
         columnName: 'recordid',
-        width: 100,
+        width: 350,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -42,15 +44,15 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'nom',
-        width: 70,
+        width: 250,
         label: Container(
             padding: const EdgeInsets.all(8),
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             child: const Text('nom',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'edition',
-        width: 70,
+        width: 300,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -58,7 +60,7 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'projets',
-        width: 70,
+        width: 600,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -66,7 +68,7 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'spotify',
-        width: 70,
+        width: 300,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -74,7 +76,7 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'deezer',
-        width: 70,
+        width: 150,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -82,7 +84,7 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'pays',
-        width: 70,
+        width: 200,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -111,7 +113,7 @@ class ProductDataGridSource extends DataGridSource{
     return DataGridRowAdapter(cells: [
       Container(
         child: Text(
-          row.getCells()[0].value.toString(),
+          row.getCells()[0].value,
           overflow: TextOverflow.ellipsis,
         ),
         alignment: Alignment.centerLeft,
@@ -138,7 +140,10 @@ class ProductDataGridSource extends DataGridSource{
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          row.getCells()[3].value.toString(),
+          (row.getCells()[3].value as List<Projet>)[0].nom.toString() +
+              (row.getCells()[3].value as List<Projet>)[0].date.toString() +
+              (row.getCells()[3].value as List<Projet>)[0].salle.toString() +
+              (row.getCells()[3].value as List<Projet>)[0].ville.toString(),
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -362,7 +367,6 @@ class MainPageFormState extends State<MainPageForm> {
               ),*/
                   ])),
               ],
-
           ),
           Expanded(
             child : SafeArea (
@@ -377,6 +381,7 @@ class MainPageFormState extends State<MainPageForm> {
                             strokeWidth:3 ,
                           ),
                         );
+
                       }
                   ),
                 )
