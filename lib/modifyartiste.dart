@@ -11,16 +11,16 @@ import './authentification.dart';
 import './mainpage.dart';
 
 
-class CreateArtistePage extends StatefulWidget {
-  const CreateArtistePage({Key? key, required this.title, required this.user}) : super(key: key);
+class ModifyArtistePage extends StatefulWidget {
+  const ModifyArtistePage({Key? key, required this.title, required this.user}) : super(key: key);
   final String title;
   final User user;
 
   @override
-  State<StatefulWidget> createState() => CreateArtistePageState();
+  State<StatefulWidget> createState() => ModifyArtistePageState();
 }
 
-class CreateArtistePageState extends State<CreateArtistePage> {
+class ModifyArtistePageState extends State<ModifyArtistePage> {
 
 
 
@@ -51,7 +51,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                       child : Padding(
                         padding: EdgeInsets.all(16),
                         child:
-                        Text('Ajoute d\'un artiste',
+                        Text('Modifié d\'un artiste',
                           textAlign: TextAlign.center,
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
