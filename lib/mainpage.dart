@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hackathon/authentification.dart';
 import './login.dart';
 import './main.dart';
+import './createnotif.dart';
+import './createartiste.dart';
 
 class MainPageForm extends StatefulWidget {
   const MainPageForm({Key? key, required this.title, required this.user}) : super(key: key);
@@ -35,12 +37,14 @@ class MainPageFormState extends State<MainPageForm> {
           appBar: AppBar(
           title: Text(widget.title),
       ),
-      body: Row(
-        children : [ Column(
+      body: Column(
+        children : [
+          SizedBox(height: 12),
+          Column(
             children: [
           Row(
           children: [
-
+            SizedBox(width: 16),
           Column(
           children: [
               Visibility(
@@ -49,61 +53,72 @@ class MainPageFormState extends State<MainPageForm> {
                   child: Row(
                     children: <Widget>[
 
-
-
-              /*SizedBox(height: 12),
-              Visibility(visible: showResponse, child: Text(failResponse)),
-              Visibility(
-                  visible: showLoading,
-                  child: CircularProgressIndicator(
-                    valueColor:
-                    AlwaysStoppedAnimation(Theme.of(context).primaryColor),
-                  )),
-              SizedBox(height: 18),*/
-
-
                 Column( children : [ElevatedButton(
-                  onPressed: () => Navigator.push(
+                  onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                        builder: (context) => CreateArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
                     // onPressed: submit,
                   ),
 
-                  child: Text('Ajouter Artiste'),
+                  child: const Text('Ajouter un artiste'),
                 ),
+
                 ]
                 ),
+                      const SizedBox(width: 8),
                 Column( children : [
                 ElevatedButton(
                   onPressed: () => print("Modifier"),
-                  child: Text('Modifier Artiste'),
+                  child: const Text('Modifier un artiste'),
                 ),
                 ]
                 ),
-
+                      const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () => print(Auth().user.isEmpty),
-                  child: Text('Supprimer Artiste'),
+                  child: const Text('Supprimer un artiste'),
                 ),
 
 
-
+                      SizedBox(width: 8),
               ]
               ),
-
-
-
               ),
 
+            Visibility(
+              visible: ("Exploitant" == widget.user.photoURL.toString()), // condition here
+
+              child: Row(
+                  children: <Widget>[
+
+                    Column( children : [
+                      ElevatedButton(
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateNotifPage(title: 'Ajouté une notification', user: widget.user,)),
+                        // onPressed: submit,
+                      ),
+                      child: Text('Ajouter Notification'),
+                    ),
+                    ]
+                    ),
+                    SizedBox(width: 8),
+                  ]
+              ),
+            ),
           ],
           ),
 
               Column(
+
               children: [
-            Align(
-                alignment: Alignment.bottomLeft,
-                child :ElevatedButton(
+
+           /* Align(
+                alignment: Alignment.centerRight,
+                child : */
+                ElevatedButton(
                   onPressed: () {
                     Auth().signOut();
                     Navigator.pushReplacement(
@@ -116,13 +131,24 @@ class MainPageFormState extends State<MainPageForm> {
                   child: Text('Se déconnecter'),
 
                 )
-            ),
               ],
               ),
-
-
           ],
           ),
+              const SizedBox(height: 15),
+              Align(
+                alignment: Alignment.topLeft,
+              child : Row(
+                children : [
+                  const SizedBox(width: 15),
+                  Text(widget.user.displayName.toString() + " : connecter en tant que "+ widget.user.photoURL.toString(),
+                textAlign: TextAlign.right,
+                style:
+                const TextStyle(fontSize: 19),
+              ),
+                ]
+              ),
+              ),
               Center(
                 child : Column(
 
@@ -137,7 +163,7 @@ class MainPageFormState extends State<MainPageForm> {
                 ),
               ),
 
-              const SizedBox(height: 28),
+              /*const SizedBox(height: 28),
               Text("Mail : "+widget.user.email.toString(),
                 textAlign: TextAlign.center,
                 style:
@@ -154,9 +180,7 @@ class MainPageFormState extends State<MainPageForm> {
                 textAlign: TextAlign.center,
                 style:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-              ),
-
-
+              ),*/
                   ])),
               ],
           ),

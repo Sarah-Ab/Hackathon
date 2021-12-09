@@ -205,7 +205,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (pw) => this.pw = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Veuillez à nouveau entrer votre mot de passe',
+                  labelText: 'Veuillez entrer votre mot de passe',
                 ),
               ),
               TextFormField(
@@ -244,7 +244,7 @@ class SignUpFormState extends State<SignUpForm> {
                           return null;
                         },
                         items:
-                        ['Programmateur.', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
+                        ['Programmateur', 'Exploitant'].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -314,7 +314,7 @@ class SignUpFormState extends State<SignUpForm> {
           final newUser = await Auth().logIn(
               emailController.text,
               passwordController.text);
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
