@@ -29,9 +29,11 @@ import './mainpage.dart';
 
     final _formKey = GlobalKey<FormState>();
 
+    TextEditingController titleNController = TextEditingController(text: "");
     TextEditingController textController = TextEditingController(text: "");
 
 
+    String? titleN;
     String? text;
     String failResponse = "Connexion échouee. Reessayez!";
     bool showResponse = false;
@@ -80,6 +82,21 @@ import './mainpage.dart';
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
+
+                      TextFormField(
+                        controller: titleNController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Ecrivez le titre de la nouvelle notification';
+                          }
+                          return null;
+                        },
+                        onSaved: (titleN) => this.titleN = titleN,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Ecrivez le titre de la nouvelle notification',
+                        ),
+                      ),
                       TextFormField(
                         controller: textController,
                         validator: (value) {
