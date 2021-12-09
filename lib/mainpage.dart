@@ -5,7 +5,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import './login.dart';
 import './main.dart';
-import 'package:hackathon/Table/multiplication_table.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:hackathon/dao/artiste_dao.dart';
 
