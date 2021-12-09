@@ -3,6 +3,10 @@ import 'package:hackathon/domain/artiste.dart';
 import 'package:hackathon/domain/edition.dart';
 
 class EditionDao {
+  static final EditionDao instance = EditionDao._();
+
+  EditionDao._();
+
   Future<Edition?> parAnnee(int annee) async {
     List<Artiste> artistes = await ArtisteDao.instance.parAnnee(annee);
     return artistes.isEmpty ? null : artistes.first.edition!;
