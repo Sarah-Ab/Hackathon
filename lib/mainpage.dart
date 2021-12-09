@@ -7,6 +7,7 @@ import 'package:hackathon/authentification.dart';
 import './login.dart';
 import './main.dart';
 import './createnotif.dart';
+import './createartiste.dart';
 
 class MainPageForm extends StatefulWidget {
   const MainPageForm({Key? key, required this.title, required this.user}) : super(key: key);
@@ -53,30 +54,30 @@ class MainPageFormState extends State<MainPageForm> {
                     children: <Widget>[
 
                 Column( children : [ElevatedButton(
-                  onPressed: () => Navigator.push(
+                  onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'Bienvenu',)),
+                        builder: (context) => CreateArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
                     // onPressed: submit,
                   ),
 
-                  child: Text('Ajouter Artiste'),
+                  child: const Text('Ajouter un artiste'),
                 ),
 
                 ]
                 ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                 Column( children : [
                 ElevatedButton(
                   onPressed: () => print("Modifier"),
-                  child: Text('Modifier Artiste'),
+                  child: const Text('Modifier un artiste'),
                 ),
                 ]
                 ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () => print(Auth().user.isEmpty),
-                  child: Text('Supprimer Artiste'),
+                  child: const Text('Supprimer un artiste'),
                 ),
 
 
@@ -134,6 +135,20 @@ class MainPageFormState extends State<MainPageForm> {
               ),
           ],
           ),
+              const SizedBox(height: 15),
+              Align(
+                alignment: Alignment.topLeft,
+              child : Row(
+                children : [
+                  const SizedBox(width: 15),
+                  Text(widget.user.displayName.toString() + " : connecter en tant que "+ widget.user.photoURL.toString(),
+                textAlign: TextAlign.right,
+                style:
+                const TextStyle(fontSize: 19),
+              ),
+                ]
+              ),
+              ),
               Center(
                 child : Column(
 
@@ -148,7 +163,7 @@ class MainPageFormState extends State<MainPageForm> {
                 ),
               ),
 
-              const SizedBox(height: 28),
+              /*const SizedBox(height: 28),
               Text("Mail : "+widget.user.email.toString(),
                 textAlign: TextAlign.center,
                 style:
@@ -165,7 +180,7 @@ class MainPageFormState extends State<MainPageForm> {
                 textAlign: TextAlign.center,
                 style:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-              ),
+              ),*/
                   ])),
               ],
           ),
