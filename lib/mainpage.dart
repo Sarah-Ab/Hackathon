@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hackathon/authentification.dart';
 import './login.dart';
+import './deleteartiste.dart';
+import './modifyartiste.dart';
 import './main.dart';
 import './createnotif.dart';
 import './createartiste.dart';
@@ -247,14 +249,24 @@ class MainPageFormState extends State<MainPageForm> {
                       const SizedBox(width: 8),
                 Column( children : [
                 ElevatedButton(
-                  onPressed: () => print("Modifier"),
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DeleteArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
+                    // onPressed: submit,
+                  ),
                   child: const Text('Modifier un artiste'),
                 ),
                 ]
                 ),
                       const SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () => print(Auth().user.isEmpty),
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ModifyArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
+                    // onPressed: submit,
+                  ),
                   child: const Text('Supprimer un artiste'),
                 ),
 
