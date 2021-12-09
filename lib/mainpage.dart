@@ -252,7 +252,7 @@ class MainPageFormState extends State<MainPageForm> {
                   onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DeleteArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
+                        builder: (context) => ModifyArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
                     // onPressed: submit,
                   ),
                   child: const Text('Modifier un artiste'),
@@ -264,7 +264,7 @@ class MainPageFormState extends State<MainPageForm> {
                   onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ModifyArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
+                        builder: (context) => DeleteArtistePage(title: 'Gestionnaire des artistes', user: widget.user,)),
                     // onPressed: submit,
                   ),
                   child: const Text('Supprimer un artiste'),
