@@ -2,21 +2,20 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:hackathon/mobile/screens/artist_peredition.dart';
 //import 'package:spotify_sdk/spotify_sdk.dart';
 
 class EventCard extends StatefulWidget {
 
-  final String date;
-  final String artistName;
-  final Color color;
+  final int annee;
+  final String nomEdition;
+  final Color couleur;
   //final String imageUrl;
 
   const EventCard(
-     this.date, this.artistName, this.color//this.imageUrl
+     this.annee, this.nomEdition, this.couleur//this.imageUrl
   ) ;
-
-
-
 
   @override
   _EventCardState createState() => _EventCardState();
@@ -27,10 +26,10 @@ class _EventCardState extends State<EventCard> {
   Widget build(BuildContext context) {
     return
       Container(
-        //height: 300,
-        width: 300,
+        height: 100,
+        width: 100,
         child: Card(
-          color: widget.color,
+          color: widget.couleur,
           elevation: 8,
           shadowColor: Colors.blue,
           shape: RoundedRectangleBorder(
@@ -38,24 +37,29 @@ class _EventCardState extends State<EventCard> {
           ),
           child: InkWell(
             onTap: () {
-              print('Card tapped.');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ArtistPerEdition(year: widget.annee)),
+              );
             },
             child: Wrap(
               alignment: WrapAlignment.center,
               children:[
                   ListTile(
-                    title: Text(widget.date),
-                    subtitle: Text(widget.artistName),
+                    title: Text(widget.annee.toString(), style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top:15.0),
+                      child: Text(widget.nomEdition,  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)),
+                    ),
                   ),
-              Container(
-                height:200,
-                width:250,
-                child:Image.network('spotify:album:1sWIbvCurzF7ZVFYWjLGQO',fit: BoxFit.fill, alignment: Alignment.center),
-
-              )
+              // Container(
+              //   height:200,
+              //   width:250,
+              //   child:Image.network('spotify:album:1sWIbvCurzF7ZVFYWjLGQO',fit: BoxFit.fill, alignment: Alignment.center),
+              //
+              // )
             ],
       ),
-
 
             ),
           ),

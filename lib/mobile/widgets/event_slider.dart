@@ -9,7 +9,10 @@ import 'package:hackathon/dao/edition_dao.dart';
 import 'event_card.dart';
 
 class ListViewEventSlider extends StatefulWidget {
-  const ListViewEventSlider({Key? key}) : super(key: key);
+  final int? limiteAffichage;
+  final int anneeDebut;
+  final int anneeFin;
+  const ListViewEventSlider( {Key? key, this.limiteAffichage, required this.anneeDebut, required this.anneeFin}) : super(key: key);
 
 
   @override
@@ -21,11 +24,10 @@ class _ListViewEventSliderState extends State<ListViewEventSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       margin: EdgeInsets.all(8),
-      height: 300,
+      height:  MediaQuery.of(context).size.height,
       child: FutureBuilder(
-              future: EditionDao.instance.parAnnees(2015,2021),
+              future: EditionDao.instance.parAnnees(widget.anneeDebut,widget.anneeFin),
               // le texte disparait, c'est à revoir !!!!
               builder: (BuildContext context, AsyncSnapshot<List> editionSnap) => !editionSnap.hasData?
               Center(
@@ -37,9 +39,9 @@ class _ListViewEventSliderState extends State<ListViewEventSlider> {
                 ),
               ):
               ListView.builder(
-                itemCount: editionSnap.data!.length > 10 ? 10 : editionSnap.data!.length ,
+                itemCount: editionSnap.data!.length > widget.limiteAffichage! ? widget.limiteAffichage! : editionSnap.data!.length ,
                 itemBuilder: (BuildContext context, index) =>
-                    EventCard(editionSnap.data![index].annee.toString(), editionSnap.data![index].nom,Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+                    EventCard(editionSnap.data![index].annee, editionSnap.data![index].nom,Colors.primaries[Random().nextInt(Colors.primaries.length)]),
               ),
              ),
     );

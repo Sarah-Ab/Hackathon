@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'event_card.dart';
-import 'notification_card.dart';
+import 'artist_card.dart';
 
 class ListViewAritistSlider extends StatefulWidget {
   const ListViewAritistSlider({Key? key}) : super(key: key);
