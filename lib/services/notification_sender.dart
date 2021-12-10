@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +10,23 @@ import 'package:hackathon/services/notification_service.dart';
 
 /// Service d'envoie de notifications.
 class NotificationSender {
+  /// Instance du service
+  static final NotificationSender instance = NotificationSender._();
+
   /// Clé de serveur de Firebase Cloud Messaging
-  final String _key;
+  String? _key;
 
   /// Crée un service d'envoie de notifications avec la clé de serveur Firebase
   /// Cloud Messaging [key].
-  NotificationSender({required String key}) : _key = key;
+  NotificationSender._();
 
   /// Envoie la [notification] aux clients.
   Future<void> envoyer(NotificationChangement notification) async {
+    await _ensureInitialized();
     http.Response response =
         await http.post(Uri.parse("https://fcm.googleapis.com/fcm/send"),
             headers: {
-              "Authorization": "key=$_key",
+              "Authorization": "key=${_key!}",
               "Content-Type": "application/json",
             },
             body: jsonEncode({
@@ -40,6 +46,15 @@ class NotificationSender {
       throw Exception(response.body.toString());
     }
   }
+
+  /// S'assure que le service est initialisé.
+  Future<void> _ensureInitialized() async {
+    if (_key == null) {
+      String json = await rootBundle.loadString("asset/fcm.json");
+      Map<String, dynamic> map = jsonDecode(json);
+      _key = map["cle_serveur"];
+    }
+  }
 }
 
 class _TestApp extends StatelessWidget {
@@ -57,7 +72,7 @@ class _TestApp extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(notification.toString())));
               });
-              return _Corps();
+              return _Envoyeur(service: NotificationSender.instance);
             } else {
               return const Text("attente service");
             }
@@ -65,36 +80,6 @@ class _TestApp extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _Corps extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _CorpsState();
-}
-
-class _CorpsState extends State<_Corps> {
-  NotificationSender? _service;
-  String _clef = "";
-  @override
-  Widget build(BuildContext context) {
-    if (_service != null) {
-      return _Envoyeur(service: _service!);
-    } else {
-      return Column(
-        children: [
-          TextField(
-            onChanged: (value) => _clef = value,
-          ),
-          MaterialButton(
-            child: const Text("Connexion"),
-            onPressed: () => setState(() {
-              _service = NotificationSender(key: _clef);
-            }),
-          ),
-        ],
-      );
-    }
   }
 }
 
