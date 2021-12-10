@@ -7,17 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:hackathon/ColorCustom.dart';
 
 void main() async {
-   runApp(InfoAr());
 }
 
 
-class InfoAr extends StatefulWidget {
-  String? id;
-  late Artiste art;
-  @override
-  State<StatefulWidget> createState() => InfoArtiste.artiste(art);
-}
-class InfoArtiste extends State<InfoAr> {
+
+class InfoArtiste extends State<StatefulWidget> {
 
   InfoArtiste.artiste(Artiste artiste){
     init(artiste);

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/dao/edition_dao.dart';
-import 'package:spotify_sdk/spotify_sdk.dart';
+//import 'package:spotify_sdk/spotify_sdk.dart';
 
 
 import 'event_card.dart';

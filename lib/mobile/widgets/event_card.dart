@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:spotify_sdk/spotify_sdk.dart';
+//import 'package:spotify_sdk/spotify_sdk.dart';
 
 class EventCard extends StatefulWidget {
 
