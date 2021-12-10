@@ -299,16 +299,6 @@ class MainPageFormState extends State<MainPageForm> {
                       ]
                 ),
                       SizedBox(width: 8),
-                      ElevatedButton(
-                        onPressed: () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SearchBar(title: 'Gestionnaire des artistes', user: widget.user,)),
-                          // onPressed: submit,
-                        ),
-                        child: const Text('Faire une recherche'),
-                      ),
-                      SizedBox(width: 8),
               ]
               ),
               ),
@@ -338,9 +328,19 @@ class MainPageFormState extends State<MainPageForm> {
           ],
           ),
 
-              Column(
+              Row(
 
               children: [
+                ElevatedButton(
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchBar(title: 'Faire une recherche', user: widget.user,)),
+                    // onPressed: submit,
+                  ),
+                  child: const Text('Faire une recherche'),
+                ),
+                const SizedBox(width: 8),
 
            /* Align(
                 alignment: Alignment.centerRight,
