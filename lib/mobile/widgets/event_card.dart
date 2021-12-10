@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
 
 class EventCard extends StatefulWidget {
 
@@ -46,12 +47,12 @@ class _EventCardState extends State<EventCard> {
                     title: Text(widget.date),
                     subtitle: Text(widget.artistName),
                   ),
-              // Container(
-              //   height:200,
-              //   width:250,
-              //   //child:Image.network(widget.imageUrl,fit: BoxFit.fill, alignment: Alignment.center),
-              //
-              // )
+              Container(
+                height:200,
+                width:250,
+                child:Image.network('spotify:album:1sWIbvCurzF7ZVFYWjLGQO',fit: BoxFit.fill, alignment: Alignment.center),
+
+              )
             ],
       ),
 
