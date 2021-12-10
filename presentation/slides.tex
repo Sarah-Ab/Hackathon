@@ -1,0 +1,145 @@
+\documentclass{beamer}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{caption}
+\usetheme{metropolis}
+%\metroset{sectionpage=none}
+
+\begin{document}
+
+\title{Les Rencontres Trans Musicales: application web et mobile}
+\author{Sarah Ababou, Anthony Amiard, Naziha Djermouni, Thomas Guibert, Valentin
+        Koopman}
+\institute{ISTIC - UFR Informatique et Électronique\\Université de Rennes 1}
+\date{10 décembre 2021}
+
+\begin{frame}
+
+\begin{columns}
+
+\begin{column}{.6\textwidth}
+
+\titlepage
+
+\end{column}
+
+\begin{column}{.4\textwidth}
+
+\includegraphics[width=\textwidth]{trans-2021.jpg}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Plan}
+
+\tableofcontents
+
+\end{frame}
+
+\section{Fonctionnalités}
+
+\begin{frame}{Fonctionnalités}
+
+Application web:
+
+\begin{itemize}
+    \item Ajout et modification d'artiste
+    \item Modification de la programmation de l'année en cours
+    \item Envoie de notifications de l'application web à l'application mobile
+    \item Utilisateurs authentifiés et rôles (programmateur et exploitant)
+\end{itemize}
+
+Application mobile:
+
+\begin{itemize}
+    \item Liste des éditions
+    \item Liste des artistes par édition
+    \item Liste de tous les artistes
+    \item Informations détaillées d'un artiste
+    \item Réception des notifications
+\end{itemize}
+
+\end{frame}
+
+\section{Choix technologiques}
+
+\subsection{Technologies utilisées}
+
+\begin{frame}{Technologies utilisées}
+
+Approche \emph{serverless}
+
+\begin{columns}
+
+    \begin{column}[T]{.45\textwidth}
+
+        Back-end\\
+        \includegraphics[height=.5cm]{firebase.png}
+
+        \begin{itemize}
+            \item Base de données: Firebase Realtime Database
+            \item Gestion des utilisateurs: Firebase Authentification
+            \item Notifications Push: Firebase Cloud Messaging
+        \end{itemize}
+
+    \end{column}
+
+    \begin{column}[T]{.45\textwidth}
+
+        Front-end\\
+        \includegraphics[height=.5cm]{flutter.png}
+
+        \begin{itemize}
+            \item[$\Rightarrow$] Même base de code pour les deux applications
+        \end{itemize}
+
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+\subsection{Architecture}
+
+\begin{frame}{Architecture}
+
+\begin{itemize}
+    \item Classes métiers
+    \begin{itemize}
+        \item \texttt{Artiste}, \texttt{Edition}, \texttt{Pays}, \texttt{Projet}
+    \end{itemize}
+    \item Classes de communication avec le back-end
+    \begin{itemize}
+        \item \texttt{ArtisteDao}, \texttt{NotificationService},
+        \texttt{NotificationSender}
+    \end{itemize}
+    \item Interface graphique web
+    \item Interface graphique mobile
+\end{itemize}
+
+\end{frame}
+
+\section{Difficultés rencontrées}
+
+\subsection{Formulaire de modification}
+
+\begin{frame}{Formulaire de modification}
+
+Deux solutions:
+
+\begin{itemize}
+    \item Pré-remplir les champs avec les informations de l'artiste
+    \item Ne modifier que les informations rentrées par l'utilisateur
+\end{itemize}
+
+\begin{center}
+    \includegraphics[height=.5849\textheight]{formulaire.jpg}
+\end{center}
+
+\end{frame}
+
+\end{document}
