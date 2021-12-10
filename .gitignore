@@ -61,7 +61,6 @@ app.*.map.json
 /presentation/*.fls
 /presentation/*.nav
 /presentation/*.out
-/presentation/*.pdf
 /presentation/*.snm
 /presentation/*.synctex.gz
 /presentation/*.toc

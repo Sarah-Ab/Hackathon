@@ -4,7 +4,7 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usetheme{metropolis}
-\metroset{sectionpage=none}
+%\metroset{sectionpage=none}
 
 \begin{document}
 
@@ -16,7 +16,21 @@
 
 \begin{frame}
 
+\begin{columns}
+
+\begin{column}{.6\textwidth}
+
 \titlepage
+
+\end{column}
+
+\begin{column}{.4\textwidth}
+
+\includegraphics[width=\textwidth]{trans-2021.jpg}
+
+\end{column}
+
+\end{columns}
 
 \end{frame}
 
@@ -53,7 +67,9 @@ Application mobile:
 
 \section{Choix technologiques}
 
-\begin{frame}{Choix technologiques}
+\subsection{Technologies utilisées}
+
+\begin{frame}{Technologies utilisées}
 
 Approche \emph{serverless}
 
@@ -87,7 +103,7 @@ Approche \emph{serverless}
 
 \end{frame}
 
-\section{Architecture}
+\subsection{Architecture}
 
 \begin{frame}{Architecture}
 
@@ -104,6 +120,26 @@ Approche \emph{serverless}
     \item Interface graphique web
     \item Interface graphique mobile
 \end{itemize}
+
+\end{frame}
+
+\section{Difficultés rencontrées}
+
+\subsection{Formulaire de modification}
+
+\begin{frame}{Formulaire de modification}
+
+Deux solutions:
+
+\begin{itemize}
+    \item Pré-remplir les champs avec les informations de l'artiste
+    \item Ne modifier que les informations rentrées par l'utilisateur
+\end{itemize}
+
+\begin{center}
+    \includegraphics[height=.5849\textheight]{formulaire.jpg}
+\end{center}
+
 \end{frame}
 
 \end{document}
