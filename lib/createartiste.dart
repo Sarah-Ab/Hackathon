@@ -393,7 +393,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
 
                                 ElevatedButton(
                                   onPressed: () {
-                                    createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetSalleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
+                                    createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetVilleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
