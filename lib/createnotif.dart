@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
 import 'domain/notification.dart';
+import 'services/notification_sender.dart';
 
 
   class CreateNotifPage extends StatefulWidget {
@@ -127,8 +128,8 @@ import 'domain/notification.dart';
                       const SizedBox(height: 18),
                       ElevatedButton(
                         onPressed: () {
-                          NotificationChangement(titre: titleNController.text.toString(), corps: textController.text.toString());
-                          //print("Ajouté l'envoie de la notification");
+                          NotificationSender.instance.envoyer(NotificationChangement(titre: titleNController.text.toString(), corps: textController.text.toString()));
+
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
