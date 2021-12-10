@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hackathon/dao/artiste_dao.dart';
 import 'package:hackathon/domain/artiste.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../ColorCustom.dart';
+import 'package:hackathon/ColorCustom.dart';
 
 void main() async {
    runApp(InfoAr());
