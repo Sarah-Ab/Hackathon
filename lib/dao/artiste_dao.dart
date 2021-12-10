@@ -10,6 +10,7 @@ import 'package:hackathon/domain/artiste.dart';
 import 'package:hackathon/domain/edition.dart';
 import 'package:hackathon/domain/pays.dart';
 import 'package:hackathon/domain/projet.dart';
+import 'package:string_similarity/string_similarity.dart';
 
 /// Objet d'accès aux artistes présents dans la base de données.
 class ArtisteDao {
@@ -29,8 +30,6 @@ class ArtisteDao {
         List<Artiste>.from(
             dbArtistes.map<Artiste>((map) => Artiste.fromJSON(map)));
   }
-
-
 
   /// Retourne l'artiste de [recordid] donné.
   Future<Artiste?> parRecordId(String recordid) async {
@@ -109,6 +108,20 @@ class ArtisteDao {
     List<Artiste> annee = await parAnnee(jour.year);
     return annee.where((artiste) => artiste.projets.any((projet) =>
         projet.date.day == jour.day && projet.date.month == jour.month));
+  }
+
+  /// Retourne les artistes dont le nom match avec [s].
+  Future<List<Artiste>> matchNom(String s) async {
+    List<Artiste> artistes = await tous();
+    Map<Artiste, num> distances = {};
+    artistes.sort((a1, a2) {
+      num d1 = distances[a1] ??
+          (distances[a1] = StringSimilarity.compareTwoStrings(a1.nom, s));
+      num d2 = distances[a2] ??
+          (distances[a2] = StringSimilarity.compareTwoStrings(a2.nom, s));
+      return d1.compareTo(d2);
+    });
+    return artistes.where((artiste) => distances[artiste]! > 0).toList();
   }
 
   /// S'assure que les données ont été initalisées avant manipulation.
@@ -207,22 +220,5 @@ class _AppTestState extends State<_AppTest> {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  /*
-  <int, int>{
-    1: 2021,
-    2: 2021,
-    3: 2021,
-    4: 2022,
-    5: 2022,
-    6: 2022,
-  }
-      .entries
-      .map((entry) => Artiste(
-          nom: "Artiste ${entry.key}",
-          projets: [],
-          pays: [],
-          edition: Edition(annee: entry.value, nom: "Édition ${entry.value}")))
-      .forEach((artiste) => ArtisteDao.instance.sauvegarder(artiste));
-      */
   runApp(_AppTest());
 }
