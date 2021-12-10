@@ -30,6 +30,8 @@ class ArtisteDao {
             dbArtistes.map<Artiste>((map) => Artiste.fromJSON(map)));
   }
 
+
+
   /// Retourne l'artiste de [recordid] donné.
   Future<Artiste?> parRecordId(String recordid) async {
     await _ensureInitialized();

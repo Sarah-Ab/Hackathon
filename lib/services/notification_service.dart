@@ -6,6 +6,7 @@ import 'package:hackathon/domain/notification.dart';
 
 /// Service de réception des notifications.
 class NotificationService {
+  static const String topicName = "changements";
   static final NotificationService _instance = NotificationService._();
   final FirebaseMessaging _service = FirebaseMessaging.instance;
   bool _isAutorise = false;
@@ -40,6 +41,7 @@ class NotificationService {
             vapidKey:
                 "BKiAeHvD-b5ea3LvOX7gp9XBE8rMDGUZiAUZ8jv9d4l6-ECv-A-pAGlxdHAnk1h3KCV8jrk4ywsvU8hWOgXubks");
       }
+      await FirebaseMessaging.instance.subscribeToTopic(topicName);
       FirebaseMessaging.onMessage.listen((message) {
         if (message.notification != null) {
           NotificationChangement notification = NotificationChangement(

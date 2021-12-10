@@ -205,7 +205,7 @@ class SignUpFormState extends State<SignUpForm> {
                 onSaved: (pw) => this.pw = pw,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  labelText: 'Veuillez à nouveau entrer votre mot de passe',
+                  labelText: 'Veuillez entrer votre mot de passe',
                 ),
               ),
               TextFormField(
@@ -272,7 +272,7 @@ class SignUpFormState extends State<SignUpForm> {
               ),
               const SizedBox(height: 18),
               ElevatedButton(
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => MyHomePage(title: 'Bienvenu',)),
@@ -309,11 +309,12 @@ class SignUpFormState extends State<SignUpForm> {
               emailController.text,
               passwordController.text,
               prenomController.text,
-              nomController.text);
+              nomController.text,
+              roleController.text);
           final newUser = await Auth().logIn(
               emailController.text,
               passwordController.text);
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)));
