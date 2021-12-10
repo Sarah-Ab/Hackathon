@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/mobile/widgets/event_slider.dart';
@@ -7,7 +8,11 @@ import '../widgets/custom_app_barmobile.dart';
 
 
 
-void main()=> runApp(WelcomePageMobile());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(WelcomePageMobile());
+}
 
 class WelcomePageMobile extends StatelessWidget {
 
