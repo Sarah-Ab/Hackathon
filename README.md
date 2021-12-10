@@ -23,7 +23,7 @@ Si ce message s'affiche à la compilation
 No file or variants found for asset: asset/fcm.json.
 ```
 
-- Copier [`asset/fcm-EXEMPLE.json`](asset/fcm-EXEMPLE.json) dans
+- Copier [`asset/fcm-EXEMPLE.json`](asset/fcm.json) dans
   `asset/fcm.json`
 - Optionnel (pour pouvoir utiliser
   [`NotificationSender`](lib/services/notification_sender.dart)) : remplacer

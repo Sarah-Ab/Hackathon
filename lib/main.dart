@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         const Text(
-                          'Bienvenu sur notre page de connexion',
+                          'Bienvenue sur notre page de connexion',
                           textAlign: TextAlign.center,
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: TextFormField(
                             validator: MultiValidator([
                               RequiredValidator(
-                                  errorText: "Veuillez entrer un adresse mail"),
+                                  errorText: "Veuillez entrer une adresse mail"),
                               EmailValidator(
                                   errorText: "Veuillez entrer une adresse mail valide"),
                             ]),
@@ -221,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (context) => MainPageForm(title: 'Accueil', user: newUser,)),
           );
         }else{
-          const Text("Adresse ou mot de passe incorrect",
+          const Text("Adresse email ou mot de passe incorrect",
               style: TextStyle(
                 color: Colors.red,
               ));
