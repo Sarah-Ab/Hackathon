@@ -9,6 +9,11 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
+import 'dao/artiste_dao.dart';
+import 'domain/projet.dart';
+import 'domain/pays.dart';
+import 'domain/artiste.dart';
+import 'domain/edition.dart';
 
 
 class CreateArtistePage extends StatefulWidget {
@@ -30,21 +35,46 @@ class CreateArtistePageState extends State<CreateArtistePage> {
   TextEditingController ediYearsController = TextEditingController(text: "");
   TextEditingController ediNomController = TextEditingController(text: "");
   TextEditingController projetNomController = TextEditingController(text: "");
-  TextEditingController projetDateController = TextEditingController(text: "");
+  TextEditingController projetDateAnneController = TextEditingController(text: "");
   TextEditingController projetSalleController = TextEditingController(text: "");
   TextEditingController projetVilleController = TextEditingController(text: "");
   TextEditingController linkSpotiController = TextEditingController(text: "");
   TextEditingController linkDeezController = TextEditingController(text: "");
   TextEditingController countryController = TextEditingController(text: "");
+  TextEditingController projetDateDayController = TextEditingController(text: "");
+  TextEditingController projetDateMoisController = TextEditingController(text: "");
 
+  Future<void> createArtisteById(String nomArt,int editionAnnee, String editionNom,String projNom,int projDateYears,int projDateMonth,int projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
 
+    DateTime data = DateTime(projDateYears,projDateMonth,projDateDay);
+    var projettmp = Projet(nom: projNom,date: data, salle: projSa,ville: projVil);
+    var editiontmp = Edition(annee: editionAnnee, nom: editionNom);
+    var paystmp = Pays(fr: contr);
+    var projetList = [projettmp];
+    var paysList = [paystmp];
+
+    var artiste = Artiste(nom: nomArt, projets: projetList, pays: paysList, deezer: linkDe,spotify: linkSpo, edition: editiontmp );
+    print("Call Create with ");
+
+    if(artiste != null) {
+      ArtisteDao.instance.sauvegarder(artiste);
+      //var artiste = await ArtisteDao.instance.parRecordId(id);
+      //print("Artiste trouver : " +artiste!.nom);
+      //if (artiste != null) {
+       // ArtisteDao.instance.supprimer(artiste);
+       // print("Artiste Supprimer");
+      //}
+    }
+  }
 
 
   String? nom;
   String? ediYears;
   String? ediNom;
   String? projetNom;
-  String? projetDate;
+  String? projetDateAnne;
+  String? projetDateDay;
+  String? projetDateMois;
   String? projetSalle;
   String? projetVille;
   String? linkSpoti;
@@ -198,20 +228,52 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                             ),
                             SizedBox(height: 12),
 
+
                             TextFormField(
-                              controller: projetDateController,
+                              controller: projetDateAnneController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Date du projet';
+                                  return 'Année du projet';
                                 }
                                 return null;
                               },
-                              onSaved: (projetDate) => this.projetDate = projetDate,
+                              onSaved: (projetDateAnne) => this.projetDateAnne = projetDateAnne,
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
-                                labelText: 'Date du projet',
+                                labelText: 'Année du projet',
                               ),
                             ),
+                            SizedBox(height: 12),
+                                TextFormField(
+                                  controller: projetDateMoisController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Mois du projet';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (projetDateMois) => this.projetDateMois = projetDateMois,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    labelText: 'Mois du projet',
+                                  ),
+                                ),
+                            SizedBox(height: 12),
+                                TextFormField(
+                                  controller: projetDateDayController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Jour du projet';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (projetDateDay) => this.projetDateDay = projetDateDay,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    labelText: 'Jour du projet',
+                                  ),
+                                ),
+
                             SizedBox(height: 12),
 
                             TextFormField(
@@ -327,7 +389,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                             const SizedBox(height: 18),
                             ElevatedButton(
                               onPressed: () {
-                                print("Crée l'artiste");
+                                createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetSalleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
