@@ -387,7 +387,7 @@ class MainPageFormState extends State<MainPageForm> {
                       future: getProductDataSource(),
                       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
                         return snapshot.hasData
-                            ? SfDataGrid(source: snapshot.data, columns: getColumns(), allowSorting: true, allowMultiColumnSorting: true,)
+                            ? SfDataGrid(source: snapshot.data, columns: getColumns(),allowTriStateSorting:true,allowSorting: true,allowColumnsResizing: true, allowMultiColumnSorting: true, showSortNumbers: true,)
                             :const Center(
                           child: CircularProgressIndicator(
                             strokeWidth:3 ,
