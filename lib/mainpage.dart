@@ -23,10 +23,23 @@ class MainPageForm extends StatefulWidget {
   final String title;
   final User user;
 
+
+
   @override
   State<StatefulWidget> createState() => MainPageFormState();
 }
 
+late Map<String, double> columnWidths = {
+  'recordid': double.nan,
+  'nom': double.nan,
+  'edition': double.nan,
+  'projets': double.nan,
+  'spotify': double.nan,
+  'deezer': double.nan,
+  'pays': double.nan,
+  'langue': double.nan
+
+};
 Future<ProductDataGridSource> getProductDataSource() async {
   var artisteList = await ArtisteDao.instance.tous();
   return ProductDataGridSource(artisteList);
@@ -40,6 +53,7 @@ bool shouldRecalculateColumnWidths() {
 List<GridColumn> getColumns(){
   return <GridColumn>[
     GridColumn(
+      width: columnWidths['recordid']!,
         columnName: 'recordid',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -47,6 +61,7 @@ List<GridColumn> getColumns(){
             child: const Text('record ID',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['nom']!,
         columnName: 'nom',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -54,8 +69,8 @@ List<GridColumn> getColumns(){
             child: const Text('nom',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['edition']!,
         columnName: 'edition',
-        allowSorting: true,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -63,13 +78,14 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'projets',
-        width: 500,
+        width: columnWidths['projets']!,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
             child: const Text('projets',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['spotify']!,
         columnName: 'spotify',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -77,6 +93,7 @@ List<GridColumn> getColumns(){
             child: const Text('spotify',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['deezer']!,
         columnName: 'deezer',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -84,14 +101,15 @@ List<GridColumn> getColumns(){
             child: const Text('deezer',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['pays']!,
         columnName: 'pays',
-        allowSorting: true,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
             child: const Text('pays',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['langue']!,
         columnName: 'langue',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -387,7 +405,19 @@ class MainPageFormState extends State<MainPageForm> {
                       future: getProductDataSource(),
                       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
                         return snapshot.hasData
-                            ? SfDataGrid(source: snapshot.data, columns: getColumns(),allowTriStateSorting:true,allowSorting: true,allowColumnsResizing: true, allowMultiColumnSorting: true, showSortNumbers: true,)
+                            ? SfDataGrid(source: snapshot.data,
+                          columns: getColumns(),
+                          allowTriStateSorting:true,
+                          allowSorting: true,
+                          allowColumnsResizing: true,
+                          onColumnResizeUpdate: (ColumnResizeUpdateDetails details) {
+                          setState(() {
+                            columnWidths[details.column.columnName] = details.width;
+                          });
+                          return true;
+                        },
+                          allowMultiColumnSorting: true,
+                          showSortNumbers: true,)
                             :const Center(
                           child: CircularProgressIndicator(
                             strokeWidth:3 ,
