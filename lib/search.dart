@@ -12,6 +12,7 @@ import './createnotif.dart';
 import './createartiste.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import 'mainpage.dart';
 import 'search.dart';
 import 'dao/artiste_dao.dart';
 import 'domain/artiste.dart';
@@ -229,7 +230,7 @@ class _SearchBar extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const Text("Input text")),
+      appBar: AppBar(title:const Text("Recherche")),
       body : Center (
         child : Column(
           children : <Widget>[
@@ -277,6 +278,17 @@ class _SearchBar extends State<SearchBar> {
                   )
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
+                );
+              },
+              child: const Text('Annuler la recherche'),
+            ),
+            SizedBox(height: 72),
           ]
         )
       )
