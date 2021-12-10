@@ -99,7 +99,7 @@ class _WelcomePageMobile extends State<MyWelcomePageMobile> {
                 padding: const EdgeInsets.only(left:20),
                 child: Text("Nos éditions récentes",  style: TextStyle(fontSize: 24)),
               ),
-              ListViewEventSlider(limiteAffichage: 10, anneeDebut: 2015, anneeFin: 2021),
+              ListViewEventSlider(anneeDebut: 2015, anneeFin: 2021),
 
             ],
           ),

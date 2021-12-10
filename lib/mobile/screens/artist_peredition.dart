@@ -37,7 +37,8 @@ class _ArtistPerEditionState extends State<ArtistPerEdition> {
         //   itemCount : artistSnap.data!.length ,
         //   itemBuilder: (BuildContext context, index) => artistCard(nomArtiste: (artistSnap.data!.elementAt(index)as Artiste).nom)
         // ),
-          ListView.builder(reverse: true,
+          ListView.builder(
+
             itemCount : artistSnap.data!.length ,
             itemBuilder: (BuildContext context, index) => artistCard(artiste: (artistSnap.data!.elementAt(index)as Artiste))
           ),
