@@ -65,9 +65,8 @@ class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
     widget.n.onNotification((notif) {
       setState(() {
         no = true;
-        titremsg[index]=notif.titre;
-        descmsg[index]=notif.corps;
-        index ++;
+        titremsg.add(notif.titre);
+        descmsg.add(notif.corps);
       });
     }
     );

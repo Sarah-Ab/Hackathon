@@ -11,7 +11,6 @@ import '../widgets/custom_app_barmobile.dart';
 
  List<String> titremsg = <String>[];
  List<String> descmsg = <String>[];
- int index = 0;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +55,7 @@ class _WelcomePageMobile extends State<MyWelcomePageMobile> {
           ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:[
@@ -101,12 +100,12 @@ class _WelcomePageMobile extends State<MyWelcomePageMobile> {
                      ],
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left:20),
                 child: Text("Nos éditions récentes",  style: TextStyle(fontSize: 24)),
               ),
               ListViewEventSlider(anneeDebut: 2015, anneeFin: 2021),
-
             ],
           ),
     );
