@@ -43,4 +43,6 @@ class Pays {
 
   @override
   int get hashCode => fr.hashCode;
+
+  String toString() => "$fr $en $onu $sp $troisLettres $deuxLettres";
 }

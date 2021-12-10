@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hackathon/domain/notification.dart';
@@ -41,7 +42,9 @@ class NotificationService {
             vapidKey:
                 "BKiAeHvD-b5ea3LvOX7gp9XBE8rMDGUZiAUZ8jv9d4l6-ECv-A-pAGlxdHAnk1h3KCV8jrk4ywsvU8hWOgXubks");
       }
-      await FirebaseMessaging.instance.subscribeToTopic(topicName);
+      if (!kIsWeb) {
+        await _service.subscribeToTopic(topicName);
+      }
       FirebaseMessaging.onMessage.listen((message) {
         if (message.notification != null) {
           NotificationChangement notification = NotificationChangement(
@@ -78,7 +81,7 @@ class _TestAppState extends State<_TestApp> {
                   return _Message(
                       service: snapshot.data as NotificationService);
                 } else if (snapshot.hasError) {
-                  return Text((snapshot.error as FirebaseException).toString());
+                  return Text(snapshot.error.toString());
                 } else {
                   return const Text("attente");
                 }
