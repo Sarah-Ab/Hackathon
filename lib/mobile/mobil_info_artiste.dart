@@ -11,7 +11,7 @@ void main() async {
 
 
 
-class InfoArtiste extends State<StatefulWidget> {
+class InfoArtiste extends StatelessWidget {
 
   InfoArtiste.artiste(Artiste artiste){
     init(artiste);
@@ -111,6 +111,8 @@ class InfoArtiste extends State<StatefulWidget> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: colorCustom,
         ),
