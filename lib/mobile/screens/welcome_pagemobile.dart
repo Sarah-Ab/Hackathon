@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon/mobile/screens/tous_artistes.dart';
 import 'package:hackathon/mobile/screens/toutes_editions.dart';
 import 'package:hackathon/mobile/widgets/event_slider.dart';
 import 'package:hackathon/mobile/widgets/artist_slider.dart';
@@ -84,7 +85,10 @@ class _WelcomePageMobile extends State<MyWelcomePageMobile> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        print('Pressed');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TousArtistes()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         shape: new RoundedRectangleBorder(
