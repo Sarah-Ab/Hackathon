@@ -19,7 +19,7 @@ class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
      Future<NotificationService> notif = NotificationService.instance;
      var displayicon;
      displayicon = selected ? Icons.notifications_active: Icons.notifications_off ;
-     notif.then((value) => Icons.notification_important_rounded );
+     notif.then((value) => value.onNotification((p0) { displayicon = Icons.notification_important_rounded;}) );
      return displayicon;
   }
   bool selected = true;
