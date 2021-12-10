@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:hackathon/ColorCustom.dart';
+
 import './main.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,6 +43,7 @@ import './mainpage.dart';
     @override
       Widget build(BuildContext context) {
       return Scaffold(
+
         appBar: AppBar(
           title: Text(widget.title),
         ),

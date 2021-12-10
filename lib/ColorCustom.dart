@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-Color c  = Color(0xFFA80D5D);
+Color c  = Color(0xFF29CE8B);
 
 int prim = c.value;
   Map <int, Color>color_ = {

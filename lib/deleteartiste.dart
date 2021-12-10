@@ -3,12 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:hackathon/ColorCustom.dart';
 import './main.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
+import 'dao/artiste_dao.dart';
+import 'domain/artiste.dart';
 
 
 class DeleteArtistePage extends StatefulWidget {
@@ -34,14 +35,20 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
   bool showResponse = false;
   bool showLoading = false;
 
-
+  Future<void> deleteArtisteById(String id) async {
+    var artiste = await ArtisteDao.instance.parRecordId(id!);
+    if(artiste == null) {
+      ArtisteDao.instance.supprimer(artiste!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child:Column(
             children : [
               const SizedBox(height: 12),
               Column(
@@ -51,7 +58,7 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                       child : Padding(
                         padding: EdgeInsets.all(16),
                         child:
-                        Text('Modifié d\'un artiste',
+                        Text('Suppression d\'un artiste',
                           textAlign: TextAlign.center,
                           style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
@@ -77,18 +84,29 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child : Row(
+
+                                  children : const [
+                                    Text("Record ID de l\'artiste :",
+                                      style:
+                                      TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
+                                    ),
+                                  ]),
+                            ),
                             TextFormField(
                               controller: nomController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Nom';
+                                  return 'id de l\'artiste';
                                 }
                                 return null;
                               },
                               onSaved: (nom) => this.nom = nom,
                               decoration: const InputDecoration(
                                 border: UnderlineInputBorder(),
-                                labelText: 'Nom',
+                                labelText: 'id de l\'artiste',
                               ),
                             ),
                             SizedBox(height: 12),
@@ -108,14 +126,17 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                             const SizedBox(height: 18),
                             ElevatedButton(
                               onPressed: () {
-                                print("Crée l'artiste");
+                                if(nom != null) {
+                                  deleteArtisteById(nom!);
+                                }
+                                //print("Supprime l'artiste");
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
                               },
-                              child: const Text('Envoyer la notification'),
+                              child: const Text('Validé la suppression'),
                             ),
                           ],
                         ),
@@ -123,6 +144,6 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                     ),
                   ]
               ),
-            ]));
+            ])));
   }
 }
