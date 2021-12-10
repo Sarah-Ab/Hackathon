@@ -30,28 +30,24 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
 
 
   final _formKey = GlobalKey<FormState>();
-/*
-  Future<String> getNameById(String id) async {
 
-    var artiste = await ArtisteDao.instance.parRecordId(id);
-    if(artiste == null){
-      return "";
-    }else {
-      return artiste.nom.toString();
-    }
-  }*/
 
-  TextEditingController nomController = TextEditingController(text: "getNameById(idController.text.toString())");
-  TextEditingController ediYearsController = TextEditingController(text: "");
-  TextEditingController ediNomController = TextEditingController(text: "");
+
+
+
+  TextEditingController nomController = TextEditingController(text: "");
+  //TextEditingController ediYearsController = TextEditingController(text: "");
+  //TextEditingController ediNomController = TextEditingController(text: "");
   TextEditingController projetNomController = TextEditingController(text: "");
-  TextEditingController projetDateController = TextEditingController(text: "");
+  TextEditingController projetDateAnneController = TextEditingController(text: "");
   TextEditingController projetSalleController = TextEditingController(text: "");
   TextEditingController projetVilleController = TextEditingController(text: "");
   TextEditingController linkSpotiController = TextEditingController(text: "");
   TextEditingController linkDeezController = TextEditingController(text: "");
   TextEditingController countryController = TextEditingController(text: "");
   TextEditingController idController = TextEditingController(text: "");
+  TextEditingController projetDateDayController = TextEditingController(text: "");
+  TextEditingController projetDateMoisController = TextEditingController(text: "");
 
 
 
@@ -60,7 +56,9 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
   String? ediYears;
   String? ediNom;
   String? projetNom;
-  String? projetDate;
+  String? projetDateAnne;
+  String? projetDateDay;
+  String? projetDateMois;
   String? projetSalle;
   String? projetVille;
   String? linkSpoti;
@@ -70,6 +68,59 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
   String failResponse = "Connexion échouee. Reessayez!";
   bool showResponse = false;
   bool showLoading = false;
+
+  Future<void> modifyArtisteById (String idArt,String nomArt,/*int editionAnnee, String editionNom,*/String projNom,int projDateYears,int projDateMonth,int projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
+    print("MOdify ENtry : "+ nomArt);
+    var oldArtiste = await ArtisteDao.instance.parRecordId(idArt);
+    if(oldArtiste != null){
+      print("Old found");
+      DateTime data = DateTime(projDateYears,projDateMonth,projDateDay);
+      var projettmp = Projet(nom: projNom,date: data, salle: projSa,ville: projVil);
+      var editiontmp = Edition(annee: 2021, nom: "Edition 2021");
+      var paystmp = Pays(fr: contr);
+      var projetList = [projettmp];
+      var paysList = [paystmp];
+
+        var newArtiste = Artiste(recordid: idArt ,nom: nomArt, projets: projetList, pays: paysList, deezer: linkDe,spotify: linkSpo, edition: editiontmp );
+        print("----" + nomArt);
+        if(nomArt != "") {
+          newArtiste.nom = nomArt;
+        }
+      if(paystmp != "") {
+        newArtiste.pays = paysList;
+      }
+      if(projNom != "" || projDateDay != "" || projDateMonth != ""||projDateYears !="") {
+        newArtiste.projets = projetList;
+      }
+      if(linkSpo != "") {
+        newArtiste.spotify = linkSpo;
+      }
+      if(linkDe != "") {
+        newArtiste.deezer = linkDe;
+      }
+        newArtiste.edition = editiontmp;
+
+
+        print(newArtiste.nom + " <- " + nomArt);
+        if(newArtiste != null) {
+          print("artiste créate");
+          ArtisteDao.instance.supprimer(oldArtiste);
+          print("old delete");
+          var Verife = await ArtisteDao.instance.parRecordId(idArt);
+          if(Verife == null){
+            print("BIen supprimer");
+          }
+          print("|-> "+ newArtiste.nom);
+          ArtisteDao.instance.sauvegarder(newArtiste);
+          print("Artsite save");
+          var Verife2 = await ArtisteDao.instance.parRecordId(idArt);
+          if(Verife2 != null){
+            print("BIen Rajouté");
+          }
+        }
+      }
+  }
+
 
 
   @override
@@ -158,12 +209,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 ),
                                 TextFormField(
                                   controller: nomController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Nom';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (nom) => this.nom = nom,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -172,7 +218,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 ),
                                 SizedBox(height: 37),
 
-                                Align(
+                                /*Align(
                                   alignment: Alignment.centerLeft,
                                   child : Row(
 
@@ -213,7 +259,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                     labelText: 'Nom de l\'édition',
                                   ),
                                 ),
-                                SizedBox(height: 37),
+                                SizedBox(height: 37),*/
 
                                 Align(
                                   alignment: Alignment.centerLeft,
@@ -228,12 +274,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 ),
                                 TextFormField(
                                   controller: projetNomController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Nom du projet';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (projetNom) => this.projetNom = projetNom,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -243,29 +284,40 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 SizedBox(height: 12),
 
                                 TextFormField(
-                                  controller: projetDateController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Date du projet';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (projetDate) => this.projetDate = projetDate,
+                                  controller: projetDateAnneController,
+
+                                  onSaved: (projetDateAnne) => this.projetDateAnne = projetDateAnne,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    labelText: 'Date du projet',
+                                    labelText: 'Année du projet',
                                   ),
                                 ),
+                                SizedBox(height: 12),
+                                TextFormField(
+                                  controller: projetDateMoisController,
+
+                                  onSaved: (projetDateMois) => this.projetDateMois = projetDateMois,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    labelText: 'Mois du projet',
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                TextFormField(
+                                  controller: projetDateDayController,
+
+                                  onSaved: (projetDateDay) => this.projetDateDay = projetDateDay,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    labelText: 'Jour du projet',
+                                  ),
+                                ),
+
                                 SizedBox(height: 12),
 
                                 TextFormField(
                                   controller: projetSalleController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Salle du projet';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (projetSalle) => this.projetSalle = projetSalle,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -276,12 +328,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
 
                                 TextFormField(
                                   controller: projetVilleController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Ville du projet';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (projetVille) => this.projetVille = projetVille,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -293,7 +340,6 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child : Row(
-
                                       children : const [
                                         Text("Lien de l\'artiste :",
                                           style:
@@ -303,12 +349,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 ),
                                 TextFormField(
                                   controller: linkSpotiController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Spotify de l\'artiste';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (linkSpoti) => this.linkSpoti = linkSpoti,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -319,12 +360,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
 
                                 TextFormField(
                                   controller: linkDeezController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Deezer de l\'artiste';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (linkDeez) => this.linkDeez = linkDeez,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -347,12 +383,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 ),
                                 TextFormField(
                                   controller: countryController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Nom du pays de l\'artiste en français';
-                                    }
-                                    return null;
-                                  },
+
                                   onSaved: (country) => this.country = country,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
@@ -371,7 +402,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 const SizedBox(height: 18),
                                 ElevatedButton(
                                   onPressed: () {
-                                    print("Crée l'artiste");
+                                    modifyArtisteById(idController.text.toString(),nomController.text.toString(), /*int.parse(ediYearsController.text.toString()), ediNomController.text.toString(),*/ projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetVilleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
