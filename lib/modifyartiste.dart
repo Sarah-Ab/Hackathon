@@ -69,12 +69,13 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
   bool showResponse = false;
   bool showLoading = false;
 
-  Future<void> modifyArtisteById (String idArt,String nomArt,/*int editionAnnee, String editionNom,*/String projNom,int projDateYears,int projDateMonth,int projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
+  Future<void> modifyArtisteById (String idArt,String nomArt,/*int editionAnnee, String editionNom,*/String projNom,String projDateYears,String projDateMonth,String projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
     print("MOdify ENtry : "+ nomArt);
     var oldArtiste = await ArtisteDao.instance.parRecordId(idArt);
-    if(oldArtiste != null){
+    var newArtiste = await ArtisteDao.instance.parRecordId(idArt);
+    if(oldArtiste != null && newArtiste != null){
       print("Old found");
-      DateTime data = DateTime(projDateYears,projDateMonth,projDateDay);
+      /*DateTime data = DateTime(int.parse(projDateYears),int.parse(projDateMonth),int.parse(projDateDay));
       var projettmp = Projet(nom: projNom,date: data, salle: projSa,ville: projVil);
       var editiontmp = Edition(annee: 2021, nom: "Edition 2021");
       var paystmp = Pays(fr: contr);
@@ -82,23 +83,79 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
       var paysList = [paystmp];
 
         var newArtiste = Artiste(recordid: idArt ,nom: nomArt, projets: projetList, pays: paysList, deezer: linkDe,spotify: linkSpo, edition: editiontmp );
-        print("----" + nomArt);
+        */
         if(nomArt != "") {
           newArtiste.nom = nomArt;
         }
-      if(paystmp != "") {
-        newArtiste.pays = paysList;
+
+      print("pAYS : " + contr);
+      String pays1FinalVer ="";
+      if(contr == "") {
+        pays1FinalVer = newArtiste.pays.first.fr;
+      }else{
+        pays1FinalVer=contr;
       }
-      if(projNom != "" || projDateDay != "" || projDateMonth != ""||projDateYears !="") {
-        newArtiste.projets = projetList;
+      print("pAYSfINAL : " + pays1FinalVer);
+      var paystmpFinalVer = Pays(fr: pays1FinalVer);
+      var paysList = [paystmpFinalVer];
+      newArtiste.pays=paysList;
+
+      //Projet 1
+      String projNomFinalVer ="";
+      if(projNom == "") {
+        projNomFinalVer = newArtiste.projets.first.nom!;
+      }else{
+        projNomFinalVer=projNom;
       }
+
+      int projYearsFinalVer;
+      if("" == projDateYears) {
+        projYearsFinalVer = newArtiste.projets.first.date.year;
+      }else{
+        projYearsFinalVer=int.parse(projDateYears);
+      }
+
+      int projMounthFinalVer;
+      if("" == projDateMonth) {
+        projMounthFinalVer = newArtiste.projets.first.date.month;
+      }else{
+        projMounthFinalVer=int.parse(projDateMonth);
+      }
+
+      int projDayFinalVer;
+      if("" == projDateDay) {
+        projDayFinalVer = newArtiste.projets.first.date.month;
+      }else{
+        projDayFinalVer=int.parse(projDateDay);
+      }
+      DateTime dataFinalVer = DateTime(projYearsFinalVer,projMounthFinalVer,projDayFinalVer);
+
+      String projSAlleFinalVer;
+      if("" == projSa) {
+        projSAlleFinalVer = newArtiste.projets.first.salle;
+      }else{
+        projSAlleFinalVer=projSa;
+      }
+
+      String projVilleFinalVer;
+      if("" == projVil) {
+        projVilleFinalVer = newArtiste.projets.first.ville!;
+      }else{
+        projVilleFinalVer=projVil;
+      }
+
+
+      var projetFinalVer = Projet(nom: projNomFinalVer,date: dataFinalVer, salle: projSAlleFinalVer,ville: projVilleFinalVer);
+      var projetFinalVerList = [projetFinalVer];
+      newArtiste.projets =projetFinalVerList;
+      //
       if(linkSpo != "") {
         newArtiste.spotify = linkSpo;
       }
       if(linkDe != "") {
         newArtiste.deezer = linkDe;
       }
-        newArtiste.edition = editiontmp;
+        //newArtiste.edition = editiontmp;
 
 
         print(newArtiste.nom + " <- " + nomArt);
@@ -402,7 +459,9 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                 const SizedBox(height: 18),
                                 ElevatedButton(
                                   onPressed: () {
-                                    modifyArtisteById(idController.text.toString(),nomController.text.toString(), /*int.parse(ediYearsController.text.toString()), ediNomController.text.toString(),*/ projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetVilleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
+                                    print(projetDateMoisController.text.toString() + " - ");
+                                    print(int.parse(projetDateMoisController.text.toString()));
+                                    modifyArtisteById(idController.text.toString(),nomController.text.toString(), /*int.parse(ediYearsController.text.toString()), ediNomController.text.toString(),*/ projetNomController.text.toString(), projetDateAnneController.text.toString(), projetDateMoisController.text.toString(),projetDateDayController.text.toString(), projetSalleController.text.toString(), projetVilleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
