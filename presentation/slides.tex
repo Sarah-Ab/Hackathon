@@ -61,6 +61,7 @@ Application mobile:
     \item Liste de tous les artistes
     \item Informations détaillées d'un artiste
     \item Réception des notifications
+    \item Ouverture des liens Spotify
 \end{itemize}
 
 \end{frame}
@@ -125,6 +126,27 @@ Approche \emph{serverless}
 
 \section{Difficultés rencontrées}
 
+\subsection{Firebase Cloud Messaging}
+
+\begin{frame}{Firebase Cloud Messaging}
+
+Problème:
+
+\begin{itemize}
+    \item Envoyer des notifications sans serveur
+    \item Pas de SDK admin sous Flutter
+\end{itemize}
+
+Solution:
+
+\begin{itemize}
+    \item Utilisation de l'API REST
+    \item[$\Rightarrow$] Clé de serveur à ajouter manuellement pour la
+    compilation 
+\end{itemize}
+
+\end{frame}
+
 \subsection{Formulaire de modification}
 
 \begin{frame}{Formulaire de modification}
@@ -139,6 +161,18 @@ Deux solutions:
 \begin{center}
     \includegraphics[height=.5849\textheight]{formulaire.jpg}
 \end{center}
+
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+
+\begin{itemize}
+    \item Approfondissement de Flutter
+    \item Répartition des tâches et coopération
+    \item Limites de l'exercice (temps)
+\end{itemize}
 
 \end{frame}
 
