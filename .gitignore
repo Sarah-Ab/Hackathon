@@ -53,3 +53,14 @@ app.*.map.json
 /android/app/.settings
 
 /asset/fcm.json
+
+# LaTeX
+
+/presentation/*.aux
+/presentation/*.fdb_latexmk
+/presentation/*.fls
+/presentation/*.nav
+/presentation/*.out
+/presentation/*.snm
+/presentation/*.synctex.gz
+/presentation/*.toc
