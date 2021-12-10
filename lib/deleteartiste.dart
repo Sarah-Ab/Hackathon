@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
+import 'dao/artiste_dao.dart';
+import 'domain/artiste.dart';
 
 
 class DeleteArtistePage extends StatefulWidget {
@@ -33,7 +35,12 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
   bool showResponse = false;
   bool showLoading = false;
 
-
+  Future<void> deleteArtisteById(String id) async {
+    var artiste = await ArtisteDao.instance.parRecordId(id!);
+    if(artiste == null) {
+      ArtisteDao.instance.supprimer(artiste!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +126,10 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                             const SizedBox(height: 18),
                             ElevatedButton(
                               onPressed: () {
-                                print("Supprime l'artiste");
+                                if(nom != null) {
+                                  deleteArtisteById(nom!);
+                                }
+                                //print("Supprime l'artiste");
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
