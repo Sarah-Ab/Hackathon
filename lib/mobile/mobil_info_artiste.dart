@@ -111,6 +111,8 @@ class InfoArtiste extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: colorCustom,
         ),
