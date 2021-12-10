@@ -12,6 +12,7 @@ import './createnotif.dart';
 import './createartiste.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import 'search.dart';
 import 'dao/artiste_dao.dart';
 import 'domain/artiste.dart';
 import 'domain/edition.dart';
@@ -71,6 +72,7 @@ List<GridColumn> getColumns(){
     GridColumn(
       width: columnWidths['edition']!,
         columnName: 'edition',
+        allowSorting: true,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
@@ -142,7 +144,7 @@ class ProductDataGridSource extends DataGridSource{
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          row.getCells()[1].value.toString(),
+          row.getCells()[1].value,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -221,6 +223,7 @@ class ProductDataGridSource extends DataGridSource{
     }).toList(growable: false); }
 }
 
+
 class MainPageFormState extends State<MainPageForm> {
 
 
@@ -283,6 +286,7 @@ class MainPageFormState extends State<MainPageForm> {
                 ]
                 ),
                       const SizedBox(width: 8),
+                Column( children : [
                 ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(
                     context,
@@ -292,8 +296,18 @@ class MainPageFormState extends State<MainPageForm> {
                   ),
                   child: const Text('Supprimer un artiste'),
                 ),
-
-
+                      ]
+                ),
+                      SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchBar(title: 'Gestionnaire des artistes', user: widget.user,)),
+                          // onPressed: submit,
+                        ),
+                        child: const Text('Faire une recherche'),
+                      ),
                       SizedBox(width: 8),
               ]
               ),

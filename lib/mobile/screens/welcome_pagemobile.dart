@@ -9,13 +9,14 @@ import 'package:hackathon/mobile/widgets/artist_slider.dart';
 import '../widgets/custom_app_barmobile.dart';
 
 
+ List<String> titremsg = <String>[];
+ List<String> descmsg = <String>[];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(WelcomePageMobile());
 }
-
 class WelcomePageMobile extends StatelessWidget {
 
   @override
