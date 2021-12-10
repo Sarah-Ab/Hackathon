@@ -400,7 +400,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                                           builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                     );
                                   },
-                                  child: const Text('Validé la création'),
+                                  child: const Text('Valider la création'),
                                 ),
 
                             SizedBox(height: 22),
@@ -412,7 +412,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
                               },
-                              child: const Text('Annulé la création'),
+                              child: const Text('Annuler la création'),
                             ),
 
                             SizedBox(height: 72),

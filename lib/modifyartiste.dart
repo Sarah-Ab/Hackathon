@@ -379,7 +379,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                     );
                                   },
 
-                                  child: const Text('Validé la modification'),
+                                  child: const Text('Valider la modification'),
                                 ),
                                 SizedBox(height: 22),
                                 ElevatedButton(
@@ -390,7 +390,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                           builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                     );
                                   },
-                                  child: const Text('Annulé la modification'),
+                                  child: const Text('Annuler la modification'),
                                 ),
                                 SizedBox(height: 72),
                               ],
