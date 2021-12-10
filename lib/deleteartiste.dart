@@ -144,6 +144,17 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                               },
                               child: const Text('Validé la suppression'),
                             ),
+                            SizedBox(height: 22),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
+                                );
+                              },
+                              child: const Text('Annulé la suppression'),
+                            ),
                           ],
                         ),
                       ),

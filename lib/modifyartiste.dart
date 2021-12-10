@@ -366,6 +366,17 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                   },
                                   child: const Text('Validé la modification'),
                                 ),
+                                SizedBox(height: 22),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
+                                    );
+                                  },
+                                  child: const Text('Annulé la modification'),
+                                ),
                                 SizedBox(height: 72),
                               ],
                             ),

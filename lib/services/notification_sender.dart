@@ -10,7 +10,7 @@ import 'package:hackathon/services/notification_service.dart';
 class NotificationSender {
   /// Clé de serveur de Firebase Cloud Messaging
   final String _key;
-
+z
   /// Crée un service d'envoie de notifications avec la clé de serveur Firebase
   /// Cloud Messaging [key].
   NotificationSender({required String key}) : _key = key;

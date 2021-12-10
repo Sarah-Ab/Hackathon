@@ -58,6 +58,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
 
     if(artiste != null) {
       ArtisteDao.instance.sauvegarder(artiste);
+      print("Artiste bien créee !!!!");
       //var artiste = await ArtisteDao.instance.parRecordId(id);
       //print("Artiste trouver : " +artiste!.nom);
       //if (artiste != null) {
@@ -387,17 +388,32 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                                   AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                                 )),
                             const SizedBox(height: 18),
+
+
+
+                                ElevatedButton(
+                                  onPressed: () {
+                                    createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetSalleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
+                                    );
+                                  },
+                                  child: const Text('Validé la création'),
+                                ),
+                            SizedBox(height: 22),
                             ElevatedButton(
                               onPressed: () {
-                                createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetSalleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
                               },
-                              child: const Text('Validé la création'),
+                              child: const Text('Annulé la création'),
                             ),
+
                             SizedBox(height: 72),
                           ],
                         ),
