@@ -12,6 +12,7 @@ import './createnotif.dart';
 import './createartiste.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
+import 'search.dart';
 import 'dao/artiste_dao.dart';
 import 'domain/artiste.dart';
 import 'domain/edition.dart';
@@ -23,10 +24,23 @@ class MainPageForm extends StatefulWidget {
   final String title;
   final User user;
 
+
+
   @override
   State<StatefulWidget> createState() => MainPageFormState();
 }
 
+late Map<String, double> columnWidths = {
+  'recordid': double.nan,
+  'nom': double.nan,
+  'edition': double.nan,
+  'projets': double.nan,
+  'spotify': double.nan,
+  'deezer': double.nan,
+  'pays': double.nan,
+  'langue': double.nan
+
+};
 Future<ProductDataGridSource> getProductDataSource() async {
   var artisteList = await ArtisteDao.instance.tous();
   return ProductDataGridSource(artisteList);
@@ -40,6 +54,7 @@ bool shouldRecalculateColumnWidths() {
 List<GridColumn> getColumns(){
   return <GridColumn>[
     GridColumn(
+      width: columnWidths['recordid']!,
         columnName: 'recordid',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -47,6 +62,7 @@ List<GridColumn> getColumns(){
             child: const Text('record ID',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['nom']!,
         columnName: 'nom',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -54,6 +70,7 @@ List<GridColumn> getColumns(){
             child: const Text('nom',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['edition']!,
         columnName: 'edition',
         allowSorting: true,
         label: Container(
@@ -63,13 +80,14 @@ List<GridColumn> getColumns(){
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
         columnName: 'projets',
-        width: 500,
+        width: columnWidths['projets']!,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
             child: const Text('projets',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['spotify']!,
         columnName: 'spotify',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -77,6 +95,7 @@ List<GridColumn> getColumns(){
             child: const Text('spotify',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['deezer']!,
         columnName: 'deezer',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -84,14 +103,15 @@ List<GridColumn> getColumns(){
             child: const Text('deezer',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['pays']!,
         columnName: 'pays',
-        allowSorting: true,
         label: Container(
             padding: const EdgeInsets.all(8),
             alignment: Alignment.centerLeft,
             child: const Text('pays',
                 overflow: TextOverflow.clip, softWrap: true))),
     GridColumn(
+      width: columnWidths['langue']!,
         columnName: 'langue',
         label: Container(
             padding: const EdgeInsets.all(8),
@@ -124,7 +144,7 @@ class ProductDataGridSource extends DataGridSource{
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          row.getCells()[1].value.toString(),
+          row.getCells()[1].value,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -203,6 +223,7 @@ class ProductDataGridSource extends DataGridSource{
     }).toList(growable: false); }
 }
 
+
 class MainPageFormState extends State<MainPageForm> {
 
 
@@ -265,6 +286,7 @@ class MainPageFormState extends State<MainPageForm> {
                 ]
                 ),
                       const SizedBox(width: 8),
+                Column( children : [
                 ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(
                     context,
@@ -274,8 +296,18 @@ class MainPageFormState extends State<MainPageForm> {
                   ),
                   child: const Text('Supprimer un artiste'),
                 ),
-
-
+                      ]
+                ),
+                      SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchBar(title: 'Gestionnaire des artistes', user: widget.user,)),
+                          // onPressed: submit,
+                        ),
+                        child: const Text('Faire une recherche'),
+                      ),
                       SizedBox(width: 8),
               ]
               ),
@@ -387,7 +419,19 @@ class MainPageFormState extends State<MainPageForm> {
                       future: getProductDataSource(),
                       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
                         return snapshot.hasData
-                            ? SfDataGrid(source: snapshot.data, columns: getColumns(),allowTriStateSorting:true,allowSorting: true,allowColumnsResizing: true, allowMultiColumnSorting: true, showSortNumbers: true,)
+                            ? SfDataGrid(source: snapshot.data,
+                          columns: getColumns(),
+                          allowTriStateSorting:true,
+                          allowSorting: true,
+                          allowColumnsResizing: true,
+                          onColumnResizeUpdate: (ColumnResizeUpdateDetails details) {
+                          setState(() {
+                            columnWidths[details.column.columnName] = details.width;
+                          });
+                          return true;
+                        },
+                          allowMultiColumnSorting: true,
+                          showSortNumbers: true,)
                             :const Center(
                           child: CircularProgressIndicator(
                             strokeWidth:3 ,
