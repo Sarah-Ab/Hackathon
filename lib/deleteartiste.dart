@@ -39,10 +39,10 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
     print("Call Delete with "+ id);
     if(id != null) {
       var artiste = await ArtisteDao.instance.parRecordId(id);
-      print("Artiste trouver : " +artiste!.nom);
+      print("Artiste trouvé : " +artiste!.nom);
       if (artiste != null) {
         ArtisteDao.instance.supprimer(artiste);
-        print("Artiste Supprimer");
+        print("Artiste Supprimé");
       }
     }
   }
