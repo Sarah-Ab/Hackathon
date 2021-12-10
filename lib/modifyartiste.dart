@@ -9,6 +9,11 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
+import 'dao/artiste_dao.dart';
+import 'domain/projet.dart';
+import 'domain/pays.dart';
+import 'domain/artiste.dart';
+import 'domain/edition.dart';
 
 
 class ModifyArtistePage extends StatefulWidget {
@@ -25,9 +30,18 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
 
 
   final _formKey = GlobalKey<FormState>();
+/*
+  Future<String> getNameById(String id) async {
 
+    var artiste = await ArtisteDao.instance.parRecordId(id);
+    if(artiste == null){
+      return "";
+    }else {
+      return artiste.nom.toString();
+    }
+  }*/
 
-  TextEditingController nomController = TextEditingController(text: "");
+  TextEditingController nomController = TextEditingController(text: "getNameById(idController.text.toString())");
   TextEditingController ediYearsController = TextEditingController(text: "");
   TextEditingController ediNomController = TextEditingController(text: "");
   TextEditingController projetNomController = TextEditingController(text: "");
