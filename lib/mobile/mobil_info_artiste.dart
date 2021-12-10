@@ -62,8 +62,8 @@ class InfoArtiste extends StatelessWidget {
         infoList("langue", langue!),
         infoList("pays", pays!),
         infoList("edition", edition!),
-        infolink("deezer", deezer!),
-        infolink("spotify", spotify!)
+        infolink("deezer", "https://www.deezer.com/en/artist/"+deezer!),
+        infolink("spotify", 'https:open.spotify.com/album/'+spotify!.substring(14))
        ],
     );
   }
@@ -87,8 +87,14 @@ class InfoArtiste extends StatelessWidget {
       //  horizontalTitleGap: 12.5,
       subtitle: Row(
         children: [
-          Text(info,
+          SizedBox(
+              width: 320.0,
+          child :Text(info,
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+            softWrap: false,
             style:const TextStyle(fontSize: 20),
+          )
           )
         ],
     ),
@@ -96,7 +102,7 @@ class InfoArtiste extends StatelessWidget {
   }
   Widget buttonE(String app, String url){
   return  ElevatedButton(
-      onPressed: () => _launchURL('https:open.spotify.com/album/'+url.substring(14)),
+      onPressed: () => _launchURL(url),
       child:  Text(app),
     );
   }

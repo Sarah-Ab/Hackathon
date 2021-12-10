@@ -35,7 +35,6 @@ class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
                   icon:test(snapshot.data as NotificationService),
                     onPressed: () {
                     Navigator.push(context,
-
                         MaterialPageRoute(builder: (context) => Display_notif()));
                 });
               } else if (snapshot.hasError) {
