@@ -4,33 +4,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:hackathon/dao/artiste_dao.dart';
 import 'package:hackathon/domain/artiste.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../ColorCustom.dart';
+import 'package:hackathon/ColorCustom.dart';
 
 void main() async {
-   runApp(InfoAr("i"));
+   runApp(InfoAr());
 }
 
 
 class InfoAr extends StatefulWidget {
-  InfoAr( this.id, {Key? key}) : super(key: key);
   String? id;
+  late Artiste art;
   @override
-  State<StatefulWidget> createState() => InfoArtiste(id);
+  State<StatefulWidget> createState() => InfoArtiste.artiste(art);
 }
 class InfoArtiste extends State<InfoAr> {
-  InfoArtiste(this.id) {
-    ar = ArtisteDao.instance.parRecordId(id!);
 
-    ar!.then((value) => init(value!)).catchError((e) => error(e));
-  }
-  /*
-  InfoAr(Artiste artiste){
+  InfoArtiste.artiste(Artiste artiste){
     init(artiste);
   }
-*/
+
   String? id;
-  Future<Artiste?>? ar;
+  Artiste? ar;
   String? nom;
   String? langue;
   String? pays;
@@ -62,9 +56,7 @@ class InfoArtiste extends State<InfoAr> {
     spotify = "spo";
     errorD ='';
   }
-  void openSpotify(){
 
-  }
   Widget cond(){
     return (this.errorD.isEmpty ? getInfo() : displayError());
   }
@@ -133,6 +125,7 @@ class InfoArtiste extends State<InfoAr> {
             title: const Text('info'),
           ),
           body: cond(),
+
         )
         );
   }

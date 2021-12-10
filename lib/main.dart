@@ -8,6 +8,7 @@ import './register.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
+import 'ColorCustom.dart';
 import 'mainpage.dart';
 
 String path_image_login= 'asset/transpagelogin.png';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         initialData: null,
         child: MaterialApp(
           theme: ThemeData(
-            primarySwatch: Colors.red,
+            primarySwatch: colorCustom,
           ),
           home: const Wrapper(),
         ));
