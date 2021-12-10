@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './authentification.dart';
 import './mainpage.dart';
+import 'domain/notification.dart';
+import 'services/notification_sender.dart';
 
 
   class CreateNotifPage extends StatefulWidget {
@@ -47,7 +49,8 @@ import './mainpage.dart';
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+        child : Column(
           children : [
             SizedBox(height: 12),
             Column(
@@ -125,21 +128,35 @@ import './mainpage.dart';
                       const SizedBox(height: 18),
                       ElevatedButton(
                         onPressed: () {
-                          print("Ajouté l'envoie de la notification");
+                          NotificationSender.instance.envoyer(NotificationChangement(titre: titleNController.text.toString(), corps: textController.text.toString()));
+
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MainPageForm(title: 'Bienvenu', user: widget.user,)),
+                                builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                           );
                           },
                         child: const Text('Envoyer la notification'),
                       ),
+                      SizedBox(height: 22),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
+                          );
+                        },
+                        child: const Text('Ne pas envoyer la notification'),
+                      ),
+
+                      SizedBox(height: 72),
                     ],
                   ),
                 ),
                 ),
           ]
         ),
-      ]));
+      ])));
     }
   }

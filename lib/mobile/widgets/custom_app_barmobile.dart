@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/services/notification_service.dart';
 
 class CustomAppBarMobile extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBarMobile()
@@ -14,7 +15,13 @@ class CustomAppBarMobile extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
-
+   notify(bool select){
+     Future<NotificationService> notif = NotificationService.instance;
+     var displayicon;
+     displayicon = selected ? Icons.notifications_active: Icons.notifications_off ;
+     notif.then((value) => value.onNotification((p0) { displayicon = Icons.notification_important_rounded;}) );
+     return displayicon;
+  }
   bool selected = true;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,8 @@ class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
            Container(
              padding: const EdgeInsets.all(8.0),
              child: IconButton(
-                icon: Icon( selected ? Icons.notifications_active: Icons.notifications_off),
+               
+                icon: Icon(notify(selected)),
                     onPressed: () {
                       setState(() {
                         selected = !selected;
