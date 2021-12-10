@@ -9,42 +9,43 @@ class CustomAppBarMobile extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-
   @override
   _CustomAppBarMobileState createState() => _CustomAppBarMobileState();
 }
 
 class _CustomAppBarMobileState extends State<CustomAppBarMobile> {
-   notify(bool select){
-     Future<NotificationService> notif = NotificationService.instance;
-     var displayicon;
-     displayicon = selected ? Icons.notifications_active: Icons.notifications_off ;
-     notif.then((value) => value.onNotification((p0) { displayicon = Icons.notification_important_rounded;}) );
-     return displayicon;
+  bool _nouvelleNotif = false;
+  @override
+  initState() {
+    super.initState();
+    Future<NotificationService> notif = NotificationService.instance;
+    notif.then((value) => value.onNotification((p0) {
+          setState() {
+            _nouvelleNotif = true;
+          }
+        }));
   }
+
   bool selected = true;
   @override
   Widget build(BuildContext context) {
-    return
-      AppBar(
-        title: Text('Bienvenue sur Transmusicale'),
-         actions:[
-           Container(
-             padding: const EdgeInsets.all(8.0),
-             child: IconButton(
-               
-                icon: Icon(notify(selected)),
-                    onPressed: () {
-                      setState(() {
-                        selected = !selected;
-                      });
-                    },
-              ),
-           ),
-          ],
+    return AppBar(
+      title: Text('Bienvenue sur Transmusicale'),
+      actions: [
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+            icon: Icon(_nouvelleNotif
+                ? Icons.notification_add
+                : Icons.notifications_off),
+            onPressed: () {
+              setState(() {
+                selected = !selected;
+              });
+            },
+          ),
+        ),
+      ],
     );
-
-
-
-}
+  }
 }
