@@ -36,9 +36,14 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
   bool showLoading = false;
 
   Future<void> deleteArtisteById(String id) async {
-    var artiste = await ArtisteDao.instance.parRecordId(id!);
-    if(artiste == null) {
-      ArtisteDao.instance.supprimer(artiste!);
+    print("Call Delete with "+ id);
+    if(id != null) {
+      var artiste = await ArtisteDao.instance.parRecordId(id);
+      print("Artiste trouver : " +artiste!.nom);
+      if (artiste != null) {
+        ArtisteDao.instance.supprimer(artiste);
+        print("Artiste Supprimer");
+      }
     }
   }
   @override
@@ -113,9 +118,6 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
 
 
 
-
-
-
                             Visibility(visible: showResponse, child: Text(failResponse)),
                             Visibility(
                                 visible: showLoading,
@@ -126,15 +128,19 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                             const SizedBox(height: 18),
                             ElevatedButton(
                               onPressed: () {
-                                if(nom != null) {
-                                  deleteArtisteById(nom!);
-                                }
+                                print("Before If : " + nomController.text.toString());
+                                if(nomController.text.toString() != "") {
+                                  String tmp = nomController.text.toString();
+                                  print("Before delete");
+                                  deleteArtisteById(tmp);
+
                                 //print("Supprime l'artiste");
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
+                                }
                               },
                               child: const Text('Validé la suppression'),
                             ),
