@@ -11,7 +11,6 @@ import '../widgets/custom_app_barmobile.dart';
 
  List<String> titremsg = <String>[];
  List<String> descmsg = <String>[];
- int index = 0;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
