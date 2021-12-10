@@ -142,7 +142,7 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                                 );
                                 }
                               },
-                              child: const Text('Validé la suppression'),
+                              child: const Text('Valider la suppression'),
                             ),
 
                             SizedBox(height: 22),
@@ -154,7 +154,7 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                                       builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                 );
                               },
-                              child: const Text('Annulé la suppression'),
+                              child: const Text('Annuler la suppression'),
                             ),
                           ],
                         ),
