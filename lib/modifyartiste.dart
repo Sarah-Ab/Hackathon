@@ -364,6 +364,7 @@ class ModifyArtistePageState extends State<ModifyArtistePage> {
                                           builder: (context) => MainPageForm(title: 'Accueil', user: widget.user,)),
                                     );
                                   },
+
                                   child: const Text('Validé la modification'),
                                 ),
                                 SizedBox(height: 22),

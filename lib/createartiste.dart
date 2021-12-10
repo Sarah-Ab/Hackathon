@@ -402,6 +402,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                                   },
                                   child: const Text('Validé la création'),
                                 ),
+
                             SizedBox(height: 22),
                             ElevatedButton(
                               onPressed: () {

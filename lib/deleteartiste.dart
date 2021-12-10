@@ -144,6 +144,7 @@ class DeleteArtistePageState extends State<DeleteArtistePage> {
                               },
                               child: const Text('Validé la suppression'),
                             ),
+
                             SizedBox(height: 22),
                             ElevatedButton(
                               onPressed: () {
