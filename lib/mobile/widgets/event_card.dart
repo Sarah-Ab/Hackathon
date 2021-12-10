@@ -52,12 +52,6 @@ class _EventCardState extends State<EventCard> {
                       child: Text(widget.nomEdition,  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                   ),
-              // Container(
-              //   height:200,
-              //   width:250,
-              //   child:Image.network('spotify:album:1sWIbvCurzF7ZVFYWjLGQO',fit: BoxFit.fill, alignment: Alignment.center),
-              //
-              // )
             ],
       ),
 

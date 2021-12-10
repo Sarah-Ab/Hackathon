@@ -4,17 +4,17 @@ import 'package:hackathon/domain/artiste.dart';
 
 import '../mobil_info_artiste.dart';
 
-class artistCard extends StatefulWidget {
+class ArtistCard extends StatefulWidget {
   final Artiste artiste;
-  const artistCard({Key? key, required this.artiste}) : super(key: key);
+  const ArtistCard({Key? key, required this.artiste}) : super(key: key);
 
 
 
   @override
-  _artistCardState createState() => _artistCardState();
+  _ArtistCardState createState() => _ArtistCardState();
 }
 
-class _artistCardState extends State<artistCard> {
+class _ArtistCardState extends State<ArtistCard> {
   @override
   Widget build(BuildContext context) {
     return

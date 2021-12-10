@@ -11,10 +11,10 @@ class ToutesEditions extends StatelessWidget {
     return Scaffold(
         appBar: CustomAppBarMobile(),
         body : ListView(
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children:[
-          ListViewEventSlider(limiteAffichage: 10000,anneeDebut: 1979, anneeFin: 2021),
+          ListViewEventSlider(anneeDebut: 1979, anneeFin: 2021),
           ],
-
         ),
     );
   }
