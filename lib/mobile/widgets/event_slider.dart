@@ -24,8 +24,8 @@ class _ListViewEventSliderState extends State<ListViewEventSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8),
-     height:  MediaQuery.of(context).size.height,
+      margin: EdgeInsets.all(12),
+      height: 500,
       child : FutureBuilder(
               future: EditionDao.instance.parAnnees(widget.anneeDebut,widget.anneeFin),
               // le texte disparait, c'est à revoir !!!!

@@ -96,7 +96,7 @@ class InfoArtiste extends StatelessWidget {
   }
   Widget buttonE(String app, String url){
   return  ElevatedButton(
-      onPressed: () => _launchURL(url),
+      onPressed: () => _launchURL('https:open.spotify.com/album/'+url.substring(14)),
       child:  Text(app),
     );
   }

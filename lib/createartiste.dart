@@ -32,8 +32,8 @@ class CreateArtistePageState extends State<CreateArtistePage> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController nomController = TextEditingController(text: "");
-  TextEditingController ediYearsController = TextEditingController(text: "");
-  TextEditingController ediNomController = TextEditingController(text: "");
+  //TextEditingController ediYearsController = TextEditingController(text: "");
+  //TextEditingController ediNomController = TextEditingController(text: "");
   TextEditingController projetNomController = TextEditingController(text: "");
   TextEditingController projetDateAnneController = TextEditingController(text: "");
   TextEditingController projetSalleController = TextEditingController(text: "");
@@ -44,11 +44,11 @@ class CreateArtistePageState extends State<CreateArtistePage> {
   TextEditingController projetDateDayController = TextEditingController(text: "");
   TextEditingController projetDateMoisController = TextEditingController(text: "");
 
-  Future<void> createArtisteById(String nomArt,int editionAnnee, String editionNom,String projNom,int projDateYears,int projDateMonth,int projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
+  Future<void> createArtisteById(String nomArt,/*int editionAnnee, String editionNom,*/String projNom,int projDateYears,int projDateMonth,int projDateDay, String projSa, String projVil,String linkSpo,String linkDe,String contr) async {
 
     DateTime data = DateTime(projDateYears,projDateMonth,projDateDay);
     var projettmp = Projet(nom: projNom,date: data, salle: projSa,ville: projVil);
-    var editiontmp = Edition(annee: editionAnnee, nom: editionNom);
+    var editiontmp = Edition(annee: 2021, nom: "Edition 2021");
     var paystmp = Pays(fr: contr);
     var projetList = [projettmp];
     var paysList = [paystmp];
@@ -159,7 +159,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                             ),
                             SizedBox(height: 37),
 
-                            Align(
+                            /*Align(
                               alignment: Alignment.centerLeft,
                               child : Row(
 
@@ -200,7 +200,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
                                 labelText: 'Nom de l\'édition',
                               ),
                             ),
-                            SizedBox(height: 37),
+                            SizedBox(height: 37),*/
 
                             Align(
                               alignment: Alignment.centerLeft,
@@ -393,7 +393,7 @@ class CreateArtistePageState extends State<CreateArtistePage> {
 
                                 ElevatedButton(
                                   onPressed: () {
-                                    createArtisteById(nomController.text.toString(), int.parse(ediYearsController.text.toString()), ediNomController.text.toString(), projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetSalleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
+                                    createArtisteById(nomController.text.toString(), /*int.parse(ediYearsController.text.toString()), ediNomController.text.toString(),*/ projetNomController.text.toString(), int.parse(projetDateAnneController.text.toString()), int.parse(projetDateMoisController.text.toString()), int.parse(projetDateDayController.text.toString()), projetSalleController.text.toString(), projetVilleController.text.toString(), linkSpotiController.text.toString(), linkDeezController.text.toString(), countryController.text.toString());
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
