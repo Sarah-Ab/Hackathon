@@ -51,3 +51,5 @@ app.*.map.json
 /android/.project
 /android/app/.project
 /android/app/.settings
+
+/asset/fcm.json
