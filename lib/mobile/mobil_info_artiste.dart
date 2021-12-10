@@ -11,7 +11,7 @@ void main() async {
 
 
 
-class InfoArtiste extends State<StatefulWidget> {
+class InfoArtiste extends StatelessWidget {
 
   InfoArtiste.artiste(Artiste artiste){
     init(artiste);
