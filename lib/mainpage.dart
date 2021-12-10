@@ -12,7 +12,7 @@ import './createnotif.dart';
 import './createartiste.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import 'Search.dart';
+import 'search.dart';
 import 'dao/artiste_dao.dart';
 import 'domain/artiste.dart';
 import 'domain/edition.dart';
@@ -303,11 +303,12 @@ class MainPageFormState extends State<MainPageForm> {
                         onPressed: () => Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SearchPage(title: 'Gestionnaire des artistes', user: widget.user,)),
+                              builder: (context) => SearchBar(title: 'Gestionnaire des artistes', user: widget.user,)),
                           // onPressed: submit,
                         ),
-                        child: const Text('Supprimer un artiste'),
+                        child: const Text('Faire une recherche'),
                       ),
+                      SizedBox(width: 8),
               ]
               ),
               ),
