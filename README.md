@@ -1,19 +1,11 @@
 # hackathon
 
-A new Flutter project.
+Projet réalisé avec Flutter et Firebase
 
-## Getting Started
+## Comment lancer les différentes versions
+Pour lancer la partie web, il faut lancer le fichier "main.dart" sur un navigateur.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Pour lancer la partie android, il faut exécuté "welcome_pagemobile.dart" qui se trouve dans le dossier "/mobile/screens" avec soi émulateur android, soit avec son téléphone personnel.
 
 ## Clé de serveur Firebase Cloud Messaging
 
