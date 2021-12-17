@@ -6,6 +6,7 @@ import 'package:hackathon/mobile/screens/toutes_editions.dart';
 import 'package:hackathon/mobile/widgets/event_slider.dart';
 import 'package:hackathon/mobile/widgets/artist_slider.dart';
 
+import '../../ColorCustom.dart';
 import '../widgets/custom_app_barmobile.dart';
 
 
@@ -26,12 +27,12 @@ class WelcomePageMobile extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Welcome page mobile',
       theme : ThemeData(
-        primarySwatch: Colors.red,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-          onPrimary: Colors.orange,
-            ),
-        ),
+        primarySwatch: colorCustom,
+        // elevatedButtonTheme: ElevatedButtonThemeData(
+        //   style: ElevatedButton.styleFrom(
+        //   onPrimary: Colors.orange,
+        //     ),
+        // ),
       ),
       home:MyWelcomePageMobile(),
     );
