@@ -3,9 +3,13 @@
 Projet réalisé avec Flutter et Firebase
 
 ## Comment lancer les différentes versions
-Pour lancer la partie web, il faut lancer le fichier "main.dart" sur un navigateur.
+Pour lancer la partie web:
+- Depuis Android Studio, il faut lancer le fichier "main.dart" sur un navigateur.
+- Avec la commande : `flutter run -d chrome -t lib/main.dart`
 
-Pour lancer la partie android, il faut exécuté "welcome_pagemobile.dart" qui se trouve dans le dossier "/mobile/screens" avec soi émulateur android, soit avec son téléphone personnel.
+Pour lancer la partie android :
+- Depuis Android Studio, il faut exécuté "welcome_pagemobile.dart" qui se trouve dans le dossier "/mobile/screens" avec soi émulateur android, soit avec son téléphone personnel.
+- Avec la commande : `flutter run -t lib/mobile/screens/welcome_pagemobile.dart`
 
 ## Clé de serveur Firebase Cloud Messaging
 
