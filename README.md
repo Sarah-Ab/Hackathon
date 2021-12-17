@@ -8,7 +8,7 @@ Pour lancer la partie web:
 - Avec la commande : `flutter run -d chrome -t lib/main.dart`
 
 Pour lancer la partie android :
-- Depuis Android Studio, il faut exécuté "welcome_pagemobile.dart" qui se trouve dans le dossier "/mobile/screens" avec soi émulateur android, soit avec son téléphone personnel.
+- Depuis Android Studio, il faut exécuter "welcome_pagemobile.dart" qui se trouve dans le dossier "/mobile/screens" avec soit émulateur android, soit avec son téléphone personnel.
 - Avec la commande : `flutter run -t lib/mobile/screens/welcome_pagemobile.dart`
 
 ## Clé de serveur Firebase Cloud Messaging
